@@ -6,3 +6,11 @@ title: "Research"
 
 - Deep learning architectures for computer vision and medical image analysis.
 - Spatiotemporal neural networks for weather forecasting (e.g., Fourier Neural Operators).
+
+## Research Project
+
+### Weather Forecasting with Fourier Neural Operators
+
+This project investigates the use of Fourier Neural Operators and related deep-learning architectures for spatiotemporal weather forecasting.
+
+**Data-generating process.** The data are derived from ERA5, a global atmospheric reanalysis dataset produced by the European Centre for Medium-Range Weather Forecasts (ECMWF). ERA5 combines historical observations from satellites, weather stations, and other instruments with numerical weather prediction models to generate consistent estimates of atmospheric conditions over time.

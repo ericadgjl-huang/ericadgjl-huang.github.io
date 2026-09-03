@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "teaching.html",
+    "href": "teaching.html",
+    "title": "Teaching",
+    "section": "",
+    "text": "Teaching information will be added here in the future."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "SHAO-KANG (Eric) HUANG",
@@ -7,11 +14,11 @@
     "text": "I am a Master’s student in the Social Data Analytics and Research program at the University of Texas at Dallas. My academic focus integrates advanced machine learning techniques with practical data analysis and visualization."
   },
   {
-    "objectID": "index.html#welcome",
-    "href": "index.html#welcome",
-    "title": "epps6356-website-eric",
-    "section": "",
-    "text": "Hello, I’m Eric! Welcome to my personal website for EPPS 6356 Data Visualization.\n\n\nI am a Master’s student in the Social Data Analytics and Research program at the University of Texas at Dallas.\n\n\n\nThis website will serve as a repository for my coursework, assignments, and projects throughout the Fall 2026 semester."
+    "objectID": "index.html#research-interests",
+    "href": "index.html#research-interests",
+    "title": "SHAO-KANG (Eric) HUANG",
+    "section": "Research Interests",
+    "text": "Research Interests\n\nDeep learning architectures for computer vision and medical image analysis.\nSpatiotemporal neural networks for weather forecasting (e.g., Fourier Neural Operators)."
   },
   {
     "objectID": "about.html",
@@ -21,11 +28,11 @@
     "text": "About this site\n\n1 + 1\n\n[1] 2"
   },
   {
-    "objectID": "index.html#research-interests",
-    "href": "index.html#research-interests",
-    "title": "SHAO-KANG (Eric) HUANG",
-    "section": "Research Interests",
-    "text": "Research Interests\n\nDeep learning architectures for computer vision and medical image analysis.\nSpatiotemporal neural networks for weather forecasting (e.g., Fourier Neural Operators)."
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "CV",
+    "section": "",
+    "text": "My curriculum vitae will be available here soon."
   },
   {
     "objectID": "research.html",
@@ -40,5 +47,12 @@
     "title": "Research",
     "section": "",
     "text": "Deep learning architectures for computer vision and medical image analysis.\nSpatiotemporal neural networks for weather forecasting (e.g., Fourier Neural Operators)."
+  },
+  {
+    "objectID": "research.html#research-project",
+    "href": "research.html#research-project",
+    "title": "Research",
+    "section": "Research Project",
+    "text": "Research Project\n\nWeather Forecasting with Fourier Neural Operators\nThis project investigates the use of Fourier Neural Operators and related deep-learning architectures for spatiotemporal weather forecasting.\nData-generating process. The data are derived from ERA5, a global atmospheric reanalysis dataset produced by the European Centre for Medium-Range Weather Forecasts (ECMWF). ERA5 combines historical observations from satellites, weather stations, and other instruments with numerical weather prediction models to generate consistent estimates of atmospheric conditions over time."
   }
 ]
