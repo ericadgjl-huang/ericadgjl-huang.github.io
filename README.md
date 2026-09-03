@@ -24,4 +24,4 @@ The website is built using Quarto and RStudio and hosted with GitHub Pages.
 
 ## Website
 
-<https://ericadgjl-huang.github.io/epps6356-website-eric/>
+<https://ericadgjl-huang.github.io>
