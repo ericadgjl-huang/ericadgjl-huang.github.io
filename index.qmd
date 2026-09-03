@@ -1,0 +1,22 @@
+---
+title: "SHAO-KANG (Eric) HUANG"
+image: profile.jpg
+about:
+  template: trestles
+  image-shape: round
+  image-width: 14em
+  links:
+    - icon: envelope
+      text: Email
+      href: mailto:DAL660345@utdallas.edu
+    - icon: github
+      text: GitHub
+      href: https://github.com/ericadgjl-huang
+---
+
+I am a Master's student in the Social Data Analytics and Research program at the University of Texas at Dallas. My academic focus integrates advanced machine learning techniques with practical data analysis and visualization.
+
+## Research Interests
+
+- Deep learning architectures for computer vision and medical image analysis.
+- Spatiotemporal neural networks for weather forecasting (e.g., Fourier Neural Operators).

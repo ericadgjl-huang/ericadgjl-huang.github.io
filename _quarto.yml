@@ -1,0 +1,31 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Huang, SHAO-KANG(Eric)"
+  description: "MS Student in Social Data Analytics and Research at UTD"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: research.qmd
+        text: Research
+      - href: teaching.qmd
+        text: Teaching
+      - href: cv.qmd
+        text: CV
+    right:
+      - icon: github
+        href: https://github.com/ericadgjl-huang
+      - icon: envelope
+        href: mailto:DAL660345@utdallas.edu
+
+format:
+  html:
+    theme: cosmo 
+    css: styles.css
+    toc: true
+    
+editor: visual
+

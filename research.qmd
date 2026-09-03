@@ -1,0 +1,8 @@
+---
+title: "Research"
+---
+
+## Research Interests
+
+- Deep learning architectures for computer vision and medical image analysis.
+- Spatiotemporal neural networks for weather forecasting (e.g., Fourier Neural Operators).
