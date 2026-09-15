@@ -13,6 +13,8 @@ website:
         text: Research
       - href: teaching.qmd
         text: Teaching
+      - href: assignment1.qmd
+        text: Assignment 1
       - href: cv.qmd
         text: CV
     right:

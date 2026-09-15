@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Teaching – Huang, SHAO-KANG(Eric)</title>
+<title>EPPS 6356 Assignment 1 – Huang, SHAO-KANG(Eric)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -104,11 +104,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Research</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./teaching.html" aria-current="page"> 
+    <a class="nav-link" href="./teaching.html"> 
 <span class="menu-text">Teaching</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./assignment1.html"> 
+    <a class="nav-link active" href="./assignment1.html" aria-current="page"> 
 <span class="menu-text">Assignment 1</span></a>
   </li>  
   <li class="nav-item">
@@ -138,15 +138,25 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#anscombes-quartet" id="toc-anscombes-quartet" class="nav-link active" data-scroll-target="#anscombes-quartet">1. Anscombe’s Quartet</a></li>
+  <li><a href="#fall.r-winter-colors" id="toc-fall.r-winter-colors" class="nav-link" data-scroll-target="#fall.r-winter-colors">2. Fall.R — Winter Colors</a></li>
+  <li><a href="#chart-critique" id="toc-chart-critique" class="nav-link" data-scroll-target="#chart-critique">3. Chart Critique</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#ai-use-statement" id="toc-ai-use-statement" class="nav-link" data-scroll-target="#ai-use-statement">AI Use Statement</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Teaching</h1>
+<h1 class="title">EPPS 6356 Assignment 1</h1>
 </div>
 
 
@@ -163,9 +173,49 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Teaching information will be added here in the future.</p>
+<section id="anscombes-quartet" class="level2">
+<h2 class="anchored" data-anchor-id="anscombes-quartet">1. Anscombe’s Quartet</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/anscombe.png" class="img-fluid figure-img"></p>
+<figcaption>Anscombe’s four regression data sets</figcaption>
+</figure>
+</div>
+<p>Anscombe’s quartet (Anscombe 1973) shows that summary statistics can oversimplify data. The four data sets share nearly identical statistical properties: the mean of x is 9, the mean of y is 7.5, the correlation is 0.816, and every fitted regression line is y = 3 + 0.5x with an R² of 0.67. Because these numbers are only summaries, they suggest the four data sets are the same. The scatter plots, however, reveal four different structures: data set 1 is roughly linear, data set 2 is clearly curved, data set 3 is a near-perfect line distorted by one outlier, and in data set 4 a single extreme point creates the entire slope. A linear regression is only appropriate for the first case. Anscombe’s own solution is to make both calculations and graphs: scatterplot the data before any regression, plot the residuals against the fitted values after fitting, transform the variables or add a quadratic term when the relation is curved (data set 2), check whether outliers are recording errors (data set 3), and when one observation strongly influences the result, report the regression both with and without it (data set 4).</p>
+</section>
+<section id="fall.r-winter-colors" class="level2">
+<h2 class="anchored" data-anchor-id="fall.r-winter-colors">2. Fall.R — Winter Colors</h2>
+<p>I modified <code>Fall.R</code> to use a winter palette: light steel blue branches (<code>lightsteelblue1</code>) on a (<code>midnightblue</code>) background.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/winter.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>Winter tree generated with an L-system in R</figcaption>
+</figure>
+</div>
+</section>
+<section id="chart-critique" class="level2">
+<h2 class="anchored" data-anchor-id="chart-critique">3. Chart Critique</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/bank_bubbles.png" class="img-fluid figure-img"></p>
+<figcaption>Market Capitalization of the World’s Biggest Banks. Source: Cairo (2012), Figure 2.8.</figcaption>
+</figure>
+</div>
+<p>This chart uses nested bubbles to compare the market value of 15 banks in January 2007 and January 2009. The problem is that people judge length much more accurately than area. For example, Société Générale’s value fell from $80 billion to $26 billion, but it is hard to tell from the bubbles that the inner circle is only about one-third of the outer one. As Cairo shows, a bar chart makes this comparison much easier. Bubble charts are popular and look attractive, but designers often choose them by following trends rather than asking what the reader needs to see.</p>
+<p>I would go one step further. The real story in this data is how much each bank lost, yet neither the bubble chart nor a simple bar chart shows the percentage decline directly. RBS lost 96% of its value, Citigroup 93%, and Barclays 92%, while Santander lost only 45%. These differences are almost invisible in the bubbles. A bar chart of percentage change, sorted from largest to smallest loss, or a dumbbell chart connecting the 2007 and 2009 values, would let readers see immediately which banks were hit hardest by the financial crisis.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Anscombe, Francis J. 1973. “Graphs in Statistical Analysis.” <em>The American Statistician</em> 27(1): 17–21.</p>
+<p>Cairo, Alberto. 2012. <em>The Functional Art: An Introduction to Information Graphics and Visualization</em>. Berkeley, CA: New Riders.</p>
+</section>
+<section id="ai-use-statement" class="level2">
+<h2 class="anchored" data-anchor-id="ai-use-statement">AI Use Statement</h2>
+<p>I used Claude (Anthropic) to guide me through running the R scripts, exporting the figures, and adding this page to my Quarto website. The analysis ideas in Sections 1 and 3 are my own; Claude helped translate and polish my English, suggested the specific solutions in Section 1, and calculated the percentage declines in Section 3. I used AI to save time and to clarify my writing in English.</p>
+<p>The full AI conversation log is available here: <a href="./ai-log.html">AI Use Log</a>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

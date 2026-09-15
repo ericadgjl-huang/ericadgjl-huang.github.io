@@ -21,11 +21,81 @@
     "text": "Research Interests\n\nDeep learning architectures for computer vision and medical image analysis.\nSpatiotemporal neural networks for weather forecasting (e.g., Fourier Neural Operators)."
   },
   {
+    "objectID": "assignment1.html",
+    "href": "assignment1.html",
+    "title": "EPPS 6356 Assignment 1",
+    "section": "",
+    "text": "Anscombe’s four regression data sets\n\n\nAnscombe’s quartet (Anscombe 1973) shows that summary statistics can oversimplify data. The four data sets share nearly identical statistical properties: the mean of x is 9, the mean of y is 7.5, the correlation is 0.816, and every fitted regression line is y = 3 + 0.5x with an R² of 0.67. Because these numbers are only summaries, they suggest the four data sets are the same. The scatter plots, however, reveal four different structures: data set 1 is roughly linear, data set 2 is clearly curved, data set 3 is a near-perfect line distorted by one outlier, and in data set 4 a single extreme point creates the entire slope. A linear regression is only appropriate for the first case. Anscombe’s own solution is to make both calculations and graphs: scatterplot the data before any regression, plot the residuals against the fitted values after fitting, transform the variables or add a quadratic term when the relation is curved (data set 2), check whether outliers are recording errors (data set 3), and when one observation strongly influences the result, report the regression both with and without it (data set 4)."
+  },
+  {
+    "objectID": "assignment1.html#anscombes-quartet",
+    "href": "assignment1.html#anscombes-quartet",
+    "title": "EPPS 6356 Assignment 1",
+    "section": "",
+    "text": "Anscombe’s four regression data sets\n\n\nAnscombe’s quartet (Anscombe 1973) shows that summary statistics can oversimplify data. The four data sets share nearly identical statistical properties: the mean of x is 9, the mean of y is 7.5, the correlation is 0.816, and every fitted regression line is y = 3 + 0.5x with an R² of 0.67. Because these numbers are only summaries, they suggest the four data sets are the same. The scatter plots, however, reveal four different structures: data set 1 is roughly linear, data set 2 is clearly curved, data set 3 is a near-perfect line distorted by one outlier, and in data set 4 a single extreme point creates the entire slope. A linear regression is only appropriate for the first case. Anscombe’s own solution is to make both calculations and graphs: scatterplot the data before any regression, plot the residuals against the fitted values after fitting, transform the variables or add a quadratic term when the relation is curved (data set 2), check whether outliers are recording errors (data set 3), and when one observation strongly influences the result, report the regression both with and without it (data set 4)."
+  },
+  {
+    "objectID": "assignment1.html#fall.r-winter-colors",
+    "href": "assignment1.html#fall.r-winter-colors",
+    "title": "EPPS 6356 Assignment 1",
+    "section": "2. Fall.R — Winter Colors",
+    "text": "2. Fall.R — Winter Colors\nI modified Fall.R to use a winter palette: light steel blue branches (lightsteelblue1) on a (midnightblue) background.\n\n\n\nWinter tree generated with an L-system in R"
+  },
+  {
+    "objectID": "assignment1.html#chart-critique",
+    "href": "assignment1.html#chart-critique",
+    "title": "EPPS 6356 Assignment 1",
+    "section": "3. Chart Critique",
+    "text": "3. Chart Critique\n\n\n\nMarket Capitalization of the World’s Biggest Banks. Source: Cairo (2012), Figure 2.8.\n\n\nThis chart uses nested bubbles to compare the market value of 15 banks in January 2007 and January 2009. The problem is that people judge length much more accurately than area. For example, Société Générale’s value fell from $80 billion to $26 billion, but it is hard to tell from the bubbles that the inner circle is only about one-third of the outer one. As Cairo shows, a bar chart makes this comparison much easier. Bubble charts are popular and look attractive, but designers often choose them by following trends rather than asking what the reader needs to see.\nI would go one step further. The real story in this data is how much each bank lost, yet neither the bubble chart nor a simple bar chart shows the percentage decline directly. RBS lost 96% of its value, Citigroup 93%, and Barclays 92%, while Santander lost only 45%. These differences are almost invisible in the bubbles. A bar chart of percentage change, sorted from largest to smallest loss, or a dumbbell chart connecting the 2007 and 2009 values, would let readers see immediately which banks were hit hardest by the financial crisis."
+  },
+  {
+    "objectID": "assignment1.html#references",
+    "href": "assignment1.html#references",
+    "title": "EPPS 6356 Assignment 1",
+    "section": "References",
+    "text": "References\nAnscombe, Francis J. 1973. “Graphs in Statistical Analysis.” The American Statistician 27(1): 17–21.\nCairo, Alberto. 2012. The Functional Art: An Introduction to Information Graphics and Visualization. Berkeley, CA: New Riders."
+  },
+  {
+    "objectID": "assignment1.html#ai-use-statement",
+    "href": "assignment1.html#ai-use-statement",
+    "title": "EPPS 6356 Assignment 1",
+    "section": "AI Use Statement",
+    "text": "AI Use Statement\nI used Claude (Anthropic) to guide me through running the R scripts, exporting the figures, and adding this page to my Quarto website. The analysis ideas in Sections 1 and 3 are my own; Claude helped translate and polish my English, suggested the specific solutions in Section 1, and calculated the percentage declines in Section 3. I used AI to save time and to clarify my writing in English.\nThe full AI conversation log is available here: AI Use Log."
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "ai-log.html",
+    "href": "ai-log.html",
+    "title": "Assignment 1: AI Use Log",
+    "section": "",
+    "text": "This page documents my use of generative AI for EPPS 6356 Assignment 1, following the course AI policy."
+  },
+  {
+    "objectID": "ai-log.html#tool-information",
+    "href": "ai-log.html#tool-information",
+    "title": "Assignment 1: AI Use Log",
+    "section": "Tool Information",
+    "text": "Tool Information\n\n\n\n\n\n\n\nItem\nDetails\n\n\n\n\nTool\nClaude (Anthropic), used in the Claude desktop app (Cowork mode)\n\n\nDate\nSeptember 15, 2026\n\n\nLanguage\nI asked questions in Chinese (Traditional). My original prompts are quoted below with English translations. Claude’s replies are summarized in English."
+  },
+  {
+    "objectID": "ai-log.html#how-and-why-i-used-ai",
+    "href": "ai-log.html#how-and-why-i-used-ai",
+    "title": "Assignment 1: AI Use Log",
+    "section": "How and Why I Used AI",
+    "text": "How and Why I Used AI\n\nHow: step-by-step guidance for setting up RStudio projects, running Fall.R and anscombe01.R, exporting figures, and adding a page to my Quarto website. I also used it to polish and translate my English writing, suggest regression diagnostics, and calculate percentage declines for the chart critique.\nWhy: to catch up on the course after starting late, to save time with unfamiliar tools (RStudio projects, Quarto rendering), and to clarify my writing in English, which is not my first language.\nWhat is my own: the choice of colors and chart, the core argument in Section 1 (summary statistics oversimplify data) and in Section 3 (length is perceived better than area; bubble charts are used because they are trendy).\n\n\n\n\n\n\n\nImportantMost Relevant Sections\n\n\n\nThe exchanges that directly shaped the submitted text are Exchange 12 (Anscombe paragraph and chart critique) and Exchange 13 (clarifying the three questions). They are highlighted below."
+  },
+  {
+    "objectID": "ai-log.html#conversation-log",
+    "href": "ai-log.html#conversation-log",
+    "title": "Assignment 1: AI Use Log",
+    "section": "Conversation Log",
+    "text": "Conversation Log\n\n1. Catching up on readings and understanding the assignment\n\nMe: 我目前閱讀只完成到 Week 2… 能否告訴我要下載哪些資料來閱讀呢？這個 assignment 要我做什麼呢？我已經把 R 還有網站環境處理好，也推上 GitHub 了，這是 assignment 要求的嗎？\n(I have only finished the Week 2 readings. Which materials should I download? What does this assignment ask me to do? I have already set up R and my website and pushed to GitHub. Is that what the assignment requires?)\n\nClaude: Listed the Week 3 readings (Cairo, The Truthful Art and How Charts Lie; Quarto closeread) and Week 4 readings (Ware ch. 1–3; Cleveland & McGill 1984; Heer & Bostock 2010), plus Anscombe (1973) for the assignment. Summarized the three assignment tasks. Explained that setting up the website is a prerequisite rather than the assignment itself, and reminded me to confirm that GitHub Pages is live and to include an AI appendix.\n\n\n2. Disk space and folder organization\n\nMe: 我的網站在 C 槽，但 C 槽快要滿了。R 的東西都在外接硬碟 F 槽，要怎麼處理比較好？\n(My website is on drive C, which is almost full. My R files are on external drive F. What is the best way to handle this?)\n\nClaude: Checked both folders. The website is only 3.5 MB, so it is not what fills drive C. Suggested keeping textbooks, scripts, and raw work on drive F and putting only final outputs (images, .qmd pages) in the website.\n\n\n3. Deciding not to move the website\n\nMe: 我傾向不搬，因為我已經繳交作業了，怕網址會亂掉。上傳東西會不會把槽弄滿？\n(I prefer not to move it because I already submitted my website and worry the URL will break. Will uploading assignments fill the drive?)\n\nClaude: Confirmed that the URL depends on the GitHub repository, not the local folder. Each assignment adds only a few hundred KB. Proposed the workflow: work on drive F, copy only final images to the website.\n\n\n4. Running Fall.R and choosing winter colors\n\nMe: (Shared console output and a screenshot of the default Fall plot.) 要存成圖片放到哪裡嗎？\n(Where should I save the image?)\n\nClaude: Suggested using ggsave() instead of right-click saving, and proposed a winter palette: lightsteelblue1 branches on a midnightblue background.\n\n\n5. Creating a separate RStudio project on drive F\n\nMe: 還是說要分開來用？我要重新打開 F 槽中的資料夾來執行，可否一步一步帶著我做？\n(Should I use them separately? I want to open the folder on drive F as a project. Can you guide me step by step?)\n\nClaude: Guided me to create an RStudio project in the course folder on drive F (File → New Project → Existing Directory), so relative paths save outputs there.\n\n\n6. Understanding the code changes\n\nMe: 為什麼要改這些東西呢？\n(Why do these things need to be changed?)\n\nClaude: Explained each change: branch color (task 2a), background color for contrast, storing the plot in p, and ggsave() to export the file (task 2b). Suggested other winter color combinations.\n\n\n7. Running an entire script\n\nMe: R 不能一次執行全部嗎？\n(Can’t R run the whole script at once?)\n\nClaude: Explained Ctrl+Shift+Enter (Source with Echo), Ctrl+A then Ctrl+Enter, and the Source button.\n\n\n8. Exporting the Anscombe figure\n\nMe: (Shared winter.png, then the full console output of anscombe01.R.) 另外我想知道你改的那些是什麼意思。\n(I also want to know what your changes mean.)\n\nClaude: Confirmed both images were saved. Explained png() and dev.off() for base R graphics, and the par(mfrow = c(2, 2)) layout. Summarized the regression output: all four data sets have mean x = 9, mean y = 7.5, and fitted line y = 3 + 0.5x with R² = 0.67.\n\n\n9. Why the Plots pane showed four separate plots\n\nMe: 為什麼 plot 裡面並不是出現一張圖而是四張圖呢？\n(Why does the Plots pane show four plots instead of one?)\n\nClaude: Explained that the “simple version” draws four separate plots in RStudio, while the 2×2 panel is written directly to the PNG file.\n\n\n10. Adding the Assignment 1 page to the website\n\nMe: 我有這兩張圖，接下來要如何進行呢？\n(I have both images. What should I do next?)\n\nClaude: Guided me to copy the images into images/, create assignment1.qmd, add it to the navbar in _quarto.yml, and dismiss the RStudio “save workspace” prompt. Recommended setting RStudio to never save .RData.\n\n\n11. Rendering the whole website\n\nMe: 我是使用這個按鈕，點完之後跳出網頁。\n(I used this Render button, and a web page opened.)\n\nClaude: Checked the docs/ folder and found that only assignment1.html had been updated. Explained that the editor’s Render button renders one page, so I used Build → Render Website to update the navigation menu on every page.\n\n\n\n\n\n\nNote12. Writing the Anscombe paragraph and the chart critique (most relevant)\n\n\n\n\nMe: 第一題我想是統計數據會過度簡略，畢竟它是一種摘要，但實際情況還是要觀察散點圖。\nFor the first question, I think the statistical data might be overly simplified, since it is just a summary, but in reality, you still need to look at the scatter plot.\n圖表評論來自 The Functional Art：因為人對於長短的感知相較於面積來說更好（一維好於面積），若這張圖改為 bar chart 會更好理解。但因為 bubble chart 的流行大家有點盲目跟風，所以我想我們需要重新思考我們到底需要什麼而不是只是追逐流行。\nFor the critique, from The Functional Art: people perceive length better than area, so a bar chart would be easier to understand. But because bubble charts are popular, everyone has been blindly following the trend. We need to rethink what we really need instead of chasing trends.\n\nClaude:\n\nSection 1: Polished my idea into a full paragraph. Added the specific statistics from my R output, described each data set’s structure, and suggested the solutions: plotting before and after modeling, residual plots, nonlinear models, Cook’s distance, and robust regression.\nSection 3: Pointed out that my critique repeated Cairo’s own argument, so it needed an original contribution. Calculated the percentage decline for each bank from the chart’s labels (e.g., RBS −96%, Citigroup −93%, Barclays −92%, Santander −45%). Suggested that the real story is the percentage loss, which a sorted bar chart of percentage change or a dumbbell chart would show better. Drafted the English critique around my argument plus this point.\n\n\n\n\n\n\n\n\n\nNote13. Clarifying the three questions (most relevant)\n\n\n\n\nMe: 等一等你是不是搞錯了呢？我是不是要分析一個我讀的段落，還是說其實就是要找一篇就行了，還是說這是第三點的問題？我覺得就用 A 就好了。\n(Wait, did you misunderstand? Do I need to analyze a passage I read, or just find one chart? Or is this about question 3? I think option A is fine.)\n\nClaude: Clarified that Question 1 analyzes Anscombe’s four data sets based on Anscombe (1973) and my R output, while Question 3 critiques any published chart. My bank bubble chart from The Functional Art is the Question 3 answer. Saved the chart screenshot as images/bank_bubbles.png and provided the full page text, including references and an AI use statement.\n\n\n\n\n14. Exporting this log\n\nMe: 怎麼把這段對話匯出呢？ … 做 A 就好了。\n(How do I export this conversation? … Option A is fine.)\n\nClaude: Created this log page and added a link to it from the Assignment 1 page."
   },
   {
     "objectID": "cv.html",

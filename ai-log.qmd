@@ -1,0 +1,150 @@
+---
+title: "Assignment 1: AI Use Log"
+toc: true
+---
+
+This page documents my use of generative AI for [EPPS 6356 Assignment 1](assignment1.qmd), following the course AI policy.
+
+## Tool Information
+
+| Item | Details |
+|---|---|
+| **Tool** | Claude (Anthropic), used in the Claude desktop app (Cowork mode) |
+| **Date** | September 15, 2026 |
+| **Language** | I asked questions in Chinese (Traditional). My original prompts are quoted below with English translations. Claude's replies are summarized in English. |
+
+## How and Why I Used AI
+
+- **How:** step-by-step guidance for setting up RStudio projects, running `Fall.R` and `anscombe01.R`, exporting figures, and adding a page to my Quarto website. I also used it to polish and translate my English writing, suggest regression diagnostics, and calculate percentage declines for the chart critique.
+- **Why:** to catch up on the course after starting late, to save time with unfamiliar tools (RStudio projects, Quarto rendering), and to clarify my writing in English, which is not my first language.
+- **What is my own:** the choice of colors and chart, the core argument in Section 1 (summary statistics oversimplify data) and in Section 3 (length is perceived better than area; bubble charts are used because they are trendy).
+
+::: {.callout-important}
+## Most Relevant Sections
+The exchanges that directly shaped the submitted text are **Exchange 12** (Anscombe paragraph and chart critique) and **Exchange 13** (clarifying the three questions). They are highlighted below.
+:::
+
+## Conversation Log
+
+### 1. Catching up on readings and understanding the assignment
+
+> **Me:** 我目前閱讀只完成到 Week 2… 能否告訴我要下載哪些資料來閱讀呢？這個 assignment 要我做什麼呢？我已經把 R 還有網站環境處理好，也推上 GitHub 了，這是 assignment 要求的嗎？
+>
+> *(I have only finished the Week 2 readings. Which materials should I download? What does this assignment ask me to do? I have already set up R and my website and pushed to GitHub. Is that what the assignment requires?)*
+
+**Claude:** Listed the Week 3 readings (Cairo, *The Truthful Art* and *How Charts Lie*; Quarto closeread) and Week 4 readings (Ware ch. 1–3; Cleveland & McGill 1984; Heer & Bostock 2010), plus Anscombe (1973) for the assignment. Summarized the three assignment tasks. Explained that setting up the website is a prerequisite rather than the assignment itself, and reminded me to confirm that GitHub Pages is live and to include an AI appendix.
+
+### 2. Disk space and folder organization
+
+> **Me:** 我的網站在 C 槽，但 C 槽快要滿了。R 的東西都在外接硬碟 F 槽，要怎麼處理比較好？
+>
+> *(My website is on drive C, which is almost full. My R files are on external drive F. What is the best way to handle this?)*
+
+**Claude:** Checked both folders. The website is only 3.5 MB, so it is not what fills drive C. Suggested keeping textbooks, scripts, and raw work on drive F and putting only final outputs (images, `.qmd` pages) in the website.
+
+### 3. Deciding not to move the website
+
+> **Me:** 我傾向不搬，因為我已經繳交作業了，怕網址會亂掉。上傳東西會不會把槽弄滿？
+>
+> *(I prefer not to move it because I already submitted my website and worry the URL will break. Will uploading assignments fill the drive?)*
+
+**Claude:** Confirmed that the URL depends on the GitHub repository, not the local folder. Each assignment adds only a few hundred KB. Proposed the workflow: work on drive F, copy only final images to the website.
+
+### 4. Running Fall.R and choosing winter colors
+
+> **Me:** *(Shared console output and a screenshot of the default Fall plot.)* 要存成圖片放到哪裡嗎？
+>
+> *(Where should I save the image?)*
+
+**Claude:** Suggested using `ggsave()` instead of right-click saving, and proposed a winter palette: `lightsteelblue1` branches on a `midnightblue` background.
+
+### 5. Creating a separate RStudio project on drive F
+
+> **Me:** 還是說要分開來用？我要重新打開 F 槽中的資料夾來執行，可否一步一步帶著我做？
+>
+> *(Should I use them separately? I want to open the folder on drive F as a project. Can you guide me step by step?)*
+
+**Claude:** Guided me to create an RStudio project in the course folder on drive F (File → New Project → Existing Directory), so relative paths save outputs there.
+
+### 6. Understanding the code changes
+
+> **Me:** 為什麼要改這些東西呢？
+>
+> *(Why do these things need to be changed?)*
+
+**Claude:** Explained each change: branch color (task 2a), background color for contrast, storing the plot in `p`, and `ggsave()` to export the file (task 2b). Suggested other winter color combinations.
+
+### 7. Running an entire script
+
+> **Me:** R 不能一次執行全部嗎？
+>
+> *(Can't R run the whole script at once?)*
+
+**Claude:** Explained Ctrl+Shift+Enter (Source with Echo), Ctrl+A then Ctrl+Enter, and the Source button.
+
+### 8. Exporting the Anscombe figure
+
+> **Me:** *(Shared `winter.png`, then the full console output of `anscombe01.R`.)* 另外我想知道你改的那些是什麼意思。
+>
+> *(I also want to know what your changes mean.)*
+
+**Claude:** Confirmed both images were saved. Explained `png()` and `dev.off()` for base R graphics, and the `par(mfrow = c(2, 2))` layout. Summarized the regression output: all four data sets have mean x = 9, mean y = 7.5, and fitted line y = 3 + 0.5x with R² = 0.67.
+
+### 9. Why the Plots pane showed four separate plots
+
+> **Me:** 為什麼 plot 裡面並不是出現一張圖而是四張圖呢？
+>
+> *(Why does the Plots pane show four plots instead of one?)*
+
+**Claude:** Explained that the "simple version" draws four separate plots in RStudio, while the 2×2 panel is written directly to the PNG file.
+
+### 10. Adding the Assignment 1 page to the website
+
+> **Me:** 我有這兩張圖，接下來要如何進行呢？
+>
+> *(I have both images. What should I do next?)*
+
+**Claude:** Guided me to copy the images into `images/`, create `assignment1.qmd`, add it to the navbar in `_quarto.yml`, and dismiss the RStudio "save workspace" prompt. Recommended setting RStudio to never save `.RData`.
+
+### 11. Rendering the whole website
+
+> **Me:** 我是使用這個按鈕，點完之後跳出網頁。
+>
+> *(I used this Render button, and a web page opened.)*
+
+**Claude:** Checked the `docs/` folder and found that only `assignment1.html` had been updated. Explained that the editor's Render button renders one page, so I used **Build → Render Website** to update the navigation menu on every page.
+
+::: {.callout-note}
+## 12. Writing the Anscombe paragraph and the chart critique (most relevant)
+
+> **Me:** 第一題我想是統計數據會過度簡略，畢竟它是一種摘要，但實際情況還是要觀察散點圖。
+>
+> *For the first question, I think the statistical data might be overly simplified, since it is just a summary, but in reality, you still need to look at the scatter plot.*
+>
+> 圖表評論來自 *The Functional Art*：因為人對於長短的感知相較於面積來說更好（一維好於面積），若這張圖改為 bar chart 會更好理解。但因為 bubble chart 的流行大家有點盲目跟風，所以我想我們需要重新思考我們到底需要什麼而不是只是追逐流行。
+>
+> *For the critique, from The Functional Art: people perceive length better than area, so a bar chart would be easier to understand. But because bubble charts are popular, everyone has been blindly following the trend. We need to rethink what we really need instead of chasing trends.*
+
+**Claude:**
+
+- **Section 1:** Polished my idea into a full paragraph. Added the specific statistics from my R output, described each data set's structure, and **suggested the solutions**: plotting before and after modeling, residual plots, nonlinear models, Cook's distance, and robust regression.
+- **Section 3:** Pointed out that my critique repeated Cairo's own argument, so it needed an original contribution. **Calculated the percentage decline** for each bank from the chart's labels (e.g., RBS −96%, Citigroup −93%, Barclays −92%, Santander −45%). Suggested that the real story is the percentage loss, which a sorted bar chart of percentage change or a dumbbell chart would show better. Drafted the English critique around my argument plus this point.
+:::
+
+::: {.callout-note}
+## 13. Clarifying the three questions (most relevant)
+
+> **Me:** 等一等你是不是搞錯了呢？我是不是要分析一個我讀的段落，還是說其實就是要找一篇就行了，還是說這是第三點的問題？我覺得就用 A 就好了。
+>
+> *(Wait, did you misunderstand? Do I need to analyze a passage I read, or just find one chart? Or is this about question 3? I think option A is fine.)*
+
+**Claude:** Clarified that Question 1 analyzes Anscombe's four data sets based on Anscombe (1973) and my R output, while Question 3 critiques any published chart. My bank bubble chart from *The Functional Art* is the Question 3 answer. Saved the chart screenshot as `images/bank_bubbles.png` and provided the full page text, including references and an AI use statement.
+:::
+
+### 14. Exporting this log
+
+> **Me:** 怎麼把這段對話匯出呢？ … 做 A 就好了。
+>
+> *(How do I export this conversation? … Option A is fine.)*
+
+**Claude:** Created this log page and added a link to it from the Assignment 1 page.
