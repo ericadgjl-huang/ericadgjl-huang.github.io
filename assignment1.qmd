@@ -32,4 +32,4 @@ Cairo, Alberto. 2012. *The Functional Art: An Introduction to Information Graphi
 
 I used Claude (Anthropic) to guide me through running the R scripts, exporting the figures, and adding this page to my Quarto website. The analysis ideas in Sections 1 and 3 are my own; Claude helped translate and polish my English, suggested the specific solutions in Section 1, and calculated the percentage declines in Section 3. I used AI to save time and to clarify my writing in English.
 
-The full AI conversation log is available here: [AI Use Log](ai-log.qmd).
+The full AI conversation log is available here: [AI Use Log](ai-log-assignment1.qmd).

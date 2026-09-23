@@ -4,6 +4,7 @@ toc: true
 ---
 
 This page documents my use of generative AI for [EPPS 6356 Assignment 1](assignment1.qmd), following the course AI policy.
+The log for the next assignment is on a separate page: [Assignment 2: AI Use Log](ai-log-assignment2.qmd).
 
 ## Tool Information
 

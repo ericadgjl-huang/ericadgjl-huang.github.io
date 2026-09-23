@@ -1,0 +1,160 @@
+---
+title: "Assignment 2: AI Use Log"
+toc: true
+---
+
+This page documents my use of generative AI for
+[EPPS 6356 Assignment 2](assignment2.qmd), following the course AI policy.
+The log for the previous assignment is on a separate page:
+[Assignment 1: AI Use Log](ai-log-assignment1.qmd).
+
+## Tool Information
+
+| Item | Details |
+|---|---|
+| **Tools** | Claude (Anthropic), used in the Claude desktop app; Codex (OpenAI) |
+| **Dates** | September 21–23, 2026 |
+| **Language** | I asked Claude questions in Chinese (Traditional). My original prompts are quoted below with English translations; Claude's replies are summarized in English. |
+
+## How and Why I Used AI
+
+- **Claude:** planning the assignment, preparing a line-by-line note template
+  for Murrell's chapter 1 code, checking my answers to the questions in those
+  notes, extracting the 2024 subset of the Happy Planet Index workbook,
+  scaffolding this page, and reviewing the finished draft.
+- **Codex:** turning my notes into an English draft and writing the R plotting
+  examples and figure captions from that scaffold.
+- **Why:** to catch up after starting the course late, to work with unfamiliar
+  tooling (Quarto rendering, base R graphics), and to express my observations
+  in English, which is not my first language.
+- **What is my own:** the line-by-line runs of the chapter 1 code and the
+  observations recorded in my notes, the choice of 2024, the decision about
+  which sections of the chapter to run and which to skip, and the judgement
+  that a bar chart would serve the regional counts better than a pie chart.
+
+::: {.callout-important}
+## Most Relevant Sections
+**Exchange 4** (checking my answers to the chapter 1 questions) and
+**Exchange 5** (extracting the data and scaffolding this page) shaped the
+submitted work most directly.
+:::
+
+## Conversation Log — Claude
+
+### 1. Understanding what Assignment 2 asks for
+
+> **Me:** 我覺得差不多要準備做 Assignment 2，考試準備到一個段落了。
+>
+> *(I think it is about time to start Assignment 2; my exam preparation has reached a stopping point.)*
+
+**Claude:** Read the handout and broke it into four tasks: run Murrell's
+chapter 1 code line by line, exercise twelve plotting functions on my own data
+with one figure and one sentence each, use the Happy Planet Index filtered to a
+single year, and post the figures **with the code that produced them**.
+Estimated four to six hours and suggested splitting it over two days.
+
+### 2. Getting the chapter 1 code
+
+> **Me:** *(Shared the chapter 1 figure gallery page and reported that `murrell01.R` was not on Teams.)*
+
+**Claude:** The gallery links to separate `.R` files rather than one script, and
+Claude's own network could not reach the site. It wrote an R script that reads
+the chapter page from my machine, extracts every `.R` link, downloads them, and
+concatenates them into a single `murrell01.R`. The first attempt found nothing
+because the page uses uppercase `HREF`; after Claude made the pattern
+case-insensitive, all 14 files downloaded (1,295 lines).
+
+> **Me:** *(Reported `system error 32` when opening the file.)*
+
+**Claude:** Diagnosed it as a file connection left open by the failed first run
+(`close(con)` never executed), and pointed out that this is the same discipline
+as `png()` needing `dev.off()`. `closeAllConnections()` or restarting R fixed it.
+
+### 3. The note template
+
+> **Me:** 可以幫我生一個檔案有這樣的格式嗎？我這樣子邊執行邊看。可以幫我加上一些中文讓我理解的快速一些嗎？
+>
+> *(Can you generate a file in this format so I can fill it in while running the code? Can you add some Chinese so I understand faster?)*
+
+**Claude:** Built `murrell01-notes.md`, listing every line of the first two
+sections with a Chinese hint for each argument (`mar`, `pch`, `bty`, `theta`,
+`phi`), a column for what I observed on the device, and a type column
+(high-level / low-level / setting / data). Added six questions drawn from the
+code itself.
+
+::: {.callout-note}
+## 4. Checking my answers (most relevant)
+
+> **Me:** *(Submitted my answers to the six questions.)*
+
+**Claude:** Confirmed two answers and corrected three:
+
+- **`text()` before `plot()`**: in a fresh session this is an *error*
+  (`plot.new has not been called yet`); I had seen "the text does not appear"
+  only because an old plot was still on the device.
+- **What `plot()` does**: it is `plot.new()` + `plot.window()` + drawing the
+  data + `axis(1)` + `axis(2)` + `box()` + `title()`; my answer covered only
+  the first step.
+- **`freq = FALSE`**: I had the direction backwards. On a count scale the
+  density curve is compressed against the axis, because counts reach the teens
+  while the density peaks near 0.4.
+- **`boxplot(add = TRUE)`**: I said it still counted as high-level because it
+  clears the plot. It does **not** clear the plot; with `add = TRUE` it behaves
+  as a low-level call, which is why the two sets of boxes sit side by side.
+- **`midpts`**: my value was right; Claude added the reason it is needed — the
+  bars are not at 1, 2, 3, 4, so the labels need the returned positions.
+- **`theta` / `phi`**: rotation versus viewing elevation.
+
+Claude also filled in the type column for all 38 rows as a check against my own
+reading.
+:::
+
+::: {.callout-note}
+## 5. The data and the page scaffold (most relevant)
+
+> **Me:** 好的就 2024 年吧。
+>
+> *(All right, let's use 2024.)*
+
+**Claude:** Checked how complete each year is and recommended 2024, because the
+GDP column is empty for 2025. Extracted the 2024 rows from the `All Data` sheet
+into `hpi2024.csv` (153 countries), and translated the workbook's numeric
+continent codes into region names after verifying the order against the
+workbook's own `Cont data` sheet. Reported the missing values I cite on the
+assignment page: life satisfaction 12, HPI 16, GDP 6, footprint 4. It also
+wrote `02_export_csv.R` so the same extract is reproducible from the original
+workbook, and created the skeleton of `assignment2.qmd` with the twelve chunks
+and hints — including the suggestion to fit a smoothed surface for `persp()`,
+since that function needs a grid rather than country rows.
+:::
+
+### 6. Reviewing the draft
+
+> **Me:** 是這樣嗎？幫我看一下。
+>
+> *(Is this right? Please take a look.)*
+
+**Claude:** Checked the page and the rendered output. Confirmed the code was
+correct, including the `hpi ~ continent` formula (the data frame and the column
+share a name) and the orientation of the `persp()` matrix. Asked for three
+changes, which I made: naming **both** AI tools in the statement rather than
+only Codex, adding Assignment 2 to the site navigation, and hiding the `str()`
+output in favour of a short preview table. It also added `fig-alt` text to all
+twelve figures for screen readers and sharpened the `par()` caption to say that
+the call draws nothing by itself.
+
+### 7. Splitting the logs
+
+> **Me:** 我覺得要分開會比較好，ai-log 是 Assignment 1 的，另一個是 Assignment 2。
+>
+> *(I think it is better to separate them: ai-log for Assignment 1 and another one for Assignment 2.)*
+
+**Claude:** Created this page and linked it from the Assignment 2 page.
+
+## Note on the Codex exchange
+
+The English drafting and the plotting code were produced in a separate session
+with Codex (OpenAI), working from the notes and the scaffold described above.
+That exchange is not reproduced here; the resulting code is visible in full on
+the [assignment page](assignment2.qmd), since every figure is shown with the
+code that produced it.
