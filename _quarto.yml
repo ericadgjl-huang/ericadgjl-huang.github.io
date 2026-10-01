@@ -17,6 +17,8 @@ website:
         text: Assignment 1
       - href: assignment2.qmd
         text: Assignment 2
+      - href: assignment3.qmd
+        text: Assignment 3
       - href: cv.qmd
         text: CV
     right:
