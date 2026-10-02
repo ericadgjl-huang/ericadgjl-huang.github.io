@@ -9,17 +9,11 @@ format:
     fig-height: 5.5
 ---
 
-Taking base R charts apart, rebuilding them by hand, then doing the same job in
-ggplot2 — and replicating one published chart.
+Taking base R charts apart, rebuilding them by hand, then doing the same job in ggplot2 — and replicating one published chart.
 
 ## 1. Documenting a chart
 
-I chose the scatterplot panel from `examples-stdplots.R` in chapter 1 of
-Murrell's *R Graphics*, because it is the only one of the six that never calls a
-high-level function. It builds the whole figure from `plot.new()` and
-`plot.window()` plus low-level calls, which makes every ingredient of a plot
-visible. The comment on each call says what that call contributes to the
-finished figure.
+I chose the scatterplot panel from `examples-stdplots.R` in chapter 1 of Murrell's *R Graphics*, because it is the only one of the six that never calls a high-level function. It builds the whole figure from `plot.new()` and `plot.window()` plus low-level calls, which makes every ingredient of a plot visible. The comment on each call says what that call contributes to the finished figure.
 
 ```{r}
 #| label: fig-documented
@@ -122,19 +116,11 @@ for (i in 1:4) {
 par(op)
 ```
 
-*(TODO Eric: 4–6 sentences here on what a summary statistic hides that the plot
-does not. Use the two tables above as evidence: identical intercept, slope, R²
-and residual standard error, and identical means, variances and correlation —
-yet set 1 is linear, set 2 curved, set 3 a near-perfect line dragged by one
-outlier, and set 4 a slope created by a single extreme x. Close with Anscombe's
-own remedies: plot first, check residuals, transform or add a quadratic term,
-and report the fit with and without the influential observation.)*
+The two tables above show that all four data sets share the same intercept (3.00), slope (0.50), R² (0.6665) and almost identical residual standard errors, alongside means, variances and correlations that agree to two decimal places. Judged by these numbers alone, they appear to be the same data set repeated four times. The scatterplots show otherwise. Data set 1 is the roughly linear relationship the statistics imply, while data set 2 follows a smooth curve that a straight line cannot represent. Data set 3 is an almost perfect linear relationship whose fitted line is dragged away from it by a single outlier, and in data set 4 the slope is an artifact: every x is 8 except one observation at 19, so that one point alone determines the line. Summary statistics can quantify the magnitude of a relationship, but they are blind to its shape and highly vulnerable to the leverage of isolated points. The remedy is to make graphing part of the modelling process rather than a postscript: plot the raw data before fitting anything, examine the residuals against the fitted values afterwards, and transform a variable or add a quadratic term when the pattern turns out to be curved. When a single observation dictates the result, the most transparent approach is to report the model both with and without it, so the reader can see how much the conclusion rests on that one point.
 
 ## 3. Finetuning without leaving base R
 
-Three changes, base graphics only: a serif font, a palette of my own, and my own
-plotting character. `pch` accepts a literal character, so the marker is a glyph I
-chose rather than one of R's 25 numbered symbols.
+Three changes, base graphics only: a serif font, a palette of my own, and my own plotting character. `pch` accepts a literal character, so the marker is a glyph I chose rather than one of R's 25 numbered symbols.
 
 ```{r}
 #| label: fig-tuned-base
@@ -198,7 +184,7 @@ ggplot(anscombe, aes(x1, y1)) +
 ### Which base-R setting became what
 
 | base R | ggplot2 | kind |
-|---|---|---|
+|----|----|----|
 | `par(family = "serif")` | `theme_minimal(base_family =)` | `theme()` |
 | `par(bg =)` | `theme(plot.background =)` | `theme()` |
 | `par(fg =, col.axis =, col.lab =)` | `theme(axis.text =, axis.title =)` | `theme()` |
@@ -214,27 +200,15 @@ ggplot(anscombe, aes(x1, y1)) +
 
 **No equivalent, or works differently**
 
-- `par(mfrow = c(2, 2))`: ggplot2 has no device-level layout. The nearest
-  equivalents are `facet_wrap()` for the same plot over different subsets, or an
-  external package such as patchwork for different plots side by side.
-- `op <- par(...)` and `par(op)`: there is nothing to restore. A ggplot carries
-  its own theme, so settings never leak into the next figure.
-- Drawing order: in base R the order of the calls *is* the z-order; in ggplot2
-  the order of the layers in the `+` chain does that job, and the whole plot is
-  assembled before anything is drawn.
+- `par(mfrow = c(2, 2))`: ggplot2 has no device-level layout. The nearest equivalents are `facet_wrap()` for the same plot over different subsets, or an external package such as patchwork for different plots side by side.
+- `op <- par(...)` and `par(op)`: there is nothing to restore. A ggplot carries its own theme, so settings never leak into the next figure.
+- Drawing order: in base R the order of the calls *is* the z-order; in ggplot2 the order of the layers in the `+` chain does that job, and the whole plot is assembled before anything is drawn.
 
-In base R, `abline()` draws an unbounded line across the plot region, because it
-represents the fitted equation rather than the fitted values. In ggplot2,
-`geom_smooth()` is a layer computed over the range of the data, so the line stops
-at the first and last observation unless `fullrange = TRUE` is set. The two
-figures therefore encode the same model but make different claims about where
-that model applies.
+In base R, `abline()` draws an unbounded line across the plot region, because it represents the fitted equation rather than the fitted values. In ggplot2, `geom_smooth()` is a layer computed over the range of the data, so the line stops at the first and last observation unless `fullrange = TRUE` is set. The two figures therefore encode the same model but make different claims about where that model applies.
 
 ## 5. Replicating the COVID chart
 
-Daily COVID deaths in Europe, one point per country per day, from the Our World
-in Data frozen snapshot. The file is about 94 MB, so it is not kept in this
-repository; the code below downloads it once and works from the local copy.
+Daily COVID deaths in Europe, one point per country per day, from the Our World in Data frozen snapshot. The file is about 94 MB, so it is not kept in this repository; the code below downloads it once and works from the local copy.
 
 ```{r}
 #| eval: false
@@ -292,28 +266,16 @@ dev.off()
 
 ![Daily COVID deaths in Europe, 2020–2023. One point per country per day; the six highest points are labelled with the country name.](images/covid-europe.png)
 
-Three notes on the replication. The labels are placed with `text()` at the data
-coordinates of the points themselves, not with `legend()` — a legend would map
-colours to countries, which is not what the target does. The date axis is drawn
-by hand with `axis()` so the ticks fall every two months and `las = 2` turns the
-labels upright. Wrapping the plotting code in a function means the preview and
-the exported PNG are produced by the same code, so the file cannot drift from
-what I checked on screen.
+Three notes on the replication. The labels are placed with `text()` at the data coordinates of the points themselves, not with `legend()` — a legend would map colours to countries, which is not what the target does. The date axis is drawn by hand with `axis()` so the ticks fall every two months and `las = 2` turns the labels upright. Wrapping the plotting code in a function means the preview and the exported PNG are produced by the same code, so the file cannot drift from what I checked on screen.
 
 ## References
 
 Murrell, Paul. 2019. *R Graphics*. Third edition. Boca Raton: Chapman & Hall/CRC.
 
-Anscombe, Francis J. 1973. "Graphs in Statistical Analysis." *The American
-Statistician* 27(1): 17–21.
+Anscombe, Francis J. 1973. "Graphs in Statistical Analysis." *The American Statistician* 27(1): 17–21.
 
 Our World in Data. *COVID-19 Dataset*. <https://github.com/owid/covid-19-data>
 
 ## AI Use Statement
 
-I used Claude (Anthropic) in the Claude desktop app to plan this assignment, to
-scaffold the five R scripts, to check my answers, and to assemble this page. The
-choice of chart to document, the colours and the plotting character, the reading
-of the four Anscombe fits, and the comparison of the base R and ggplot2 figures
-are mine; Claude supplied the structure, the label-selection rule for the COVID
-chart, and corrections to my English.
+I used Claude (Anthropic) in the Claude desktop app to plan this assignment, to scaffold the five R scripts, to check my answers, and to assemble this page. The choice of chart to document, the colours and the plotting character, the reading of the four Anscombe fits, and the comparison of the base R and ggplot2 figures are mine; Claude supplied the structure, the label-selection rule for the COVID chart, and corrections to my English.
