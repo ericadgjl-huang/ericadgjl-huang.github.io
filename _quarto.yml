@@ -13,12 +13,22 @@ website:
         text: Research
       - href: teaching.qmd
         text: Teaching
-      - href: assignment1.qmd
-        text: Assignment 1
-      - href: assignment2.qmd
-        text: Assignment 2
-      - href: assignment3.qmd
-        text: Assignment 3
+      - text: Assignments
+        menu:
+          - href: assignment1.qmd
+            text: "Assignment 1: Anscombe & Chart Critique"
+          - href: assignment2.qmd
+            text: "Assignment 2: Base R Graphics"
+          - href: assignment3.qmd
+            text: "Assignment 3: Anatomy of a Chart"
+          - href: assignment4.qmd
+            text: "Assignment 4: Chart Hackathon (Team)"
+      - text: AI Use Logs
+        menu:
+          - href: ai-log-assignment1.qmd
+            text: "Assignment 1 Log"
+          - href: ai-log-assignment2.qmd
+            text: "Assignment 2 Log"
       - href: cv.qmd
         text: CV
     right:

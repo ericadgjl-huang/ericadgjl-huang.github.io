@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>EPPS 6356 Assignment 1 – Huang, SHAO-KANG(Eric)</title>
+<title>EPPS 6356 Assignment 4: Chart Hackathon (Team) – Huang, SHAO-KANG(Eric)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +25,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -177,11 +212,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#anscombes-quartet" id="toc-anscombes-quartet" class="nav-link active" data-scroll-target="#anscombes-quartet">1. Anscombe’s Quartet</a></li>
-  <li><a href="#fall.r-winter-colors" id="toc-fall.r-winter-colors" class="nav-link" data-scroll-target="#fall.r-winter-colors">2. Fall.R — Winter Colors</a></li>
-  <li><a href="#chart-critique" id="toc-chart-critique" class="nav-link" data-scroll-target="#chart-critique">3. Chart Critique</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  <li><a href="#ai-use-statement" id="toc-ai-use-statement" class="nav-link" data-scroll-target="#ai-use-statement">AI Use Statement</a></li>
+  <li><a href="#chart-4-one-variable-across-a-few-items" id="toc-chart-4-one-variable-across-a-few-items" class="nav-link active" data-scroll-target="#chart-4-one-variable-across-a-few-items">Chart 4: one variable across a few items</a>
+  <ul class="collapse">
+  <li><a href="#the-code" id="toc-the-code" class="nav-link" data-scroll-target="#the-code">The code</a></li>
+  <li><a href="#three-decisions-behind-the-chart" id="toc-three-decisions-behind-the-chart" class="nav-link" data-scroll-target="#three-decisions-behind-the-chart">Three decisions behind the chart</a></li>
+  </ul></li>
+  <li><a href="#beyond-the-chart" id="toc-beyond-the-chart" class="nav-link" data-scroll-target="#beyond-the-chart">Beyond the chart</a></li>
+  <li><a href="#ai-use" id="toc-ai-use" class="nav-link" data-scroll-target="#ai-use">AI use</a></li>
+  <li><a href="#commits" id="toc-commits" class="nav-link" data-scroll-target="#commits">Commits</a></li>
   </ul>
 </nav>
     </div>
@@ -190,7 +228,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">EPPS 6356 Assignment 1</h1>
+<h1 class="title">EPPS 6356 Assignment 4: Chart Hackathon (Team)</h1>
 </div>
 
 
@@ -207,46 +245,87 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="anscombes-quartet" class="level2">
-<h2 class="anchored" data-anchor-id="anscombes-quartet">1. Anscombe’s Quartet</h2>
+<p>Assignment 4 was a team deliverable. Our group’s portfolio site holds the finished product; this page records the part I built and how it was made.</p>
+<ul>
+<li><strong>Team repository:</strong> <a href="https://github.com/nedretsencavus/portfolio">nedretsencavus/portfolio</a></li>
+<li><strong>My contribution:</strong> Chart 4, the shared theme file <code>R/theme.R</code>, and the reproducibility paperwork (<code>README.md</code>, <code>prompts.md</code>, <code>sessionInfo.txt</code>)</li>
+<li><strong>Data:</strong> Happy Planet Index, 2024 edition (153 countries)</li>
+</ul>
+<section id="chart-4-one-variable-across-a-few-items" class="level2">
+<h2 class="anchored" data-anchor-id="chart-4-one-variable-across-a-few-items">Chart 4: one variable across a few items</h2>
+<p>Abela’s Chart Thought-Starter sends a comparison of <em>one variable among a few items</em> to a column chart, so that is what the brief called for. The variable is the Happy Planet Index; the items are the five continents.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/anscombe.png" class="img-fluid figure-img"></p>
-<figcaption>Anscombe’s four regression data sets</figcaption>
+<p><img src="images/chart4_continent_means.png" class="img-fluid figure-img" alt="Column chart of mean Happy Planet Index by continent. The Americas lead, followed by Asia, Europe, Oceania and Africa, with country counts printed inside each column."></p>
+<figcaption>Mean Happy Planet Index by continent, 2024. Columns ordered from highest to lowest mean; the white label inside each column gives the number of countries behind the mean.</figcaption>
 </figure>
 </div>
-<p>Anscombe’s quartet (Anscombe 1973) shows that summary statistics can oversimplify data. The four data sets share nearly identical statistical properties: the mean of x is 9, the mean of y is 7.5, the correlation is 0.816, and every fitted regression line is y = 3 + 0.5x with an R² of 0.67. Because these numbers are only summaries, they suggest the four data sets are the same. The scatter plots, however, reveal four different structures: data set 1 is roughly linear, data set 2 is clearly curved, data set 3 is a near-perfect line distorted by one outlier, and in data set 4 a single extreme point creates the entire slope. A linear regression is only appropriate for the first case. Anscombe’s own solution is to make both calculations and graphs: scatterplot the data before any regression, plot the residuals against the fitted values after fitting, transform the variables or add a quadratic term when the relation is curved (data set 2), check whether outliers are recording errors (data set 3), and when one observation strongly influences the result, report the regression both with and without it (data set 4).</p>
-</section>
-<section id="fall.r-winter-colors" class="level2">
-<h2 class="anchored" data-anchor-id="fall.r-winter-colors">2. Fall.R — Winter Colors</h2>
-<p>I modified <code>Fall.R</code> to use a winter palette: light steel blue branches (<code>lightsteelblue1</code>) on a (<code>midnightblue</code>) background.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/winter.png" class="img-fluid figure-img" style="width:60.0%"></p>
-<figcaption>Winter tree generated with an L-system in R</figcaption>
-</figure>
+<section id="the-code" class="level3">
+<h3 class="anchored" data-anchor-id="the-code">The code</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df_chart4 <span class="ot">&lt;-</span> hpi_clean <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_hpi =</span> <span class="fu">mean</span>(hpi, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">n        =</span> dplyr<span class="sc">::</span><span class="fu">n</span>(),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups  =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">continent_ordered =</span> <span class="fu">fct_reorder</span>(continent, mean_hpi, <span class="at">.desc =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_chart4,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> continent_ordered, <span class="at">y =</span> mean_hpi, <span class="at">fill =</span> continent)) <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.68</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f"</span>, mean_hpi)),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.55</span>, <span class="at">size =</span> <span class="fl">3.6</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fl">1.8</span>, <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"n = "</span>, n)),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="fl">2.9</span>, <span class="at">colour =</span> <span class="st">"#FFFFFF"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continent</span>() <span class="sc">+</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Mean Happy Planet Index Score (0-100 Scale)"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">62</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">60</span>, <span class="at">by =</span> <span class="dv">10</span>),</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.02</span>))) <span class="sc">+</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_hackathon</span>(<span class="at">legend_pos =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>The full script is <a href="https://github.com/nedretsencavus/portfolio/blob/main/assignments/Chart4.R"><code>assignments/Chart4.R</code></a> in the team repository.</p>
 </section>
-<section id="chart-critique" class="level2">
-<h2 class="anchored" data-anchor-id="chart-critique">3. Chart Critique</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/bank_bubbles.png" class="img-fluid figure-img"></p>
-<figcaption>Market Capitalization of the World’s Biggest Banks. Source: Cairo (2012), Figure 2.8.</figcaption>
-</figure>
-</div>
-<p>This chart uses nested bubbles to compare the market value of 15 banks in January 2007 and January 2009. The problem is that people judge length much more accurately than area. For example, Société Générale’s value fell from $80 billion to $26 billion, but it is hard to tell from the bubbles that the inner circle is only about one-third of the outer one. As Cairo shows, a bar chart makes this comparison much easier. Bubble charts are popular and look attractive, but designers often choose them by following trends rather than asking what the reader needs to see.</p>
-<p>I would go one step further. The real story in this data is how much each bank lost, yet neither the bubble chart nor a simple bar chart shows the percentage decline directly. RBS lost 96% of its value, Citigroup 93%, and Barclays 92%, while Santander lost only 45%. These differences are almost invisible in the bubbles. A bar chart of percentage change, sorted from largest to smallest loss, or a dumbbell chart connecting the 2007 and 2009 values, would let readers see immediately which banks were hit hardest by the financial crisis.</p>
+<section id="three-decisions-behind-the-chart" class="level3">
+<h3 class="anchored" data-anchor-id="three-decisions-behind-the-chart">Three decisions behind the chart</h3>
+<p><strong>The bars start at zero and the axis says so.</strong> A column encodes a quantity by length, so a truncated baseline makes the lengths lie. <code>limits = c(0, 62)</code> with <code>expand = expansion(mult = c(0, 0.02))</code> pins the columns to the axis line instead of floating them above it.</p>
+<p><strong>The columns are sorted, not alphabetical.</strong> Alphabetical order would be a second, irrelevant variable competing with the one the reader came for. Sorting by the mean turns the ranking into something read at a glance, which is the cheapest comparison in Cleveland and McGill’s hierarchy — position along a common scale.</p>
+<p><strong>The chart states its own <em>n</em>.</strong> A continental mean hides how many countries it averages: Oceania’s mean rests on a handful of countries, Africa’s on dozens. The white <code>n =</code> label inside each column puts that caveat where the number is, rather than in a footnote nobody reads.</p>
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<p>Anscombe, Francis J. 1973. “Graphs in Statistical Analysis.” <em>The American Statistician</em> 27(1): 17–21.</p>
-<p>Cairo, Alberto. 2012. <em>The Functional Art: An Introduction to Information Graphics and Visualization</em>. Berkeley, CA: New Riders.</p>
 </section>
-<section id="ai-use-statement" class="level2">
-<h2 class="anchored" data-anchor-id="ai-use-statement">AI Use Statement</h2>
-<p>I used Claude (Anthropic) to guide me through running the R scripts, exporting the figures, and adding this page to my Quarto website. The analysis ideas in Sections 1 and 3 are my own; Claude helped translate and polish my English, suggested the specific solutions in Section 1, and calculated the percentage declines in Section 3. I used AI to save time and to clarify my writing in English.</p>
-<p>The full AI conversation log is available here: <a href="./ai-log-assignment1.html">AI Use Log</a>.</p>
+<section id="beyond-the-chart" class="level2">
+<h2 class="anchored" data-anchor-id="beyond-the-chart">Beyond the chart</h2>
+<p><code>Chart1.R</code> and <code>Chart3.R</code> both called <code>source("R/theme.R")</code>, but that file was not in the repository — the palette and theme lived only inside a setup chunk in the Quarto document, so the scripts could not be run on their own. I extracted the Okabe–Ito palette, the three <code>scale_*</code> helpers and <code>theme_hackathon()</code> into <code>R/theme.R</code>, which made every chart script reproducible from a clean clone and gave Chart 4 the same visual language as the other three.</p>
+<p>I also wrote the team <code>README.md</code> (reproduction steps, package list, repo layout, data source) and <code>prompts.md</code>, the AI disclosure covering my prompts for Chart 4, and generated <code>sessionInfo.txt</code>.</p>
+</section>
+<section id="ai-use" class="level2">
+<h2 class="anchored" data-anchor-id="ai-use">AI use</h2>
+<p>My AI use for this assignment is disclosed in the team repository’s <a href="https://github.com/nedretsencavus/portfolio/blob/main/prompts.md"><code>prompts.md</code></a> rather than duplicated here, so that the disclosure sits next to the code it describes.</p>
+</section>
+<section id="commits" class="level2">
+<h2 class="anchored" data-anchor-id="commits">Commits</h2>
+<p>My work is visible in the team repository’s history:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Commit</th>
+<th>What it added</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://github.com/nedretsencavus/portfolio/commit/2587b847779d2cedf31e91260d525e1ce1737c5f"><code>2587b84</code></a></td>
+<td>Chart 4 and the extracted <code>R/theme.R</code></td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/nedretsencavus/portfolio/commit/07f074fb60669eda3c8bbb41ce5ca444fd6e55b6"><code>07f074f</code></a></td>
+<td>Rotated the Chart 4 y-axis title to match Chart 1</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/nedretsencavus/portfolio/commit/bc0e2309ebc0250c452cd17c88842ce437b58be9"><code>bc0e230</code></a></td>
+<td><code>README.md</code>, <code>prompts.md</code>, <code>sessionInfo.txt</code></td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
