@@ -9,7 +9,12 @@ This page documents my use of generative AI for the
 
 ## Tool and scope
 
-OpenAI Codex desktop assistant, GPT-6 family (the exact model build/version was not exposed in the session), used October 7, 2026. AI assisted with the English draft, checking sources, writing and running the base R simulation, and preparing the Quarto website page.
+Two tools were used, on different parts of the work.
+
+| Tool | Date | What it did |
+|---|---|---|
+| **OpenAI Codex** desktop assistant, GPT-6 family (the exact build was not shown in the session) | October 7, 2026 | The first English draft, source checks, the base R overfitting simulation, and the Quarto page |
+| **Claude** (Anthropic), model `claude-opus-5`, Claude desktop app | October 6–7, 2026 | A Traditional Chinese reading guide to the two Google Flu papers, before I read them; then editing my revision of sections (a)–(c) down to the word limit |
 
 ## User prompt
 
@@ -23,8 +28,31 @@ The user supplied the Chinese reading guide `GFT_Ginsberg2009_Lazer2014_中文�
 
 ## Sources and verification limits
 
-The course preparation PDF identified the assigned EMBL keynote. The assistant consulted the original Ginsberg publication page and the full Lazer paper, checked the video description and chapter navigation, and inspected selected on-screen demonstrations. YouTube did not provide an exportable transcript; the assistant did not review the complete spoken lecture. The talk summary is limited to the observed workflow and demonstrations and should be checked against the full lecture by the student.
+The course preparation PDF identified the assigned EMBL keynote. The assistant consulted the original Ginsberg publication page and the full Lazer paper, checked the video description and chapter navigation, and inspected selected on-screen demonstrations. YouTube did not provide an exportable transcript; the assistant did not review the complete spoken lecture. The talk summary in the first draft was therefore limited to the observed workflow and demonstrations. I have since watched the lecture myself and rewritten that section; see below.
 
 The draft distinguishes candidate feature screening from the final regression's coefficient count, avoids claiming that overparameterization guarantees overfitting, and treats search-platform changes as plausible contributors rather than a proven single cause. The chart is an original fixed-seed simulation, not empirical Google or CDC data. No earlier student's work is used as a source.
 
-The submitted page began as an AI-generated draft. Publication does not establish that the student has independently read, watched, or endorsed every interpretation; the student should review the wording and examples against their own understanding.
+## Revision after reading and watching
+
+The page began as an AI-generated draft, and I did not want to submit it in that
+state. I then read Ginsberg et al. (2009) and Lazer et al. (2014) in full and
+watched the keynote, and revised all three sections from my own notes:
+
+- **(a)** I added the two concrete transparency facts — the 45 search terms were
+  never published, and Google Correlate does not return the example terms given
+  in the GFT papers.
+- **(b)** I added my own case: concatenating features from several deep learning
+  backbones for a medical-imaging classifier, where training performance was
+  excellent and test performance got worse. The example is mine; the parallel to
+  the GFT ratio is the point I wanted to make with it.
+- **(c)** I rewrote the section entirely. The earlier version listed the
+  technologies named in the talk; this one reports the two demonstrations I
+  actually watched (the gganimate render and the R Markdown knit), the
+  exploratory/expositional distinction, and the remark at 20:08 that the only
+  way to make good visualizations is to make many bad ones. The pushback is also
+  new and is my own: tidy data as a compulsory first stage assumes a table of
+  observations and variables, which is not the shape of the tensor and matrix
+  data I work with.
+
+Claude edited the revised wording and cut it to the word limit. The arguments,
+the example, and the objection in section (c) are mine.
