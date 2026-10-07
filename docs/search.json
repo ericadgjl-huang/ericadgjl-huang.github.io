@@ -292,5 +292,61 @@
     "title": "Research",
     "section": "Research Project",
     "text": "Research Project\n\nWeather Forecasting with Fourier Neural Operators\nThis project investigates the use of Fourier Neural Operators and related deep-learning architectures for spatiotemporal weather forecasting.\nData-generating process. The data are derived from ERA5, a global atmospheric reanalysis dataset produced by the European Centre for Medium-Range Weather Forecasts (ECMWF). ERA5 combines historical observations from satellites, weather stations, and other instruments with numerical weather prediction models to generate consistent estimates of atmospheric conditions over time."
+  },
+  {
+    "objectID": "assignment5.html",
+    "href": "assignment5.html",
+    "title": "Class 5: More Data, Better Questions",
+    "section": "",
+    "text": "Google Flu Trends (GFT) offered a compelling shortcut: estimate influenza-like illness from searches before conventional surveillance reports arrived. Ginsberg et al. (2009) reported estimates with roughly a one-day lag. However, searches measure information-seeking, not infections, and the CDC target itself measures the proportion of visits involving influenza-like symptoms, not laboratory-confirmed influenza incidence.\nBig data hubris means assuming that abundant digital traces can replace established measurement and analysis. Lazer et al. (2014) reported that GFT overestimated the CDC measure in 100 of 108 weeks beginning in August 2011. More searches did not repair the mismatch between searching and being ill.\nAlgorithm dynamics make that mismatch unstable. Search suggestions and symptom-related results can change what people search for even without a corresponding change in illness. Lazer and colleagues identify these platform changes as plausible contributors, rather than proving one specific update caused the failure. Deliberate manipulation by users is another possible platform-data problem, although they do not identify it as a GFT explanation.\nTransparency and replicability also matter: undisclosed search terms and incomplete methodological detail obstructed independent reconstruction. My takeaway is to preserve model versions, document data processing, and evaluate against external benchmarks. Search data can supplement surveillance, with repeated checks as behavior and platforms change."
+  },
+  {
+    "objectID": "assignment5.html#a.-big-data-analytics-pitfalls",
+    "href": "assignment5.html#a.-big-data-analytics-pitfalls",
+    "title": "Class 5: More Data, Better Questions",
+    "section": "",
+    "text": "Google Flu Trends (GFT) offered a compelling shortcut: estimate influenza-like illness from searches before conventional surveillance reports arrived. Ginsberg et al. (2009) reported estimates with roughly a one-day lag. However, searches measure information-seeking, not infections, and the CDC target itself measures the proportion of visits involving influenza-like symptoms, not laboratory-confirmed influenza incidence.\nBig data hubris means assuming that abundant digital traces can replace established measurement and analysis. Lazer et al. (2014) reported that GFT overestimated the CDC measure in 100 of 108 weeks beginning in August 2011. More searches did not repair the mismatch between searching and being ill.\nAlgorithm dynamics make that mismatch unstable. Search suggestions and symptom-related results can change what people search for even without a corresponding change in illness. Lazer and colleagues identify these platform changes as plausible contributors, rather than proving one specific update caused the failure. Deliberate manipulation by users is another possible platform-data problem, although they do not identify it as a GFT explanation.\nTransparency and replicability also matter: undisclosed search terms and incomplete methodological detail obstructed independent reconstruction. My takeaway is to preserve model versions, document data processing, and evaluate against external benchmarks. Search data can supplement surveillance, with repeated checks as behavior and platforms change."
+  },
+  {
+    "objectID": "assignment5.html#b.-overfitting-and-overparameterization",
+    "href": "assignment5.html#b.-overfitting-and-overparameterization",
+    "title": "Class 5: More Data, Better Questions",
+    "section": "b. Overfitting and overparameterization",
+    "text": "b. Overfitting and overparameterization\nOverfitting occurs when a fitted procedure captures accidental features of its training sample and consequently generalizes poorly. Overparameterization describes a model with more adjustable parameters than the available observations can adequately constrain; in an interpolating regression setting, the parameter count can exceed the sample size. It concerns capacity, whereas overfitting concerns performance. Regularization and other constraints can prevent a highly parameterized model from generalizing badly.\nGFT illustrates a related danger in feature selection. The original procedure screened about 50 million candidate queries against a limited CDC series and combined 45 selected queries into one predictor. Its final regression had an intercept and slope, not 50 million fitted coefficients (Ginsberg et al., 2009). Counting only those two coefficients nevertheless misses the flexibility spent selecting the predictor. Lazer et al. describe 1,152 fitting observations and irrelevant seasonal candidates such as high-school basketball. Searching so widely creates opportunities to select coincidences.\nThis distinction changes how I would validate the analysis: repeat feature selection inside training folds, reserve later time periods for evaluation, and compare with simple seasonal baselines. A successful historical test cannot guarantee robustness to a changed search platform. Overfitting and a shifting data-generating process can coexist.\nThe R simulation below isolates overfitting using noisy quadratic data. Training error falls with polynomial degree, while error on independently generated test data can rise. These are simulated observations, not GFT estimates; the curve illustrates a mechanism rather than reconstructing Google’s failure.\n\n\n\nTraining and independent test error for polynomial regressions fitted to simulated quadratic data.\n\n\nReproduce the chart with this base R script. Run it from the website project directory."
+  },
+  {
+    "objectID": "assignment5.html#c.-wickham-talk-summary",
+    "href": "assignment5.html#c.-wickham-talk-summary",
+    "title": "Class 5: More Data, Better Questions",
+    "section": "c. Wickham talk summary",
+    "text": "c. Wickham talk summary\nIn his 2019 EMBL keynote, Wickham presents visualization as part of an iterative programming workflow. Technologies include R, RStudio, tidyverse tools, ggplot2, and R Markdown. Techniques include reshaping tidy data, mapping variables to aesthetics, layering plots, adjusting scales, handling overplotting, faceting, animation, and using functions to reduce repetition. His country income and life-expectancy example makes these choices concrete: colour and size add information, while a logarithmic income scale changes what differences are visible.\nThe larger point is that reusable components and readable code make exploration easier, while executable reports connect explanations to computations. Visualization and modeling can inform each other: a residual plot may reveal a pattern that a single error statistic conceals.\nI would qualify the emphasis on programming: reproducible code can faithfully reproduce a flawed measurement. For example, a polished chart of campus flu-related searches could reflect an awareness campaign rather than an outbreak. Wickham’s workflow helps expose analytical choices, but the GFT case shows why those choices still require substantive knowledge and independent validation.\n\nAI assistance: drafting, source checks, and chart code were assisted by Codex. See the AI use record for the prompt, model information, and verification limits."
+  },
+  {
+    "objectID": "ai-log-assignment5.html",
+    "href": "ai-log-assignment5.html",
+    "title": "AI Use Record: Class 5 Note",
+    "section": "",
+    "text": "OpenAI Codex desktop assistant, GPT-6 family (the exact model build/version was not exposed in the session), used October 7, 2026. AI assisted with the English draft, checking sources, writing and running the base R simulation, and preparing the Quarto website page."
+  },
+  {
+    "objectID": "ai-log-assignment5.html#tool-and-scope",
+    "href": "ai-log-assignment5.html#tool-and-scope",
+    "title": "AI Use Record: Class 5 Note",
+    "section": "",
+    "text": "OpenAI Codex desktop assistant, GPT-6 family (the exact model build/version was not exposed in the session), used October 7, 2026. AI assisted with the English draft, checking sources, writing and running the base R simulation, and preparing the Quarto website page."
+  },
+  {
+    "objectID": "ai-log-assignment5.html#user-prompt",
+    "href": "ai-log-assignment5.html#user-prompt",
+    "title": "AI Use Record: Class 5 Note",
+    "section": "User prompt",
+    "text": "User prompt\nThe user supplied the Chinese reading guide GFT_Ginsberg2009_Lazer2014_中文導讀.md and this request:\n\nPost one note as a Quarto page on your GitHub website (about one page, 500–700 words), in your own words and with sources cited, in three short sections: a. Big data analytics pitfalls. Use Google Flu Trends as your case. Address at least “big data hubris,” algorithm dynamics (the data-generating process changes under you), and transparency and replicability. b. Overfitting and overparameterization. Define both and explain how they apply to Google Flu Trends (millions of candidate search terms screened against a limited set of CDC flu observations). Optional bonus: include one R chart that shows overfitting, e.g., training vs. test error as polynomial degree increases. c. Wickham talk summary (from item 2b). 幫我做這些"
+  },
+  {
+    "objectID": "ai-log-assignment5.html#sources-and-verification-limits",
+    "href": "ai-log-assignment5.html#sources-and-verification-limits",
+    "title": "AI Use Record: Class 5 Note",
+    "section": "Sources and verification limits",
+    "text": "Sources and verification limits\nThe course preparation PDF identified the assigned EMBL keynote. The assistant consulted the original Ginsberg publication page and the full Lazer paper, checked the video description and chapter navigation, and inspected selected on-screen demonstrations. YouTube did not provide an exportable transcript; the assistant did not review the complete spoken lecture. The talk summary is limited to the observed workflow and demonstrations and should be checked against the full lecture by the student.\nThe draft distinguishes candidate feature screening from the final regression’s coefficient count, avoids claiming that overparameterization guarantees overfitting, and treats search-platform changes as plausible contributors rather than a proven single cause. The chart is an original fixed-seed simulation, not empirical Google or CDC data. No earlier student’s work is used as a source.\nThe submitted page began as an AI-generated draft. Publication does not establish that the student has independently read, watched, or endorsed every interpretation; the student should review the wording and examples against their own understanding."
   }
 ]

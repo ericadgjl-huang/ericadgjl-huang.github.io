@@ -1,0 +1,27 @@
+---
+title: "AI Use Record: Class 5 Note"
+date: 2026-10-07
+engine: markdown
+---
+
+## Tool and scope
+
+OpenAI Codex desktop assistant, GPT-6 family (the exact model build/version was not exposed in the session), used October 7, 2026. AI assisted with the English draft, checking sources, writing and running the base R simulation, and preparing the Quarto website page.
+
+## User prompt
+
+The user supplied the Chinese reading guide `GFT_Ginsberg2009_Lazer2014_中文導讀.md` and this request:
+
+> Post one note as a Quarto page on your GitHub website (about one page, 500–700 words), in your own words and with sources cited, in three short sections:
+> a. Big data analytics pitfalls. Use Google Flu Trends as your case. Address at least “big data hubris,” algorithm dynamics (the data-generating process changes under you), and transparency and replicability.
+> b. Overfitting and overparameterization. Define both and explain how they apply to Google Flu Trends (millions of candidate search terms screened against a limited set of CDC flu observations). Optional bonus: include one R chart that shows overfitting, e.g., training vs. test error as polynomial degree increases.
+> c. Wickham talk summary (from item 2b).
+> 幫我做這些
+
+## Sources and verification limits
+
+The course preparation PDF identified the assigned EMBL keynote. The assistant consulted the original Ginsberg publication page and the full Lazer paper, checked the video description and chapter navigation, and inspected selected on-screen demonstrations. YouTube did not provide an exportable transcript; the assistant did not review the complete spoken lecture. The talk summary is limited to the observed workflow and demonstrations and should be checked against the full lecture by the student.
+
+The draft distinguishes candidate feature screening from the final regression's coefficient count, avoids claiming that overparameterization guarantees overfitting, and treats search-platform changes as plausible contributors rather than a proven single cause. The chart is an original fixed-seed simulation, not empirical Google or CDC data. No earlier student's work is used as a source.
+
+The submitted page began as an AI-generated draft. Publication does not establish that the student has independently read, watched, or endorsed every interpretation; the student should review the wording and examples against their own understanding.

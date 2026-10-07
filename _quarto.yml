@@ -23,12 +23,16 @@ website:
             text: "Assignment 3: Anatomy of a Chart"
           - href: assignment4.qmd
             text: "Assignment 4: Chart Hackathon (Team)"
+          - href: assignment5.qmd
+            text: "Class 5: Big Data & Visualization"
       - text: AI Use Logs
         menu:
           - href: ai-log-assignment1.qmd
             text: "Assignment 1 Log"
           - href: ai-log-assignment2.qmd
             text: "Assignment 2 Log"
+          - href: ai-log-assignment5.qmd
+            text: "Class 5 Log"
       - href: cv.qmd
         text: CV
     right:
