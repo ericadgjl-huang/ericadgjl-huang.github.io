@@ -1,0 +1,160 @@
+---
+title: "Class 2: Huang's Data Guide"
+subtitle: "A personal data-inspection checklist adapted from the Quartz *Bad Data Guide*."
+toc: true
+engine: markdown
+---
+
+A personal checklist for inspecting a dataset before I analyze or visualize it.
+Adapted from the Quartz *Bad Data Guide* (Christopher Groskopf and contributors,
+CC BY-NC 4.0) and organized by **who can fix the problem**, with extra items for
+the two kinds of data I work with: **gridded weather reanalysis** and **medical
+imaging datasets**.
+
+Prepared for EPPS 6356 Data Visualization (Prepare for Class 2), Fall 2026.
+
+---
+
+## How I use this
+
+I do not walk through all 60 items every time. I run **Tier 1** on every new
+dataset (15 minutes), then go to the section that matches whatever looks wrong.
+
+**Tier 1 — always, before anything else**
+
+- [ ] How many rows and columns do I have, and how many did I expect?
+- [ ] What does one row represent? (one station-hour? one patient? one image?)
+- [ ] Print `summary()` / `describe()` for every column: min, max, mean, NA count.
+- [ ] Plot every variable at least once — histogram for continuous, bar for
+      categorical, time series for anything dated. *(Anscombe 1973: summary
+      statistics alone will not show me the structure.)*
+- [ ] Where did this file come from, who made it, and when was it last updated?
+
+---
+
+## 1. Problems my source should solve
+
+*If these appear, I go back and ask, rather than patching the data myself.*
+
+- [ ] **Missing values** — are blanks / `null` "no measurement taken", "refused
+      to answer", or "zero"? These are not the same thing.
+- [ ] **Missing values replaced by zeros** — a run of `0` or `-1` in a numeric
+      column, `1970-01-01` or `1969-12-31` in a date column, `0°N 0°E` in
+      coordinates (Null Island). *Very common in sensor data.*
+- [ ] **Rows or values duplicated** — is a repeated ID a real correction, or a
+      merge that ran twice?
+- [ ] **Data are obviously incomplete** — 48 of 50 states, 11 of 12 months,
+      a patient cohort missing a whole site.
+- [ ] **Inconsistent spelling / name order / date formats** — a sign the data
+      were typed by a human.
+- [ ] **Units are not labeled** — °C or K? mm or inches? mm or pixels?
+- [ ] **Categories are badly chosen** or **field names are ambiguous**.
+- [ ] **The provenance is not documented**.
+- [ ] **Values are impossible** (negative rainfall, age 200, patient height 3 m).
+- [ ] **Data are too coarse** — monthly means when I need daily; county totals
+      when I need tracts.
+- [ ] **The published total does not match the file** — recount and compare.
+- [ ] **The file has exactly 65,536 rows / 255 columns** — it was truncated by
+      an old Excel limit.
+- [ ] **Text became numbers, or numbers became text** — leading zeros gone,
+      IDs in scientific notation.
+
+## 2. Problems I should solve myself
+
+- [ ] **Garbled characters (mojibake)** — encoding is not UTF-8; fix the encoding
+      rather than the characters.
+- [ ] **Line endings are broken** — CRLF vs LF. *I hit exactly this in my Quarto
+      repository, where every file showed as modified.*
+- [ ] **The data are locked inside a PDF** — extract with a tool, never retype.
+- [ ] **The data are too granular** — aggregate rather than plotting 10 million
+      points.
+- [ ] **The data were entered by hand** — spot-check a sample against the source.
+- [ ] **Formats and annotations are mixed into the cells** — footnote markers,
+      thousands separators, "N/A" as text.
+- [ ] **My calculation ignored missing values** — did the mean silently drop
+      them, or treat them as zero?
+- [ ] **The sample is not random**, or **is biased** toward one group.
+- [ ] **The margin of error is too large, or is unknown** — if I cannot state it,
+      I say so in the chart.
+- [ ] **The data were edited by hand** — keep the original file untouched and
+      script every change, so the cleaning is reproducible.
+- [ ] **Inflation, seasonality, or population growth distorts the comparison** —
+      adjust before comparing across years.
+- [ ] **The time frame or the reference category was changed mid-series** — a
+      break in a time series is not a trend.
+
+## 3. Problems an expert should help me solve
+
+- [ ] **The author is not trustworthy** — who benefits from this result?
+- [ ] **The collection process is opaque** — no methodology section, no codebook.
+- [ ] **The data are suspiciously precise** — 6 decimal places from an instrument
+      accurate to 0.5.
+- [ ] **There are unexplained outliers** — real event, or sensor failure?
+- [ ] **The index is meaningless** — composite indices hide their weights.
+      *(The Happy Planet Index in Assignment 2 is exactly this kind of number.)*
+- [ ] **The significance test looks wrong** — p-hacking, no correction for
+      multiple comparisons.
+- [ ] **The data violate Benford's Law**, or are **too good to be true** —
+      possible fabrication.
+
+## 4. Problems a programmer should help me solve
+
+- [ ] **Data were merged on the wrong key** — row counts change after a join;
+      always check before and after.
+- [ ] **The data are inside scanned images** — OCR is needed, and OCR makes
+      mistakes.
+
+---
+
+## 5. My own additions
+
+### Weather and climate data (ERA5, station records)
+
+- [ ] **Time zone and reference time** — is the timestamp UTC or local? Is
+      "daily" midnight-to-midnight in which zone?
+- [ ] **Gaps in the series** — a missing hour is invisible in a line chart
+      because the line simply connects across it. Count gaps explicitly.
+- [ ] **Units and sign conventions** — K vs °C, Pa vs hPa, accumulated vs
+      instantaneous fields, wind direction "from" vs "toward".
+- [ ] **Grid and resolution** — what is the cell size, and does the grid match
+      between variables before I stack them?
+- [ ] **Longitude convention** — 0–360 or −180–180? A wrong convention silently
+      moves the map.
+- [ ] **Reanalysis is a model output, not an observation** — it is interpolated,
+      and should be described that way in captions.
+- [ ] **Version changes** — a re-release of the same product can change values
+      for past dates.
+
+### Medical imaging datasets (X-ray)
+
+- [ ] **Label definitions** — what exactly counts as positive, and who decided?
+- [ ] **Label source** — expert reading, or text mined from reports?
+- [ ] **Multiple images per patient** — splitting by image instead of by patient
+      leaks data between train and test sets.
+- [ ] **Site and device differences** — resolution, contrast, and orientation
+      vary by hospital and scanner.
+- [ ] **Class imbalance** — a rare finding makes accuracy meaningless.
+- [ ] **Preprocessing already applied** — has the image been cropped, windowed,
+      or normalized before I received it?
+- [ ] **Ordinal labels treated as categories** — severity grades have an order,
+      and the visualization should keep it.
+
+### Before I publish a chart
+
+- [ ] Does the chart state its **source** and the **date** of the data?
+- [ ] Are **units** on the axis?
+- [ ] Does the axis start at zero, and if not, is that justified and visible?
+- [ ] Is **uncertainty** shown, or at least mentioned?
+- [ ] Would the chart still be honest if someone read only the title?
+
+---
+
+## Source
+
+Groskopf, Christopher, and contributors. *The Quartz Guide to Bad Data.*
+Quartz, 2015–. https://github.com/Quartz/bad-data-guide
+Licensed under Creative Commons Attribution-NonCommercial 4.0 International.
+
+---
+
+*AI assistance for this note is documented in the [Class AI use log](ai-log-class2.qmd).*

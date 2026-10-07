@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>CV – Huang, SHAO-KANG(Eric)</title>
+<title>Assignment 3: AI Use Log – Huang, SHAO-KANG(Eric)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -198,7 +198,7 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="./cv.html" aria-current="page"> 
+    <a class="nav-link" href="./cv.html"> 
 <span class="menu-text">CV</span></a>
   </li>  
 </ul>
@@ -224,15 +224,26 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#tool-information" id="toc-tool-information" class="nav-link active" data-scroll-target="#tool-information">Tool Information</a></li>
+  <li><a href="#how-and-why-i-used-ai" id="toc-how-and-why-i-used-ai" class="nav-link" data-scroll-target="#how-and-why-i-used-ai">How and Why I Used AI</a></li>
+  <li><a href="#what-claude-corrected" id="toc-what-claude-corrected" class="nav-link" data-scroll-target="#what-claude-corrected">What Claude Corrected</a></li>
+  <li><a href="#editing-my-own-writing" id="toc-editing-my-own-writing" class="nav-link" data-scroll-target="#editing-my-own-writing">Editing My Own Writing</a></li>
+  <li><a href="#what-is-my-own" id="toc-what-is-my-own" class="nav-link" data-scroll-target="#what-is-my-own">What Is My Own</a></li>
+  <li><a href="#a-workflow-problem-worth-recording" id="toc-a-workflow-problem-worth-recording" class="nav-link" data-scroll-target="#a-workflow-problem-worth-recording">A Workflow Problem Worth Recording</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">CV</h1>
+<h1 class="title">Assignment 3: AI Use Log</h1>
 </div>
 
 
@@ -249,9 +260,107 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>My curriculum vitae will be available here soon.</p>
+<p>This page documents my use of generative AI for <a href="./assignment3.html">EPPS 6356 Assignment 3</a>, following the course AI policy. Logs for the other assignments are on their own pages.</p>
+<section id="tool-information" class="level2">
+<h2 class="anchored" data-anchor-id="tool-information">Tool Information</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Tool</strong></td>
+<td>Claude (Anthropic), model <code>claude-opus-5</code>, used in the Claude desktop app</td>
+</tr>
+<tr class="even">
+<td><strong>Dates</strong></td>
+<td>October 1–2, 2026</td>
+</tr>
+<tr class="odd">
+<td><strong>Language</strong></td>
+<td>I asked in Traditional Chinese; the drafted English text and code comments came back in English.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="how-and-why-i-used-ai" class="level2">
+<h2 class="anchored" data-anchor-id="how-and-why-i-used-ai">How and Why I Used AI</h2>
+<ul>
+<li><strong>Planning:</strong> breaking the five questions into an order I could finish in one evening, and explaining what “document a chart” asks for.</li>
+<li><strong>Checking my understanding of base graphics:</strong> I ran the code myself and wrote down what I thought each call did; Claude corrected four of those statements (listed below).</li>
+<li><strong>Reviewing my scripts:</strong> catching errors in the ggplot version before I ran it.</li>
+<li><strong>Editing my own draft:</strong> tightening the paragraph I wrote for the replication question.</li>
+<li><strong>Assembly:</strong> turning the finished figures and text into <code>assignment3.qmd</code>, with the figure captions and alt text.</li>
+</ul>
+</section>
+<section id="what-claude-corrected" class="level2">
+<h2 class="anchored" data-anchor-id="what-claude-corrected">What Claude Corrected</h2>
+<p>These are places where I had written something and Claude told me it was wrong:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>My statement</th>
+<th>The correction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Calling <code>text()</code> before <code>plot()</code> just does nothing</td>
+<td>It raises an error — there is no plot region to draw into yet</td>
+</tr>
+<tr class="even">
+<td><code>plot()</code> does “a few things”</td>
+<td>It does seven: new plot, window, points, axes, box, labels, title</td>
+</tr>
+<tr class="odd">
+<td>My reasoning for why <code>freq = FALSE</code> was needed</td>
+<td>My reasoning was reversed</td>
+</tr>
+<tr class="even">
+<td><code>boxplot(add = TRUE)</code> is a low-level function</td>
+<td><code>boxplot()</code> is a high-level function being used in a low-level way</td>
+</tr>
+</tbody>
+</table>
+<p>Claude also spotted that a paragraph of English I had typed into <code>04_ggplot_version.R</code> had <code>##</code> only on its first line, which would have broken <code>source()</code> on the whole script.</p>
+</section>
+<section id="editing-my-own-writing" class="level2">
+<h2 class="anchored" data-anchor-id="editing-my-own-writing">Editing My Own Writing</h2>
+<p>For the replication question I wrote a paragraph first and asked Claude to revise it. The changes it made:</p>
+<ul>
+<li>“linear variance” → “relationship” (I had used a term that does not mean what I wanted it to mean)</li>
+<li>“slightly skewed” → “dragged away from it” (the effect is not slight)</li>
+<li>added the concrete detail that <strong>every x value is 8 except one observation at 19</strong>, which is the actual reason the fit moves</li>
+</ul>
+<p>The argument of the paragraph is mine; the wording above is the edit.</p>
+</section>
+<section id="what-is-my-own" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-my-own">What Is My Own</h2>
+<ul>
+<li>Running every script and producing every figure.</li>
+<li>Choosing which panel of Murrell’s chapter 1 to document — I picked the scatterplot panel because it is the only one built entirely from <code>plot.new()</code> and low-level calls.</li>
+<li>The colour choice: I tried several and settled on <code>magenta3</code>.</li>
+<li>Deciding to keep the previous week’s COVID code for question 5 rather than rewrite it under time pressure, and saying so on the page.</li>
+<li>The substance of the replication paragraph.</li>
+</ul>
+</section>
+<section id="a-workflow-problem-worth-recording" class="level2">
+<h2 class="anchored" data-anchor-id="a-workflow-problem-worth-recording">A Workflow Problem Worth Recording</h2>
+<p>When Claude edited <code>assignment3.qmd</code> on disk while the file was open in RStudio, RStudio offered to save its own cached copy over the change. Saving would have silently reverted the edit. The fix is to choose <strong>Don’t Save</strong>, close the tab, and reopen the file from the Files pane. I mention it because it is the kind of error that leaves no trace in the output.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

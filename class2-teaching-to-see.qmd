@@ -1,0 +1,116 @@
+---
+title: "Class 2: Review of *Teaching to See*"
+subtitle: "Notes on Inge Druckrey's teaching, and what it implies for charts."
+toc: true
+engine: markdown
+---
+
+Film: *Teaching to See*, directed by Andrei Severny, produced by Edward Tufte,
+on the teaching of designer Inge Druckrey (37 min).
+
+---
+
+## Opening impression
+
+The image that stayed with me was the Beethoven poster, where the letter **E**
+is drawn together with the lines of a musical staff. I did not see the staff at
+first; it appeared only after I had been looking for a while. That is the point
+of the film in one image: visual design is not decoration handed to the viewer
+all at once. Some things have to be looked at for a while before the details
+come out. Druckrey trains exactly this kind of looking.
+
+## 1. Thin/thick and curve/linearity
+
+The exercises focus on the thick and thin parts of a letter. At first I did not
+understand why a stroke would be thicker at the ends and thinner in the middle,
+but the result looks balanced and calm rather than stiff. The variation comes
+from the writing tool: a broad pen held at a fixed angle produces a wide mark
+in one direction and a narrow one in the other, so the thickness of a curve
+changes continuously as it turns. Where a straight stem meets a curve, that
+transition has to be smoothed by hand, or the letter looks broken. Redrawing
+the same letter many times is how the students learn to feel where the weight
+should go.
+
+The work is also about **space**, not only about the strokes themselves. The Roman alphabet is remarkably symmetrical, and when the
+students modify an existing typeface, every letter has to be adjusted so that
+the spaces inside and between the letters stay even. Design has to leave room.
+
+## 2. The eye and the hand
+
+Holmes separates writing into two opposing aspects. The eye is the conservative
+one: "the eye wants to look at an orderly set of marks on a page — the eye wants
+pattern," something regular and reliable. The hand is "the radical aspect of
+writing": it wants to move, and to "write faster and faster." Writing is the
+negotiation between them.
+
+A signature is where that tension becomes visible. It is produced too quickly
+for the eye to impose order on it, so what remains is the trace of the hand —
+which is exactly why a signature is unique and hard to forget. The letterform
+exercises in the film work in the opposite direction: they slow the hand down
+until the eye can lead.
+
+## 3. Calligraphy, Steve Jobs, and the Macintosh
+
+Jobs took a calligraphy class, and the film connects that class to the
+typography of the Macintosh. What he learned was not only that letters can be
+beautiful. Calligraphy teaches judgment about proportion, spacing, and the
+small visual corrections that make a line of text read well. When the Macintosh
+shipped with proportionally spaced fonts and careful letterforms, it carried
+that judgment into a machine, and from there into everything that was made with
+it.
+
+## 4. Geometric accuracy versus optical accuracy
+
+Geometric accuracy and optical accuracy are not the same thing. A letter can be
+measured and constructed so that every dimension is exactly equal, and it will
+still look wrong to the eye — a little heavy here, a little short there. The eye
+does not measure; it compares, and it is easily misled by shape. So the designer
+deliberately introduces small deviations from the geometry until the letter
+*looks* right, and at that point the viewer accepts it as correct without
+noticing that anything was changed.
+
+The thinning of a stem toward its middle, which I described above, is one of
+these corrections: geometrically the stroke is no longer of even width, but
+optically it reads as straighter and steadier than a stroke of constant width.
+
+The same judgment governs the alphabet as a whole. In the film the students work
+toward three things at once. First, the letters have to **share a common
+structure**, so that they read as one alphabet rather than a collection of
+separate drawings. Second, each letter has to stay **different enough from every
+other letter** to remain legible — the shared structure cannot be pushed so far
+that an *a* starts to look like an *o*. Third, the **spacing between letters**
+has to produce an even rhythm and an even color on the page.
+
+Spacing is the clearest case of optical over geometric accuracy. Equal measured
+gaps do not look equal, because the shapes on either side differ: the space
+between two straight stems and the space beside a round or diagonal letter are
+measured the same and seen differently. The spacing is therefore set by eye
+until the line of text has an even texture, not by making the distances equal.
+
+This is why Druckrey's students correct their letters by eye rather than by
+ruler. Being measurably right is not the goal; being read correctly is.
+
+## What this means for data visualization
+
+Druckrey's students spend hours on one letter, redrawing it and adjusting the
+space around it. That is the same work we do when we choose an axis range, a
+color, or how much white space a chart gets. In both cases the measurement is
+not the goal — being read correctly is. A chart can be geometrically accurate,
+with every value plotted exactly, and still be read wrongly, in the same way
+that a geometrically perfect letter can look wrong. Anscombe's quartet is the
+statistical version of the same lesson, and the bubble chart I critiqued in
+Assignment 1 is the visual one: the circles were scaled correctly by area, yet
+readers still could not see how much the banks had lost.
+
+Learning to see is learning to check what the reader's eye actually receives,
+not what the number says should be there.
+
+---
+
+*Note: I drafted this review from my own notes after watching the film. Claude
+(Anthropic) helped organize the notes and polish the English; the sections
+marked above were written after re-watching the relevant parts of the film.*
+
+---
+
+*AI assistance for this note is documented in the [Class AI use log](ai-log-class2.qmd).*

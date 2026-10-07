@@ -26,9 +26,9 @@ This distinction changes how I would validate the analysis: repeat feature selec
 
 The R simulation below isolates overfitting using noisy quadratic data. Training error falls with polynomial degree, while error on independently generated test data can rise. These are simulated observations, not GFT estimates; the curve illustrates a mechanism rather than reconstructing Google's failure.
 
-![Training and independent test error for polynomial regressions fitted to simulated quadratic data.](images/assignment5-overfitting.png){fig-alt="Line chart comparing training and independent test RMSE across polynomial degrees 1 through 12. The training curve falls while the test curve rises at higher degrees."}
+![Training and independent test error for polynomial regressions fitted to simulated quadratic data.](images/class5-overfitting.png){fig-alt="Line chart comparing training and independent test RMSE across polynomial degrees 1 through 12. The training curve falls while the test curve rises at higher degrees."}
 
-[Reproduce the chart with this base R script](scripts/assignment5-overfitting.R). Run it from the website project directory.
+[Reproduce the chart with this base R script](scripts/class5-overfitting.R). Run it from the website project directory.
 
 ## c. Wickham talk summary
 
@@ -40,4 +40,4 @@ I would qualify the emphasis on programming: reproducible code can faithfully re
 
 ---
 
-*AI assistance: drafting, source checks, and chart code were assisted by Codex. See the [AI use record](ai-log-assignment5.qmd) for the prompt, model information, and verification limits.*
+*AI assistance: drafting, source checks, and chart code were assisted by Codex. See the [AI use record](ai-log-class5.qmd) for the prompt, model information, and verification limits.*

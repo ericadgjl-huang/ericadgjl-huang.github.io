@@ -1,4 +1,4 @@
-# Reproduce from the website root: Rscript scripts/assignment5-overfitting.R
+# Reproduce from the website root: Rscript scripts/class5-overfitting.R
 # Base R only. Independent noisy samples from the same quadratic process.
 set.seed(6356)
 train <- data.frame(x = seq(-1, 1, length.out = 35))
@@ -12,7 +12,7 @@ errors <- t(vapply(degrees, function(d) {
     test = sqrt(mean((test$y - predict(fit, newdata = test))^2)))
 }, numeric(2)))
 dir.create("images", showWarnings = FALSE)
-png("images/assignment5-overfitting.png", width = 1500, height = 850, res = 180)
+png("images/class5-overfitting.png", width = 1500, height = 850, res = 180)
 par(mar = c(4.4, 4.5, 3.7, 1), las = 1, family = "sans")
 matplot(degrees, errors, type = "b", pch = c(16, 17), lty = c(1, 2),
         col = c("#0072B2", "#D55E00"), lwd = 2, xaxt = "n",

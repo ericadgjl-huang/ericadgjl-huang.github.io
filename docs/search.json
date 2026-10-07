@@ -21,193 +21,95 @@
     "text": "Research Interests\n\nDeep learning architectures for computer vision and medical image analysis.\nSpatiotemporal neural networks for weather forecasting (e.g., Fourier Neural Operators)."
   },
   {
-    "objectID": "assignment4.html",
-    "href": "assignment4.html",
-    "title": "EPPS 6356 Assignment 4: Chart Hackathon (Team)",
+    "objectID": "class5.html",
+    "href": "class5.html",
+    "title": "Class 5: More Data, Better Questions",
     "section": "",
-    "text": "Assignment 4 was a team deliverable. Our group’s portfolio site holds the finished product; this page records the part I built and how it was made."
+    "text": "Google Flu Trends (GFT) offered a compelling shortcut: estimate influenza-like illness from searches before conventional surveillance reports arrived. Ginsberg et al. (2009) reported estimates with roughly a one-day lag. However, searches measure information-seeking, not infections, and the CDC target itself measures the proportion of visits involving influenza-like symptoms, not laboratory-confirmed influenza incidence.\nBig data hubris means assuming that abundant digital traces can replace established measurement and analysis. Lazer et al. (2014) reported that GFT overestimated the CDC measure in 100 of 108 weeks beginning in August 2011. More searches did not repair the mismatch between searching and being ill.\nAlgorithm dynamics make that mismatch unstable. Search suggestions and symptom-related results can change what people search for even without a corresponding change in illness. Lazer and colleagues identify these platform changes as plausible contributors, rather than proving one specific update caused the failure. Deliberate manipulation by users is another possible platform-data problem, although they do not identify it as a GFT explanation.\nTransparency and replicability also matter: undisclosed search terms and incomplete methodological detail obstructed independent reconstruction. My takeaway is to preserve model versions, document data processing, and evaluate against external benchmarks. Search data can supplement surveillance, with repeated checks as behavior and platforms change."
   },
   {
-    "objectID": "assignment4.html#chart-4-one-variable-across-a-few-items",
-    "href": "assignment4.html#chart-4-one-variable-across-a-few-items",
-    "title": "EPPS 6356 Assignment 4: Chart Hackathon (Team)",
-    "section": "Chart 4: one variable across a few items",
-    "text": "Chart 4: one variable across a few items\nAbela’s Chart Thought-Starter sends a comparison of one variable among a few items to a column chart, so that is what the brief called for. The variable is the Happy Planet Index; the items are the five continents.\n\n\n\nMean Happy Planet Index by continent, 2024. Columns ordered from highest to lowest mean; the white label inside each column gives the number of countries behind the mean.\n\n\n\nThe code\n\ndf_chart4 &lt;- hpi_clean |&gt;\n  group_by(continent) |&gt;\n  summarise(mean_hpi = mean(hpi, na.rm = TRUE),\n            n        = dplyr::n(),\n            .groups  = \"drop\") |&gt;\n  mutate(continent_ordered = fct_reorder(continent, mean_hpi, .desc = TRUE))\n\np4 &lt;- ggplot(df_chart4,\n             aes(x = continent_ordered, y = mean_hpi, fill = continent)) +\n  geom_col(width = 0.68, show.legend = FALSE) +\n  geom_text(aes(label = sprintf(\"%.1f\", mean_hpi)),\n            vjust = -0.55, size = 3.6, fontface = \"bold\") +\n  geom_text(aes(y = 1.8, label = paste0(\"n = \", n)),\n            size = 2.9, colour = \"#FFFFFF\", fontface = \"bold\") +\n  scale_fill_continent() +\n  scale_y_continuous(name = \"Mean Happy Planet Index Score (0-100 Scale)\",\n                     limits = c(0, 62), breaks = seq(0, 60, by = 10),\n                     expand = expansion(mult = c(0, 0.02))) +\n  theme_hackathon(legend_pos = \"none\")\n\nThe full script is assignments/Chart4.R in the team repository.\n\n\nThree decisions behind the chart\nThe bars start at zero and the axis says so. A column encodes a quantity by length, so a truncated baseline makes the lengths lie. limits = c(0, 62) with expand = expansion(mult = c(0, 0.02)) pins the columns to the axis line instead of floating them above it.\nThe columns are sorted, not alphabetical. Alphabetical order would be a second, irrelevant variable competing with the one the reader came for. Sorting by the mean turns the ranking into something read at a glance, which is the cheapest comparison in Cleveland and McGill’s hierarchy — position along a common scale.\nThe chart states its own n. A continental mean hides how many countries it averages: Oceania’s mean rests on a handful of countries, Africa’s on dozens. The white n = label inside each column puts that caveat where the number is, rather than in a footnote nobody reads."
-  },
-  {
-    "objectID": "assignment4.html#beyond-the-chart",
-    "href": "assignment4.html#beyond-the-chart",
-    "title": "EPPS 6356 Assignment 4: Chart Hackathon (Team)",
-    "section": "Beyond the chart",
-    "text": "Beyond the chart\nChart1.R and Chart3.R both called source(\"R/theme.R\"), but that file was not in the repository — the palette and theme lived only inside a setup chunk in the Quarto document, so the scripts could not be run on their own. I extracted the Okabe–Ito palette, the three scale_* helpers and theme_hackathon() into R/theme.R, which made every chart script reproducible from a clean clone and gave Chart 4 the same visual language as the other three.\nI also wrote the team README.md (reproduction steps, package list, repo layout, data source) and prompts.md, the AI disclosure covering my prompts for Chart 4, and generated sessionInfo.txt."
-  },
-  {
-    "objectID": "assignment4.html#ai-use",
-    "href": "assignment4.html#ai-use",
-    "title": "EPPS 6356 Assignment 4: Chart Hackathon (Team)",
-    "section": "AI use",
-    "text": "AI use\nMy AI use for this assignment is disclosed in the team repository’s prompts.md rather than duplicated here, so that the disclosure sits next to the code it describes."
-  },
-  {
-    "objectID": "assignment4.html#commits",
-    "href": "assignment4.html#commits",
-    "title": "EPPS 6356 Assignment 4: Chart Hackathon (Team)",
-    "section": "Commits",
-    "text": "Commits\nMy work is visible in the team repository’s history:\n\n\n\nCommit\nWhat it added\n\n\n\n\n2587b84\nChart 4 and the extracted R/theme.R\n\n\n07f074f\nRotated the Chart 4 y-axis title to match Chart 1\n\n\nbc0e230\nREADME.md, prompts.md, sessionInfo.txt"
-  },
-  {
-    "objectID": "assignment2.html",
-    "href": "assignment2.html",
-    "title": "EPPS 6356 Assignment 2: Base R Graphics",
+    "objectID": "class5.html#a.-big-data-analytics-pitfalls",
+    "href": "class5.html#a.-big-data-analytics-pitfalls",
+    "title": "Class 5: More Data, Better Questions",
     "section": "",
-    "text": "The data come from the Hot or Cool Institute’s Happy Planet Index 2026 public data set, available through the Happy Planet Index website. The source workbook covers 2006–2025; I use 2024 because it is the most recent year with observations for every variable, whereas GDP is entirely missing in 2025. The 2024 extract contains 153 countries, with missing values for life satisfaction (12), HPI (16), GDP (6), and ecological footprint (4); HPI rank is also missing for 16 countries, while life expectancy has no missing values. Each figure uses the available observations for its own variables, so choosing 2024 does not mean that every country has complete data.\n\nknitr::kable(head(hpi[, c(\"country\", \"continent\", \"life_exp\", \"life_sat\",\n                          \"footprint\", \"hpi\", \"gdp\")]), digits = 2)\n\n\n\nTable 1: First rows of the 2024 extract used throughout this page.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncountry\ncontinent\nlife_exp\nlife_sat\nfootprint\nhpi\ngdp\n\n\n\n\nAfghanistan\nSouth Asia\n66.29\nNA\n0.79\nNA\nNA\n\n\nAlbania\nEastern Europe & Central Asia\n79.78\n5.58\n2.38\n55.85\n21641.07\n\n\nAlgeria\nMiddle East & N. Africa\n76.47\n5.63\n2.75\n51.61\n15501.92\n\n\nArgentina\nLatin America\n77.54\n6.54\n2.68\n58.31\n26771.97\n\n\nArmenia\nEastern Europe & Central Asia\n75.85\n5.42\n2.75\n49.83\n20078.78\n\n\nAustralia\nN America & Oceania\n84.07\n6.86\n7.86\n42.97\n60303.98"
+    "text": "Google Flu Trends (GFT) offered a compelling shortcut: estimate influenza-like illness from searches before conventional surveillance reports arrived. Ginsberg et al. (2009) reported estimates with roughly a one-day lag. However, searches measure information-seeking, not infections, and the CDC target itself measures the proportion of visits involving influenza-like symptoms, not laboratory-confirmed influenza incidence.\nBig data hubris means assuming that abundant digital traces can replace established measurement and analysis. Lazer et al. (2014) reported that GFT overestimated the CDC measure in 100 of 108 weeks beginning in August 2011. More searches did not repair the mismatch between searching and being ill.\nAlgorithm dynamics make that mismatch unstable. Search suggestions and symptom-related results can change what people search for even without a corresponding change in illness. Lazer and colleagues identify these platform changes as plausible contributors, rather than proving one specific update caused the failure. Deliberate manipulation by users is another possible platform-data problem, although they do not identify it as a GFT explanation.\nTransparency and replicability also matter: undisclosed search terms and incomplete methodological detail obstructed independent reconstruction. My takeaway is to preserve model versions, document data processing, and evaluate against external benchmarks. Search data can supplement surveillance, with repeated checks as behavior and platforms change."
   },
   {
-    "objectID": "assignment2.html#the-data",
-    "href": "assignment2.html#the-data",
-    "title": "EPPS 6356 Assignment 2: Base R Graphics",
+    "objectID": "class5.html#b.-overfitting-and-overparameterization",
+    "href": "class5.html#b.-overfitting-and-overparameterization",
+    "title": "Class 5: More Data, Better Questions",
+    "section": "b. Overfitting and overparameterization",
+    "text": "b. Overfitting and overparameterization\nOverfitting occurs when a fitted procedure captures accidental features of its training sample and consequently generalizes poorly. Overparameterization describes a model with more adjustable parameters than the available observations can adequately constrain; in an interpolating regression setting, the parameter count can exceed the sample size. It concerns capacity, whereas overfitting concerns performance. Regularization and other constraints can prevent a highly parameterized model from generalizing badly.\nGFT illustrates a related danger in feature selection. The original procedure screened about 50 million candidate queries against a limited CDC series and combined 45 selected queries into one predictor. Its final regression had an intercept and slope, not 50 million fitted coefficients (Ginsberg et al., 2009). Counting only those two coefficients nevertheless misses the flexibility spent selecting the predictor. Lazer et al. describe 1,152 fitting observations and irrelevant seasonal candidates such as high-school basketball. Searching so widely creates opportunities to select coincidences.\nThis distinction changes how I would validate the analysis: repeat feature selection inside training folds, reserve later time periods for evaluation, and compare with simple seasonal baselines. A successful historical test cannot guarantee robustness to a changed search platform. Overfitting and a shifting data-generating process can coexist.\nThe R simulation below isolates overfitting using noisy quadratic data. Training error falls with polynomial degree, while error on independently generated test data can rise. These are simulated observations, not GFT estimates; the curve illustrates a mechanism rather than reconstructing Google’s failure.\n\n\n\nTraining and independent test error for polynomial regressions fitted to simulated quadratic data.\n\n\nReproduce the chart with this base R script. Run it from the website project directory."
+  },
+  {
+    "objectID": "class5.html#c.-wickham-talk-summary",
+    "href": "class5.html#c.-wickham-talk-summary",
+    "title": "Class 5: More Data, Better Questions",
+    "section": "c. Wickham talk summary",
+    "text": "c. Wickham talk summary\nIn his 2019 EMBL keynote, Wickham presents visualization as part of an iterative programming workflow. Technologies include R, RStudio, tidyverse tools, ggplot2, and R Markdown. Techniques include reshaping tidy data, mapping variables to aesthetics, layering plots, adjusting scales, handling overplotting, faceting, animation, and using functions to reduce repetition. His country income and life-expectancy example makes these choices concrete: colour and size add information, while a logarithmic income scale changes what differences are visible.\nThe larger point is that reusable components and readable code make exploration easier, while executable reports connect explanations to computations. Visualization and modeling can inform each other: a residual plot may reveal a pattern that a single error statistic conceals.\nI would qualify the emphasis on programming: reproducible code can faithfully reproduce a flawed measurement. For example, a polished chart of campus flu-related searches could reflect an awareness campaign rather than an outbreak. Wickham’s workflow helps expose analytical choices, but the GFT case shows why those choices still require substantive knowledge and independent validation.\n\nAI assistance: drafting, source checks, and chart code were assisted by Codex. See the AI use record for the prompt, model information, and verification limits."
+  },
+  {
+    "objectID": "class3.html",
+    "href": "class3.html",
+    "title": "Class 3: From Presenting Numbers to Building Understanding",
     "section": "",
-    "text": "The data come from the Hot or Cool Institute’s Happy Planet Index 2026 public data set, available through the Happy Planet Index website. The source workbook covers 2006–2025; I use 2024 because it is the most recent year with observations for every variable, whereas GDP is entirely missing in 2025. The 2024 extract contains 153 countries, with missing values for life satisfaction (12), HPI (16), GDP (6), and ecological footprint (4); HPI rank is also missing for 16 countries, while life expectancy has no missing values. Each figure uses the available observations for its own variables, so choosing 2024 does not mean that every country has complete data.\n\nknitr::kable(head(hpi[, c(\"country\", \"continent\", \"life_exp\", \"life_sat\",\n                          \"footprint\", \"hpi\", \"gdp\")]), digits = 2)\n\n\n\nTable 1: First rows of the 2024 extract used throughout this page.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncountry\ncontinent\nlife_exp\nlife_sat\nfootprint\nhpi\ngdp\n\n\n\n\nAfghanistan\nSouth Asia\n66.29\nNA\n0.79\nNA\nNA\n\n\nAlbania\nEastern Europe & Central Asia\n79.78\n5.58\n2.38\n55.85\n21641.07\n\n\nAlgeria\nMiddle East & N. Africa\n76.47\n5.63\n2.75\n51.61\n15501.92\n\n\nArgentina\nLatin America\n77.54\n6.54\n2.68\n58.31\n26771.97\n\n\nArmenia\nEastern Europe & Central Asia\n75.85\n5.42\n2.75\n49.83\n20078.78\n\n\nAustralia\nN America & Oceania\n84.07\n6.86\n7.86\n42.97\n60303.98"
+    "text": "After reading the video summary and website introduction for Journalism in the Age of Data, my main takeaway is that the value of data visualization goes beyond turning data into attractive graphics. It helps readers understand issues that might otherwise be difficult to see. A chart can capture attention, but if readers finish looking at it without understanding its main point, it may not have achieved its purpose. This made me reconsider what I want to learn in this course. Along with learning how to use visualization tools, I should practice identifying the questions that data can answer and communicating those answers clearly.\nI was particularly interested in IBM’s effort to democratize visualization through Many Eyes. Making visualization easier to create gives more people opportunities to explore topics they care about and share their findings. However, I do not think that accessible tools necessarily make data easy to interpret. Even when anyone can generate a chart, they still need to understand how variables are defined, where the data come from, and whether the comparisons are appropriate. Democratizing visualization therefore also requires developing the ability to interpret data, so that people understand what their charts actually represent.\nThe Martini Glass structure discussed in the summary helped me understand the relationship between storytelling and open exploration more clearly. Guiding readers through the background and main findings before allowing them to explore can keep them from feeling overwhelmed at the beginning. If I were creating an interactive unemployment chart, I would first explain the overall trend, the reporting period, and the definition of the measure. I would then let readers compare different groups. This approach provides direction while leaving room for readers to ask their own questions. However, guidance can also influence their judgment, so I think a visualization should clearly distinguish between what the data show and how the author interprets them.\nAnother point that stood out to me is that visual appeal and readability do not always go together. A streamgraph of movie box office revenues might convey the overall shape of the data, but readers who want to compare a particular movie’s revenue over time may need a chart that makes individual values easier to read. This reminds me that a chart is not necessarily appropriate just because it looks innovative. Before designing a visualization, I should identify what readers need to do: compare values, observe trends, or understand a distribution. A chart’s success should depend on how well it supports those tasks.\nThe journalism examples also helped me recognize that visualization is the result of a series of editorial decisions. Organizing data, choosing comparisons, and writing titles and annotations all influence what readers see. Removing some information can reduce the burden on readers, but leaving out important context can also be misleading. For example, when presenting death counts across different regions, I should consider how population size affects the comparison, rather than looking only at totals. I believe an effective visualization needs a clear focus while also explaining relevant limitations, so that readers can assess the conclusions it supports.\nThe discussion of data openness and completeness reminded me that having access to data does not mean having the whole picture. If certain categories are missing, a blank area in a chart may reflect a lack of records rather than the absence of events. Before creating a visualization, I should check which periods, locations, and populations the data cover, and distinguish between zero values and missing values. This is especially important for topics such as crime, unemployment, and war casualties, where the numbers represent real people and their lives.\nThe website states that the video was produced in 2009–2010, so I understand its discussion of Flash and other tools within that historical context. More useful to me than remembering a particular software name is learning how creators handle data that continue to change. For example, if an unusually high value appears in a chart that updates in real time, will the original axis range still work? Although automatic updates can save time, creators still need to anticipate exceptional cases and establish appropriate checks.\nThe most practical lesson I take from this material is to begin future class assignments by writing down a question I want to answer, and then deciding which data and charts to use. I also want to practice expressing the main finding in a single sentence and asking someone unfamiliar with the data to review the visualization. If that person has to work hard to guess what the chart means, I will know that it needs revision. My goal is to create work that helps readers understand an issue and recognize the evidence and limitations behind that understanding.\n\nReference: Geoff McGhee, Journalism in the Age of Data. The video introduction page lists the production period as 2009–2010 and the running time as 54 minutes.\nBasis of this reflection: the video summary provided by the user and the accessible website introduction. The complete video and transcript were not checked section by section.\n\nAI assistance for this note is documented in the Class AI use log."
   },
   {
-    "objectID": "assignment2.html#working-through-murrells-chapter-1-code",
-    "href": "assignment2.html#working-through-murrells-chapter-1-code",
-    "title": "EPPS 6356 Assignment 2: Base R Graphics",
-    "section": "1. Working through Murrell’s chapter 1 code",
-    "text": "1. Working through Murrell’s chapter 1 code\nThe opening examples helped me understand the difference between starting a plot and adding to one. A high-level call such as plot() normally creates a new plot, establishes coordinates, and draws the data, axes, frame, and labels. The scatterplot panel in the standard-plot examples separates these steps: plot.new() opens a blank plot, plot.window() establishes the coordinate ranges, and low-level calls supply the lines, points, axes, frame, and text. This makes the work that a single plot() call normally handles much easier to see.\npar() changes the graphics settings rather than drawing observations. For example, mfrow determines how subsequent plots share the device, mar reserves space around each plot, and las controls the orientation of axis labels. These changes become visible when the relevant elements are drawn. Saving the previous settings and restoring them afterward matters because otherwise a later plot may inherit margins, colors, or a layout intended for an earlier example.\nThe order of commands is especially important in base graphics. My notes initially described the text as simply not appearing when text() came before plot(), but the more precise explanation depends on the device state: without an existing plot, text() produces an error; with one, it adds text to that plot, which a subsequent high-level call can replace. Base graphics draws onto the current device as commands execute, so changing an earlier element usually means drawing the plot again. In ggplot2, layers and settings are normally assembled into a plot object before that object is printed.\nTwo examples corrected my initial interpretation of the code. In the histogram, freq = FALSE puts the bars on a probability-density scale so that the dnorm() curve uses the same units; a density curve over a count histogram would usually appear compressed near the baseline. Also, boxplot() normally starts a new plot, but boxplot(add = TRUE) adds boxes to the existing coordinates. The function’s behavior therefore depends on its arguments, and the two offset sets of boxes can appear side by side without erasing each other.\nThe bar-chart example showed that a plotting function can also return useful information. barplot() returns the bar midpoints, which the later mtext() and text() calls use to align labels with the bars. This also clarified the difference between text positioned in the margins and text placed at data coordinates inside the plot. For the surface example, theta changes the horizontal viewing direction, phi changes the viewing elevation, and expand controls the relative height of the surface.\nMy recorded work covers the introduction and standard base-graphics examples. The notes do not document completed runs of the later lattice, ggplot2, or other package-dependent sections, so I do not report those sections as completed. Those examples require additional plotting systems, packages, or image resources; the discussion here is limited to what the base-graphics notes support."
-  },
-  {
-    "objectID": "assignment2.html#the-plotting-functions",
-    "href": "assignment2.html#the-plotting-functions",
-    "title": "EPPS 6356 Assignment 2: Base R Graphics",
-    "section": "2. The plotting functions",
-    "text": "2. The plotting functions\nEach function below is used on the 2024 Happy Planet Index data. The code that produced every figure is shown with it. The final five examples build up the same GDP–life satisfaction comparison, redrawing the plot in each chunk so that every figure is reproducible.\n\n2.1 Setting up the canvas\n\npar()\n\nop &lt;- par(mfrow = c(1, 2), mar = c(4.5, 4, 1, 1), las = 1)\nhist(hpi$life_exp, breaks = 12, col = \"grey80\", main = \"\",\n     xlab = \"Life expectancy (years), 2024\")\nhist(hpi$hpi, breaks = 12, col = \"lightblue\", main = \"\",\n     xlab = \"Happy Planet Index, 2024\")\npar(op)\n\n\n\n\n\n\n\nFigure 1: par() draws nothing itself: it sets the layout, margins, and axis-label orientation that later calls use, which only becomes visible once the two histograms are drawn into the 1 x 2 layout.\n\n\n\n\n\n\n\nbox()\n\nplot(hpi$life_exp, hpi$hpi, bty = \"n\", pch = 16,\n     col = \"steelblue\", xlab = \"Life expectancy (years), 2024\",\n     ylab = \"Happy Planet Index, 2024\")\nbox(bty = \"l\", col = \"grey30\", lwd = 2)\n\n\n\n\n\n\n\nFigure 2: box() adds a frame to an existing plot; bty = ‘l’ draws only its left and bottom edges.\n\n\n\n\n\n\n\naxis()\n\nplot(hpi$life_exp, hpi$hpi, axes = FALSE, pch = 16,\n     col = \"steelblue\", xlab = \"Life expectancy (years), 2024\",\n     ylab = \"Happy Planet Index, 2024\")\naxis(1, at = seq(50, 90, 10), labels = paste(seq(50, 90, 10), \"yr\"))\naxis(2, at = seq(0, 80, 20), las = 1)\nbox(bty = \"l\")\n\n\n\n\n\n\n\nFigure 3: axis() adds axes to an existing plot and controls their sides, tick positions, labels, and label orientation.\n\n\n\n\n\n\n\n\n2.2 Drawing whole plots\n\nhist()\n\nhist(hpi$life_exp, breaks = 12, col = \"grey80\", main = \"\",\n     xlab = \"Life expectancy (years), 2024\")\n\n\n\n\n\n\n\nFigure 4: hist() starts a new plot and groups life expectancy into bins whose bar heights show the number of countries in each interval.\n\n\n\n\n\n\n\nboxplot()\n\nop &lt;- par(mar = c(4.5, 13, 1, 1))\nboxplot(hpi ~ continent, data = hpi, horizontal = TRUE,\n        las = 1, col = \"lightblue\", main = \"\", ylab = \"\",\n        xlab = \"Happy Planet Index, 2024\", cex.axis = 0.8)\npar(op)\n\n\n\n\n\n\n\nFigure 5: boxplot() compares regional HPI distributions through medians, quartiles, whiskers extending to observations within 1.5 interquartile ranges, and points beyond the whiskers.\n\n\n\n\n\n\n\npie()\n\nregion_counts &lt;- table(hpi$continent)\nregion_labels &lt;- paste0(names(region_counts), \" (\", region_counts, \")\")\npie(region_counts, labels = region_labels,\n    col = hcl.colors(length(region_counts), \"Pastel 1\"),\n    radius = 0.65, cex = 0.7, main = \"Countries by region, 2024\")\n\n\n\n\n\n\n\nFigure 6: pie() shows each region’s share of the 153 country records as a slice, although a bar chart would make comparisons easier because lengths are easier to compare than angles or areas.\n\n\n\n\n\n\n\npersp()\n\nsurface_data &lt;- hpi[complete.cases(hpi[c(\"hpi\", \"life_exp\", \"footprint\")]), ]\nsurface_model &lt;- lm(hpi ~ life_exp + footprint, data = surface_data)\nxs &lt;- seq(min(surface_data$life_exp), max(surface_data$life_exp), length.out = 30)\nys &lt;- seq(min(surface_data$footprint), max(surface_data$footprint), length.out = 30)\ngrid &lt;- expand.grid(life_exp = xs, footprint = ys)\nz &lt;- matrix(predict(surface_model, newdata = grid), nrow = length(xs))\npersp(xs, ys, z, theta = 35, phi = 25, expand = 0.5,\n      col = \"lightblue\", shade = 0.3, ticktype = \"detailed\",\n      xlab = \"Life expectancy\", ylab = \"Footprint\", zlab = \"Fitted HPI\",\n      cex.axis = 0.65, cex.lab = 0.8)\n\n\n\n\n\n\n\nFigure 7: persp() projects a grid of fitted HPI values into a three-dimensional surface with a chosen viewing angle; this illustrative linear-model surface is not raw country data or the HPI formula, and some grid combinations may lack observations.\n\n\n\n\n\nLife expectancy is measured in years and ecological footprint in global hectares per person. The fitted surface is a descriptive graphics demonstration, not a causal model.\n\n\n\n2.3 Adding to an existing plot\n\npoints()\n\nscatter &lt;- hpi[complete.cases(hpi[c(\"gdp\", \"life_sat\")]) &\n                 hpi$continent %in% c(\"East Asia\", \"Western Europe\"), ]\nscatter$gdp_thousands &lt;- scatter$gdp / 1000\nregions &lt;- c(\"East Asia\", \"Western Europe\")\nregion_colors &lt;- c(\"#0072B2\", \"#D55E00\")\nregion_symbols &lt;- c(16, 17)\ngroup_id &lt;- match(scatter$continent, regions)\n\n# Reuse the same background and points in the following examples.\ndraw_scatter &lt;- function() {\n  plot(scatter$gdp_thousands, scatter$life_sat, type = \"n\",\n       xlab = \"GDP per capita (thousands, PPP international dollars), 2024\",\n       ylab = \"Life satisfaction (0-10), 2024\", ylim = c(3, 9))\n  points(scatter$gdp_thousands, scatter$life_sat,\n         col = region_colors[group_id], pch = region_symbols[group_id])\n}\ndraw_scatter()\n\n\n\n\n\n\n\nFigure 8: points() adds country observations to an existing coordinate system, using blue circles for East Asia and orange triangles for Western Europe.\n\n\n\n\n\n\n\nlines()\n\ntrend &lt;- lowess(scatter$gdp_thousands, scatter$life_sat)\ndraw_scatter()\nlines(trend, col = \"grey30\", lwd = 2)\n\n\n\n\n\n\n\nFigure 9: lines() connects ordered coordinates on an existing plot, here adding a LOWESS trend for the two displayed regions pooled together.\n\n\n\n\n\n\n\n\n2.4 Annotating\n\ntext()\n\nlabel_rows &lt;- unique(c(which.min(scatter$life_sat), which.max(scatter$life_sat)))\nadd_country_labels &lt;- function() {\n  text(scatter$gdp_thousands[label_rows], scatter$life_sat[label_rows],\n       labels = scatter$country[label_rows], pos = c(1, 3), cex = 0.8)\n}\ndraw_scatter()\nlines(trend, col = \"grey30\", lwd = 2)\nadd_country_labels()\n\n\n\n\n\n\n\nFigure 10: text() places country labels at data coordinates inside the existing plot, here identifying the highest and lowest life satisfaction among the displayed countries.\n\n\n\n\n\n\n\nmtext()\n\nop &lt;- par(mar = c(6, 4.5, 2, 1))\ndraw_scatter()\nlines(trend, col = \"grey30\", lwd = 2)\nadd_country_labels()\nmtext(\"Source: Happy Planet Index 2026; observations from 2024\",\n      side = 1, line = 4.5, cex = 0.8)\npar(op)\n\n\n\n\n\n\n\nFigure 11: mtext() adds a source note in the plot margin using a side and line offset, whereas text() positions labels using data coordinates.\n\n\n\n\n\n\n\nlegend()\n\nop &lt;- par(mar = c(6, 4.5, 2, 1))\ndraw_scatter()\nlines(trend, col = \"grey30\", lwd = 2)\nadd_country_labels()\nmtext(\"Source: Happy Planet Index 2026; observations from 2024\",\n      side = 1, line = 4.5, cex = 0.8)\nlegend(\"topright\", legend = c(regions, \"Pooled LOWESS trend\"),\n       col = c(region_colors, \"grey30\"), pch = c(region_symbols, NA),\n       lty = c(NA, NA, 1), lwd = c(NA, NA, 2), bty = \"n\", cex = 0.8)\npar(op)\n\n\n\n\n\n\n\nFigure 12: legend() explains the colors, point symbols, and fitted line used in the existing plot.\n\n\n\n\n\n\n\n\nA note on names()\nnames() is not a plotting function: it reads or sets an object’s names attribute, which functions such as pie() and barplot() can use as labels. It belongs to data preparation rather than drawing on a graphics device."
-  },
-  {
-    "objectID": "assignment2.html#references",
-    "href": "assignment2.html#references",
-    "title": "EPPS 6356 Assignment 2: Base R Graphics",
-    "section": "References",
-    "text": "References\nMurrell, Paul. 2019. R Graphics. Third edition. Boca Raton: Chapman & Hall/CRC.\nHot or Cool Institute. 2026. Happy Planet Index 2006–2025 Public Data Set. https://happyplanetindex.org/countries/"
-  },
-  {
-    "objectID": "assignment2.html#ai-use-statement",
-    "href": "assignment2.html#ai-use-statement",
-    "title": "EPPS 6356 Assignment 2: Base R Graphics",
-    "section": "AI Use Statement",
-    "text": "AI Use Statement\nI used two AI tools for this assignment. Claude (Anthropic), in the Claude desktop app, helped me plan the assignment, build the line-by-line note template for Murrell’s chapter 1 code, check my answers to the questions in those notes, extract the 2024 subset of the Happy Planet Index workbook into hpi2024.csv (including the mapping from the workbook’s numeric continent codes to region names), and scaffold the structure of this page. Codex (OpenAI) turned my notes into an English draft, corrected misunderstandings about base graphics, and wrote the R plotting examples and figure captions from that scaffold. The observations in Section 1 come from my own line-by-line runs of the code; the wording, the plotting code, and the illustrative fitted surface were developed with AI assistance. I used AI to clarify the graphics concepts, to express my observations in English, and to keep the examples reproducible.\nThe full log of my exchange with Claude for this assignment is available here: Assignment 2: AI Use Log."
-  },
-  {
-    "objectID": "ai-log-assignment2.html",
-    "href": "ai-log-assignment2.html",
-    "title": "Assignment 2: AI Use Log",
+    "objectID": "class2-data-guide.html",
+    "href": "class2-data-guide.html",
+    "title": "Class 2: Huang’s Data Guide",
     "section": "",
-    "text": "This page documents my use of generative AI for EPPS 6356 Assignment 2, following the course AI policy. The log for the previous assignment is on a separate page: Assignment 1: AI Use Log."
+    "text": "A personal checklist for inspecting a dataset before I analyze or visualize it. Adapted from the Quartz Bad Data Guide (Christopher Groskopf and contributors, CC BY-NC 4.0) and organized by who can fix the problem, with extra items for the two kinds of data I work with: gridded weather reanalysis and medical imaging datasets.\nPrepared for EPPS 6356 Data Visualization (Prepare for Class 2), Fall 2026."
   },
   {
-    "objectID": "ai-log-assignment2.html#tool-information",
-    "href": "ai-log-assignment2.html#tool-information",
-    "title": "Assignment 2: AI Use Log",
-    "section": "Tool Information",
-    "text": "Tool Information\n\n\n\n\n\n\n\nItem\nDetails\n\n\n\n\nTools\nClaude (Anthropic), used in the Claude desktop app; Codex (OpenAI)\n\n\nDates\nSeptember 21–23, 2026\n\n\nLanguage\nI asked Claude questions in Chinese (Traditional). My original prompts are quoted below with English translations; Claude’s replies are summarized in English."
+    "objectID": "class2-data-guide.html#how-i-use-this",
+    "href": "class2-data-guide.html#how-i-use-this",
+    "title": "Class 2: Huang’s Data Guide",
+    "section": "How I use this",
+    "text": "How I use this\nI do not walk through all 60 items every time. I run Tier 1 on every new dataset (15 minutes), then go to the section that matches whatever looks wrong.\nTier 1 — always, before anything else\n\nHow many rows and columns do I have, and how many did I expect?\nWhat does one row represent? (one station-hour? one patient? one image?)\nPrint summary() / describe() for every column: min, max, mean, NA count.\nPlot every variable at least once — histogram for continuous, bar for categorical, time series for anything dated. (Anscombe 1973: summary statistics alone will not show me the structure.)\nWhere did this file come from, who made it, and when was it last updated?"
   },
   {
-    "objectID": "ai-log-assignment2.html#how-and-why-i-used-ai",
-    "href": "ai-log-assignment2.html#how-and-why-i-used-ai",
-    "title": "Assignment 2: AI Use Log",
-    "section": "How and Why I Used AI",
-    "text": "How and Why I Used AI\n\nClaude: planning the assignment, preparing a line-by-line note template for Murrell’s chapter 1 code, checking my answers to the questions in those notes, extracting the 2024 subset of the Happy Planet Index workbook, scaffolding this page, and reviewing the finished draft.\nCodex: turning my notes into an English draft and writing the R plotting examples and figure captions from that scaffold.\nWhy: to catch up after starting the course late, to work with unfamiliar tooling (Quarto rendering, base R graphics), and to express my observations in English, which is not my first language.\nWhat is my own: the line-by-line runs of the chapter 1 code and the observations recorded in my notes, the choice of 2024, the decision about which sections of the chapter to run and which to skip, and the judgement that a bar chart would serve the regional counts better than a pie chart.\n\n\n\n\n\n\n\nImportantMost Relevant Sections\n\n\n\nExchange 4 (checking my answers to the chapter 1 questions) and Exchange 5 (extracting the data and scaffolding this page) shaped the submitted work most directly."
+    "objectID": "class2-data-guide.html#problems-my-source-should-solve",
+    "href": "class2-data-guide.html#problems-my-source-should-solve",
+    "title": "Class 2: Huang’s Data Guide",
+    "section": "1. Problems my source should solve",
+    "text": "1. Problems my source should solve\nIf these appear, I go back and ask, rather than patching the data myself.\n\nMissing values — are blanks / null “no measurement taken”, “refused to answer”, or “zero”? These are not the same thing.\nMissing values replaced by zeros — a run of 0 or -1 in a numeric column, 1970-01-01 or 1969-12-31 in a date column, 0°N 0°E in coordinates (Null Island). Very common in sensor data.\nRows or values duplicated — is a repeated ID a real correction, or a merge that ran twice?\nData are obviously incomplete — 48 of 50 states, 11 of 12 months, a patient cohort missing a whole site.\nInconsistent spelling / name order / date formats — a sign the data were typed by a human.\nUnits are not labeled — °C or K? mm or inches? mm or pixels?\nCategories are badly chosen or field names are ambiguous.\nThe provenance is not documented.\nValues are impossible (negative rainfall, age 200, patient height 3 m).\nData are too coarse — monthly means when I need daily; county totals when I need tracts.\nThe published total does not match the file — recount and compare.\nThe file has exactly 65,536 rows / 255 columns — it was truncated by an old Excel limit.\nText became numbers, or numbers became text — leading zeros gone, IDs in scientific notation."
   },
   {
-    "objectID": "ai-log-assignment2.html#conversation-log-claude",
-    "href": "ai-log-assignment2.html#conversation-log-claude",
-    "title": "Assignment 2: AI Use Log",
-    "section": "Conversation Log — Claude",
-    "text": "Conversation Log — Claude\n\n1. Understanding what Assignment 2 asks for\n\nMe: 我覺得差不多要準備做 Assignment 2，考試準備到一個段落了。\n(I think it is about time to start Assignment 2; my exam preparation has reached a stopping point.)\n\nClaude: Read the handout and broke it into four tasks: run Murrell’s chapter 1 code line by line, exercise twelve plotting functions on my own data with one figure and one sentence each, use the Happy Planet Index filtered to a single year, and post the figures with the code that produced them. Estimated four to six hours and suggested splitting it over two days.\n\n\n2. Getting the chapter 1 code\n\nMe: (Shared the chapter 1 figure gallery page and reported that murrell01.R was not on Teams.)\n\nClaude: The gallery links to separate .R files rather than one script, and Claude’s own network could not reach the site. It wrote an R script that reads the chapter page from my machine, extracts every .R link, downloads them, and concatenates them into a single murrell01.R. The first attempt found nothing because the page uses uppercase HREF; after Claude made the pattern case-insensitive, all 14 files downloaded (1,295 lines).\n\nMe: (Reported system error 32 when opening the file.)\n\nClaude: Diagnosed it as a file connection left open by the failed first run (close(con) never executed), and pointed out that this is the same discipline as png() needing dev.off(). closeAllConnections() or restarting R fixed it.\n\n\n3. The note template\n\nMe: 可以幫我生一個檔案有這樣的格式嗎？我這樣子邊執行邊看。可以幫我加上一些中文讓我理解的快速一些嗎？\n(Can you generate a file in this format so I can fill it in while running the code? Can you add some Chinese so I understand faster?)\n\nClaude: Built murrell01-notes.md, listing every line of the first two sections with a Chinese hint for each argument (mar, pch, bty, theta, phi), a column for what I observed on the device, and a type column (high-level / low-level / setting / data). Added six questions drawn from the code itself.\n\n\n\n\n\n\nNote4. Checking my answers (most relevant)\n\n\n\n\nMe: (Submitted my answers to the six questions.)\n\nClaude: Confirmed two answers and corrected three:\n\ntext() before plot(): in a fresh session this is an error (plot.new has not been called yet); I had seen “the text does not appear” only because an old plot was still on the device.\nWhat plot() does: it is plot.new() + plot.window() + drawing the data + axis(1) + axis(2) + box() + title(); my answer covered only the first step.\nfreq = FALSE: I had the direction backwards. On a count scale the density curve is compressed against the axis, because counts reach the teens while the density peaks near 0.4.\nboxplot(add = TRUE): I said it still counted as high-level because it clears the plot. It does not clear the plot; with add = TRUE it behaves as a low-level call, which is why the two sets of boxes sit side by side.\nmidpts: my value was right; Claude added the reason it is needed — the bars are not at 1, 2, 3, 4, so the labels need the returned positions.\ntheta / phi: rotation versus viewing elevation.\n\nClaude also filled in the type column for all 38 rows as a check against my own reading.\n\n\n\n\n\n\n\n\nNote5. The data and the page scaffold (most relevant)\n\n\n\n\nMe: 好的就 2024 年吧。\n(All right, let’s use 2024.)\n\nClaude: Checked how complete each year is and recommended 2024, because the GDP column is empty for 2025. Extracted the 2024 rows from the All Data sheet into hpi2024.csv (153 countries), and translated the workbook’s numeric continent codes into region names after verifying the order against the workbook’s own Cont data sheet. Reported the missing values I cite on the assignment page: life satisfaction 12, HPI 16, GDP 6, footprint 4. It also wrote 02_export_csv.R so the same extract is reproducible from the original workbook, and created the skeleton of assignment2.qmd with the twelve chunks and hints — including the suggestion to fit a smoothed surface for persp(), since that function needs a grid rather than country rows.\n\n\n\n\n6. Reviewing the draft\n\nMe: 是這樣嗎？幫我看一下。\n(Is this right? Please take a look.)\n\nClaude: Checked the page and the rendered output. Confirmed the code was correct, including the hpi ~ continent formula (the data frame and the column share a name) and the orientation of the persp() matrix. Asked for three changes, which I made: naming both AI tools in the statement rather than only Codex, adding Assignment 2 to the site navigation, and hiding the str() output in favour of a short preview table. It also added fig-alt text to all twelve figures for screen readers and sharpened the par() caption to say that the call draws nothing by itself.\n\n\n7. Splitting the logs\n\nMe: 我覺得要分開會比較好，ai-log 是 Assignment 1 的，另一個是 Assignment 2。\n(I think it is better to separate them: ai-log for Assignment 1 and another one for Assignment 2.)\n\nClaude: Created this page and linked it from the Assignment 2 page."
+    "objectID": "class2-data-guide.html#problems-i-should-solve-myself",
+    "href": "class2-data-guide.html#problems-i-should-solve-myself",
+    "title": "Class 2: Huang’s Data Guide",
+    "section": "2. Problems I should solve myself",
+    "text": "2. Problems I should solve myself\n\nGarbled characters (mojibake) — encoding is not UTF-8; fix the encoding rather than the characters.\nLine endings are broken — CRLF vs LF. I hit exactly this in my Quarto repository, where every file showed as modified.\nThe data are locked inside a PDF — extract with a tool, never retype.\nThe data are too granular — aggregate rather than plotting 10 million points.\nThe data were entered by hand — spot-check a sample against the source.\nFormats and annotations are mixed into the cells — footnote markers, thousands separators, “N/A” as text.\nMy calculation ignored missing values — did the mean silently drop them, or treat them as zero?\nThe sample is not random, or is biased toward one group.\nThe margin of error is too large, or is unknown — if I cannot state it, I say so in the chart.\nThe data were edited by hand — keep the original file untouched and script every change, so the cleaning is reproducible.\nInflation, seasonality, or population growth distorts the comparison — adjust before comparing across years.\nThe time frame or the reference category was changed mid-series — a break in a time series is not a trend."
   },
   {
-    "objectID": "ai-log-assignment2.html#note-on-the-codex-exchange",
-    "href": "ai-log-assignment2.html#note-on-the-codex-exchange",
-    "title": "Assignment 2: AI Use Log",
-    "section": "Note on the Codex exchange",
-    "text": "Note on the Codex exchange\nThe English drafting and the plotting code were produced in a separate session with Codex (OpenAI), working from the notes and the scaffold described above. That exchange is not reproduced here; the resulting code is visible in full on the assignment page, since every figure is shown with the code that produced it."
+    "objectID": "class2-data-guide.html#problems-an-expert-should-help-me-solve",
+    "href": "class2-data-guide.html#problems-an-expert-should-help-me-solve",
+    "title": "Class 2: Huang’s Data Guide",
+    "section": "3. Problems an expert should help me solve",
+    "text": "3. Problems an expert should help me solve\n\nThe author is not trustworthy — who benefits from this result?\nThe collection process is opaque — no methodology section, no codebook.\nThe data are suspiciously precise — 6 decimal places from an instrument accurate to 0.5.\nThere are unexplained outliers — real event, or sensor failure?\nThe index is meaningless — composite indices hide their weights. (The Happy Planet Index in Assignment 2 is exactly this kind of number.)\nThe significance test looks wrong — p-hacking, no correction for multiple comparisons.\nThe data violate Benford’s Law, or are too good to be true — possible fabrication."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "objectID": "class2-data-guide.html#problems-a-programmer-should-help-me-solve",
+    "href": "class2-data-guide.html#problems-a-programmer-should-help-me-solve",
+    "title": "Class 2: Huang’s Data Guide",
+    "section": "4. Problems a programmer should help me solve",
+    "text": "4. Problems a programmer should help me solve\n\nData were merged on the wrong key — row counts change after a join; always check before and after.\nThe data are inside scanned images — OCR is needed, and OCR makes mistakes."
   },
   {
-    "objectID": "ai-log-assignment1.html",
-    "href": "ai-log-assignment1.html",
-    "title": "Assignment 1: AI Use Log",
-    "section": "",
-    "text": "This page documents my use of generative AI for EPPS 6356 Assignment 1, following the course AI policy. The log for the next assignment is on a separate page: Assignment 2: AI Use Log."
+    "objectID": "class2-data-guide.html#my-own-additions",
+    "href": "class2-data-guide.html#my-own-additions",
+    "title": "Class 2: Huang’s Data Guide",
+    "section": "5. My own additions",
+    "text": "5. My own additions\n\nWeather and climate data (ERA5, station records)\n\nTime zone and reference time — is the timestamp UTC or local? Is “daily” midnight-to-midnight in which zone?\nGaps in the series — a missing hour is invisible in a line chart because the line simply connects across it. Count gaps explicitly.\nUnits and sign conventions — K vs °C, Pa vs hPa, accumulated vs instantaneous fields, wind direction “from” vs “toward”.\nGrid and resolution — what is the cell size, and does the grid match between variables before I stack them?\nLongitude convention — 0–360 or −180–180? A wrong convention silently moves the map.\nReanalysis is a model output, not an observation — it is interpolated, and should be described that way in captions.\nVersion changes — a re-release of the same product can change values for past dates.\n\n\n\nMedical imaging datasets (X-ray)\n\nLabel definitions — what exactly counts as positive, and who decided?\nLabel source — expert reading, or text mined from reports?\nMultiple images per patient — splitting by image instead of by patient leaks data between train and test sets.\nSite and device differences — resolution, contrast, and orientation vary by hospital and scanner.\nClass imbalance — a rare finding makes accuracy meaningless.\nPreprocessing already applied — has the image been cropped, windowed, or normalized before I received it?\nOrdinal labels treated as categories — severity grades have an order, and the visualization should keep it.\n\n\n\nBefore I publish a chart\n\nDoes the chart state its source and the date of the data?\nAre units on the axis?\nDoes the axis start at zero, and if not, is that justified and visible?\nIs uncertainty shown, or at least mentioned?\nWould the chart still be honest if someone read only the title?"
   },
   {
-    "objectID": "ai-log-assignment1.html#tool-information",
-    "href": "ai-log-assignment1.html#tool-information",
-    "title": "Assignment 1: AI Use Log",
-    "section": "Tool Information",
-    "text": "Tool Information\n\n\n\n\n\n\n\nItem\nDetails\n\n\n\n\nTool\nClaude (Anthropic), used in the Claude desktop app (Cowork mode)\n\n\nDate\nSeptember 15, 2026\n\n\nLanguage\nI asked questions in Chinese (Traditional). My original prompts are quoted below with English translations. Claude’s replies are summarized in English."
-  },
-  {
-    "objectID": "ai-log-assignment1.html#how-and-why-i-used-ai",
-    "href": "ai-log-assignment1.html#how-and-why-i-used-ai",
-    "title": "Assignment 1: AI Use Log",
-    "section": "How and Why I Used AI",
-    "text": "How and Why I Used AI\n\nHow: step-by-step guidance for setting up RStudio projects, running Fall.R and anscombe01.R, exporting figures, and adding a page to my Quarto website. I also used it to polish and translate my English writing, suggest regression diagnostics, and calculate percentage declines for the chart critique.\nWhy: to catch up on the course after starting late, to save time with unfamiliar tools (RStudio projects, Quarto rendering), and to clarify my writing in English, which is not my first language.\nWhat is my own: the choice of colors and chart, the core argument in Section 1 (summary statistics oversimplify data) and in Section 3 (length is perceived better than area; bubble charts are used because they are trendy).\n\n\n\n\n\n\n\nImportantMost Relevant Sections\n\n\n\nThe exchanges that directly shaped the submitted text are Exchange 12 (Anscombe paragraph and chart critique) and Exchange 13 (clarifying the three questions). They are highlighted below."
-  },
-  {
-    "objectID": "ai-log-assignment1.html#conversation-log",
-    "href": "ai-log-assignment1.html#conversation-log",
-    "title": "Assignment 1: AI Use Log",
-    "section": "Conversation Log",
-    "text": "Conversation Log\n\n1. Catching up on readings and understanding the assignment\n\nMe: 我目前閱讀只完成到 Week 2… 能否告訴我要下載哪些資料來閱讀呢？這個 assignment 要我做什麼呢？我已經把 R 還有網站環境處理好，也推上 GitHub 了，這是 assignment 要求的嗎？\n(I have only finished the Week 2 readings. Which materials should I download? What does this assignment ask me to do? I have already set up R and my website and pushed to GitHub. Is that what the assignment requires?)\n\nClaude: Listed the Week 3 readings (Cairo, The Truthful Art and How Charts Lie; Quarto closeread) and Week 4 readings (Ware ch. 1–3; Cleveland & McGill 1984; Heer & Bostock 2010), plus Anscombe (1973) for the assignment. Summarized the three assignment tasks. Explained that setting up the website is a prerequisite rather than the assignment itself, and reminded me to confirm that GitHub Pages is live and to include an AI appendix.\n\n\n2. Disk space and folder organization\n\nMe: 我的網站在 C 槽，但 C 槽快要滿了。R 的東西都在外接硬碟 F 槽，要怎麼處理比較好？\n(My website is on drive C, which is almost full. My R files are on external drive F. What is the best way to handle this?)\n\nClaude: Checked both folders. The website is only 3.5 MB, so it is not what fills drive C. Suggested keeping textbooks, scripts, and raw work on drive F and putting only final outputs (images, .qmd pages) in the website.\n\n\n3. Deciding not to move the website\n\nMe: 我傾向不搬，因為我已經繳交作業了，怕網址會亂掉。上傳東西會不會把槽弄滿？\n(I prefer not to move it because I already submitted my website and worry the URL will break. Will uploading assignments fill the drive?)\n\nClaude: Confirmed that the URL depends on the GitHub repository, not the local folder. Each assignment adds only a few hundred KB. Proposed the workflow: work on drive F, copy only final images to the website.\n\n\n4. Running Fall.R and choosing winter colors\n\nMe: (Shared console output and a screenshot of the default Fall plot.) 要存成圖片放到哪裡嗎？\n(Where should I save the image?)\n\nClaude: Suggested using ggsave() instead of right-click saving, and proposed a winter palette: lightsteelblue1 branches on a midnightblue background.\n\n\n5. Creating a separate RStudio project on drive F\n\nMe: 還是說要分開來用？我要重新打開 F 槽中的資料夾來執行，可否一步一步帶著我做？\n(Should I use them separately? I want to open the folder on drive F as a project. Can you guide me step by step?)\n\nClaude: Guided me to create an RStudio project in the course folder on drive F (File → New Project → Existing Directory), so relative paths save outputs there.\n\n\n6. Understanding the code changes\n\nMe: 為什麼要改這些東西呢？\n(Why do these things need to be changed?)\n\nClaude: Explained each change: branch color (task 2a), background color for contrast, storing the plot in p, and ggsave() to export the file (task 2b). Suggested other winter color combinations.\n\n\n7. Running an entire script\n\nMe: R 不能一次執行全部嗎？\n(Can’t R run the whole script at once?)\n\nClaude: Explained Ctrl+Shift+Enter (Source with Echo), Ctrl+A then Ctrl+Enter, and the Source button.\n\n\n8. Exporting the Anscombe figure\n\nMe: (Shared winter.png, then the full console output of anscombe01.R.) 另外我想知道你改的那些是什麼意思。\n(I also want to know what your changes mean.)\n\nClaude: Confirmed both images were saved. Explained png() and dev.off() for base R graphics, and the par(mfrow = c(2, 2)) layout. Summarized the regression output: all four data sets have mean x = 9, mean y = 7.5, and fitted line y = 3 + 0.5x with R² = 0.67.\n\n\n9. Why the Plots pane showed four separate plots\n\nMe: 為什麼 plot 裡面並不是出現一張圖而是四張圖呢？\n(Why does the Plots pane show four plots instead of one?)\n\nClaude: Explained that the “simple version” draws four separate plots in RStudio, while the 2×2 panel is written directly to the PNG file.\n\n\n10. Adding the Assignment 1 page to the website\n\nMe: 我有這兩張圖，接下來要如何進行呢？\n(I have both images. What should I do next?)\n\nClaude: Guided me to copy the images into images/, create assignment1.qmd, add it to the navbar in _quarto.yml, and dismiss the RStudio “save workspace” prompt. Recommended setting RStudio to never save .RData.\n\n\n11. Rendering the whole website\n\nMe: 我是使用這個按鈕，點完之後跳出網頁。\n(I used this Render button, and a web page opened.)\n\nClaude: Checked the docs/ folder and found that only assignment1.html had been updated. Explained that the editor’s Render button renders one page, so I used Build → Render Website to update the navigation menu on every page.\n\n\n\n\n\n\nNote12. Writing the Anscombe paragraph and the chart critique (most relevant)\n\n\n\n\nMe: 第一題我想是統計數據會過度簡略，畢竟它是一種摘要，但實際情況還是要觀察散點圖。\nFor the first question, I think the statistical data might be overly simplified, since it is just a summary, but in reality, you still need to look at the scatter plot.\n圖表評論來自 The Functional Art：因為人對於長短的感知相較於面積來說更好（一維好於面積），若這張圖改為 bar chart 會更好理解。但因為 bubble chart 的流行大家有點盲目跟風，所以我想我們需要重新思考我們到底需要什麼而不是只是追逐流行。\nFor the critique, from The Functional Art: people perceive length better than area, so a bar chart would be easier to understand. But because bubble charts are popular, everyone has been blindly following the trend. We need to rethink what we really need instead of chasing trends.\n\nClaude:\n\nSection 1: Polished my idea into a full paragraph. Added the specific statistics from my R output, described each data set’s structure, and suggested the solutions: plotting before and after modeling, residual plots, nonlinear models, Cook’s distance, and robust regression.\nSection 3: Pointed out that my critique repeated Cairo’s own argument, so it needed an original contribution. Calculated the percentage decline for each bank from the chart’s labels (e.g., RBS −96%, Citigroup −93%, Barclays −92%, Santander −45%). Suggested that the real story is the percentage loss, which a sorted bar chart of percentage change or a dumbbell chart would show better. Drafted the English critique around my argument plus this point.\n\n\n\n\n\n\n\n\n\nNote13. Clarifying the three questions (most relevant)\n\n\n\n\nMe: 等一等你是不是搞錯了呢？我是不是要分析一個我讀的段落，還是說其實就是要找一篇就行了，還是說這是第三點的問題？我覺得就用 A 就好了。\n(Wait, did you misunderstand? Do I need to analyze a passage I read, or just find one chart? Or is this about question 3? I think option A is fine.)\n\nClaude: Clarified that Question 1 analyzes Anscombe’s four data sets based on Anscombe (1973) and my R output, while Question 3 critiques any published chart. My bank bubble chart from The Functional Art is the Question 3 answer. Saved the chart screenshot as images/bank_bubbles.png and provided the full page text, including references and an AI use statement.\n\n\n\n\n14. Exporting this log\n\nMe: 怎麼把這段對話匯出呢？ … 做 A 就好了。\n(How do I export this conversation? … Option A is fine.)\n\nClaude: Created this log page and added a link to it from the Assignment 1 page."
-  },
-  {
-    "objectID": "assignment1.html",
-    "href": "assignment1.html",
-    "title": "EPPS 6356 Assignment 1",
-    "section": "",
-    "text": "Anscombe’s four regression data sets\n\n\nAnscombe’s quartet (Anscombe 1973) shows that summary statistics can oversimplify data. The four data sets share nearly identical statistical properties: the mean of x is 9, the mean of y is 7.5, the correlation is 0.816, and every fitted regression line is y = 3 + 0.5x with an R² of 0.67. Because these numbers are only summaries, they suggest the four data sets are the same. The scatter plots, however, reveal four different structures: data set 1 is roughly linear, data set 2 is clearly curved, data set 3 is a near-perfect line distorted by one outlier, and in data set 4 a single extreme point creates the entire slope. A linear regression is only appropriate for the first case. Anscombe’s own solution is to make both calculations and graphs: scatterplot the data before any regression, plot the residuals against the fitted values after fitting, transform the variables or add a quadratic term when the relation is curved (data set 2), check whether outliers are recording errors (data set 3), and when one observation strongly influences the result, report the regression both with and without it (data set 4)."
-  },
-  {
-    "objectID": "assignment1.html#anscombes-quartet",
-    "href": "assignment1.html#anscombes-quartet",
-    "title": "EPPS 6356 Assignment 1",
-    "section": "",
-    "text": "Anscombe’s four regression data sets\n\n\nAnscombe’s quartet (Anscombe 1973) shows that summary statistics can oversimplify data. The four data sets share nearly identical statistical properties: the mean of x is 9, the mean of y is 7.5, the correlation is 0.816, and every fitted regression line is y = 3 + 0.5x with an R² of 0.67. Because these numbers are only summaries, they suggest the four data sets are the same. The scatter plots, however, reveal four different structures: data set 1 is roughly linear, data set 2 is clearly curved, data set 3 is a near-perfect line distorted by one outlier, and in data set 4 a single extreme point creates the entire slope. A linear regression is only appropriate for the first case. Anscombe’s own solution is to make both calculations and graphs: scatterplot the data before any regression, plot the residuals against the fitted values after fitting, transform the variables or add a quadratic term when the relation is curved (data set 2), check whether outliers are recording errors (data set 3), and when one observation strongly influences the result, report the regression both with and without it (data set 4)."
-  },
-  {
-    "objectID": "assignment1.html#fall.r-winter-colors",
-    "href": "assignment1.html#fall.r-winter-colors",
-    "title": "EPPS 6356 Assignment 1",
-    "section": "2. Fall.R — Winter Colors",
-    "text": "2. Fall.R — Winter Colors\nI modified Fall.R to use a winter palette: light steel blue branches (lightsteelblue1) on a (midnightblue) background.\n\n\n\nWinter tree generated with an L-system in R"
-  },
-  {
-    "objectID": "assignment1.html#chart-critique",
-    "href": "assignment1.html#chart-critique",
-    "title": "EPPS 6356 Assignment 1",
-    "section": "3. Chart Critique",
-    "text": "3. Chart Critique\n\n\n\nMarket Capitalization of the World’s Biggest Banks. Source: Cairo (2012), Figure 2.8.\n\n\nThis chart uses nested bubbles to compare the market value of 15 banks in January 2007 and January 2009. The problem is that people judge length much more accurately than area. For example, Société Générale’s value fell from $80 billion to $26 billion, but it is hard to tell from the bubbles that the inner circle is only about one-third of the outer one. As Cairo shows, a bar chart makes this comparison much easier. Bubble charts are popular and look attractive, but designers often choose them by following trends rather than asking what the reader needs to see.\nI would go one step further. The real story in this data is how much each bank lost, yet neither the bubble chart nor a simple bar chart shows the percentage decline directly. RBS lost 96% of its value, Citigroup 93%, and Barclays 92%, while Santander lost only 45%. These differences are almost invisible in the bubbles. A bar chart of percentage change, sorted from largest to smallest loss, or a dumbbell chart connecting the 2007 and 2009 values, would let readers see immediately which banks were hit hardest by the financial crisis."
-  },
-  {
-    "objectID": "assignment1.html#references",
-    "href": "assignment1.html#references",
-    "title": "EPPS 6356 Assignment 1",
-    "section": "References",
-    "text": "References\nAnscombe, Francis J. 1973. “Graphs in Statistical Analysis.” The American Statistician 27(1): 17–21.\nCairo, Alberto. 2012. The Functional Art: An Introduction to Information Graphics and Visualization. Berkeley, CA: New Riders."
-  },
-  {
-    "objectID": "assignment1.html#ai-use-statement",
-    "href": "assignment1.html#ai-use-statement",
-    "title": "EPPS 6356 Assignment 1",
-    "section": "AI Use Statement",
-    "text": "AI Use Statement\nI used Claude (Anthropic) to guide me through running the R scripts, exporting the figures, and adding this page to my Quarto website. The analysis ideas in Sections 1 and 3 are my own; Claude helped translate and polish my English, suggested the specific solutions in Section 1, and calculated the percentage declines in Section 3. I used AI to save time and to clarify my writing in English.\nThe full AI conversation log is available here: AI Use Log."
+    "objectID": "class2-data-guide.html#source",
+    "href": "class2-data-guide.html#source",
+    "title": "Class 2: Huang’s Data Guide",
+    "section": "Source",
+    "text": "Source\nGroskopf, Christopher, and contributors. The Quartz Guide to Bad Data. Quartz, 2015–. https://github.com/Quartz/bad-data-guide Licensed under Creative Commons Attribution-NonCommercial 4.0 International.\n\nAI assistance for this note is documented in the Class AI use log."
   },
   {
     "objectID": "assignment3.html",
@@ -263,7 +165,469 @@
     "href": "assignment3.html#ai-use-statement",
     "title": "EPPS 6356 Assignment 3: Anatomy of a Chart",
     "section": "AI Use Statement",
-    "text": "AI Use Statement\nI used Claude (Anthropic) in the Claude desktop app to plan this assignment, to scaffold the five R scripts, to check my answers, and to assemble this page. The choice of chart to document, the colours and the plotting character, the reading of the four Anscombe fits, and the comparison of the base R and ggplot2 figures are mine; Claude supplied the structure, the label-selection rule for the COVID chart, and corrections to my English."
+    "text": "AI Use Statement\nI used Claude (Anthropic) in the Claude desktop app to plan this assignment, to scaffold the five R scripts, to check my answers, and to assemble this page. The choice of chart to document, the colours and the plotting character, the reading of the four Anscombe fits, and the comparison of the base R and ggplot2 figures are mine; Claude supplied the structure, the label-selection rule for the COVID chart, and corrections to my English.\nThe full AI conversation log is available here: Assignment 3: AI Use Log."
+  },
+  {
+    "objectID": "assignment1.html",
+    "href": "assignment1.html",
+    "title": "EPPS 6356 Assignment 1",
+    "section": "",
+    "text": "Anscombe’s four regression data sets\n\n\nAnscombe’s quartet (Anscombe 1973) shows that summary statistics can oversimplify data. The four data sets share nearly identical statistical properties: the mean of x is 9, the mean of y is 7.5, the correlation is 0.816, and every fitted regression line is y = 3 + 0.5x with an R² of 0.67. Because these numbers are only summaries, they suggest the four data sets are the same. The scatter plots, however, reveal four different structures: data set 1 is roughly linear, data set 2 is clearly curved, data set 3 is a near-perfect line distorted by one outlier, and in data set 4 a single extreme point creates the entire slope. A linear regression is only appropriate for the first case. Anscombe’s own solution is to make both calculations and graphs: scatterplot the data before any regression, plot the residuals against the fitted values after fitting, transform the variables or add a quadratic term when the relation is curved (data set 2), check whether outliers are recording errors (data set 3), and when one observation strongly influences the result, report the regression both with and without it (data set 4)."
+  },
+  {
+    "objectID": "assignment1.html#anscombes-quartet",
+    "href": "assignment1.html#anscombes-quartet",
+    "title": "EPPS 6356 Assignment 1",
+    "section": "",
+    "text": "Anscombe’s four regression data sets\n\n\nAnscombe’s quartet (Anscombe 1973) shows that summary statistics can oversimplify data. The four data sets share nearly identical statistical properties: the mean of x is 9, the mean of y is 7.5, the correlation is 0.816, and every fitted regression line is y = 3 + 0.5x with an R² of 0.67. Because these numbers are only summaries, they suggest the four data sets are the same. The scatter plots, however, reveal four different structures: data set 1 is roughly linear, data set 2 is clearly curved, data set 3 is a near-perfect line distorted by one outlier, and in data set 4 a single extreme point creates the entire slope. A linear regression is only appropriate for the first case. Anscombe’s own solution is to make both calculations and graphs: scatterplot the data before any regression, plot the residuals against the fitted values after fitting, transform the variables or add a quadratic term when the relation is curved (data set 2), check whether outliers are recording errors (data set 3), and when one observation strongly influences the result, report the regression both with and without it (data set 4)."
+  },
+  {
+    "objectID": "assignment1.html#fall.r-winter-colors",
+    "href": "assignment1.html#fall.r-winter-colors",
+    "title": "EPPS 6356 Assignment 1",
+    "section": "2. Fall.R — Winter Colors",
+    "text": "2. Fall.R — Winter Colors\nI modified Fall.R to use a winter palette: light steel blue branches (lightsteelblue1) on a (midnightblue) background.\n\n\n\nWinter tree generated with an L-system in R"
+  },
+  {
+    "objectID": "assignment1.html#chart-critique",
+    "href": "assignment1.html#chart-critique",
+    "title": "EPPS 6356 Assignment 1",
+    "section": "3. Chart Critique",
+    "text": "3. Chart Critique\n\n\n\nMarket Capitalization of the World’s Biggest Banks. Source: Cairo (2012), Figure 2.8.\n\n\nThis chart uses nested bubbles to compare the market value of 15 banks in January 2007 and January 2009. The problem is that people judge length much more accurately than area. For example, Société Générale’s value fell from $80 billion to $26 billion, but it is hard to tell from the bubbles that the inner circle is only about one-third of the outer one. As Cairo shows, a bar chart makes this comparison much easier. Bubble charts are popular and look attractive, but designers often choose them by following trends rather than asking what the reader needs to see.\nI would go one step further. The real story in this data is how much each bank lost, yet neither the bubble chart nor a simple bar chart shows the percentage decline directly. RBS lost 96% of its value, Citigroup 93%, and Barclays 92%, while Santander lost only 45%. These differences are almost invisible in the bubbles. A bar chart of percentage change, sorted from largest to smallest loss, or a dumbbell chart connecting the 2007 and 2009 values, would let readers see immediately which banks were hit hardest by the financial crisis."
+  },
+  {
+    "objectID": "assignment1.html#references",
+    "href": "assignment1.html#references",
+    "title": "EPPS 6356 Assignment 1",
+    "section": "References",
+    "text": "References\nAnscombe, Francis J. 1973. “Graphs in Statistical Analysis.” The American Statistician 27(1): 17–21.\nCairo, Alberto. 2012. The Functional Art: An Introduction to Information Graphics and Visualization. Berkeley, CA: New Riders."
+  },
+  {
+    "objectID": "assignment1.html#ai-use-statement",
+    "href": "assignment1.html#ai-use-statement",
+    "title": "EPPS 6356 Assignment 1",
+    "section": "AI Use Statement",
+    "text": "AI Use Statement\nI used Claude (Anthropic) to guide me through running the R scripts, exporting the figures, and adding this page to my Quarto website. The analysis ideas in Sections 1 and 3 are my own; Claude helped translate and polish my English, suggested the specific solutions in Section 1, and calculated the percentage declines in Section 3. I used AI to save time and to clarify my writing in English.\nThe full AI conversation log is available here: AI Use Log."
+  },
+  {
+    "objectID": "ai-log-class4.html",
+    "href": "ai-log-class4.html",
+    "title": "Class 4: AI Use Log",
+    "section": "",
+    "text": "This page documents my use of generative AI for the Class 4 note."
+  },
+  {
+    "objectID": "ai-log-class4.html#tool-information",
+    "href": "ai-log-class4.html#tool-information",
+    "title": "Class 4: AI Use Log",
+    "section": "Tool Information",
+    "text": "Tool Information\n\n\n\n\n\n\n\nItem\nDetails\n\n\n\n\nTool\nClaude (Anthropic), model claude-opus-5, used in the Claude desktop app\n\n\nDate\nSeptember 30, 2026\n\n\nLanguage\nI worked in Traditional Chinese and asked for an English version of the finished note."
+  },
+  {
+    "objectID": "ai-log-class4.html#how-the-note-was-produced",
+    "href": "ai-log-class4.html#how-the-note-was-produced",
+    "title": "Class 4: AI Use Log",
+    "section": "How the Note Was Produced",
+    "text": "How the Note Was Produced\nI watched the assigned video, then dictated my points to Claude, which organised them into the Chinese note and then into the English version published here.\nThe content is mine. These were the points I brought out of the video:\n\nThat the purpose of analysis is to “get it right”, and that a polished chart can make an unreliable analysis more persuasive rather than less.\nGoogle Flu as an illustration of overfitting, and the distinction between exploratory and confirmatory work that follows from it — including the point that pre-specifying an analysis is what stops the question from moving after the results are seen.\nThat reliable analysis starts from how the data were collected: missing values, spreadsheet conversions, sampling, and the incentives of whoever supplied the data.\n“Compared to what?” as a practical starting point for design, and my reservation about information-rich displays — removing clutter helps, removing context distorts.\n\nWhat Claude contributed: the ordering of the paragraphs, the transitions, and the English wording. The draft structure is the model’s; the observations and the judgements in it are mine."
+  },
+  {
+    "objectID": "ai-log-class4.html#reading-support",
+    "href": "ai-log-class4.html#reading-support",
+    "title": "Class 4: AI Use Log",
+    "section": "Reading Support",
+    "text": "Reading Support\nSeparately, I asked Claude for two Traditional Chinese reading guides — one to Cairo’s The Functional Art (chapters 1–9) and one to chapter 3 of Yau’s Visualize This — to get through the assigned reading faster in a second language. Both are study aids kept in my course folder; they are not part of any submitted work, and nothing from them was copied into the note above."
+  },
+  {
+    "objectID": "ai-log-class4.html#a-note-on-overlap-with-class-5",
+    "href": "ai-log-class4.html#a-note-on-overlap-with-class-5",
+    "title": "Class 4: AI Use Log",
+    "section": "A Note on Overlap with Class 5",
+    "text": "A Note on Overlap with Class 5\nThe Google Flu material reappears in my Class 5 note, where it is the assigned case study and is treated at length from the two original papers. The paragraph here records what I took from the video; the Class 5 note records what I took from Ginsberg et al. (2009) and Lazer et al. (2014)."
+  },
+  {
+    "objectID": "ai-log-class2.html",
+    "href": "ai-log-class2.html",
+    "title": "Class 2: AI Use Log",
+    "section": "",
+    "text": "This page documents my use of generative AI for the two Class 2 notes: Huang’s Data Guide and Review of Teaching to See."
+  },
+  {
+    "objectID": "ai-log-class2.html#tool-information",
+    "href": "ai-log-class2.html#tool-information",
+    "title": "Class 2: AI Use Log",
+    "section": "Tool Information",
+    "text": "Tool Information\n\n\n\n\n\n\n\nItem\nDetails\n\n\n\n\nTool\nClaude (Anthropic), model claude-opus-5, used in the Claude desktop app\n\n\nDate\nSeptember 20, 2026\n\n\nLanguage\nI worked in Traditional Chinese and asked for the final notes in English."
+  },
+  {
+    "objectID": "ai-log-class2.html#huangs-data-guide",
+    "href": "ai-log-class2.html#huangs-data-guide",
+    "title": "Class 2: AI Use Log",
+    "section": "Huang’s Data Guide",
+    "text": "Huang’s Data Guide\nI downloaded the Quartz Bad Data Guide and asked Claude to help me turn its roughly sixty items into a checklist I would actually use.\n\nMe: 我已經下載下來了 幫我完成這個做頁並把我的清單存在 F:…\n(I have downloaded it. Help me finish this page and save my checklist in the Class 2 folder.)\n\nWhat Claude contributed: the organising idea of grouping the items by who can fix the problem rather than by symptom, the Tier 1 fifteen-minute subset, and the English wording.\nWhat is mine: the decision to make the guide personal rather than a summary of the original, and the two domain sections at the end — gridded weather reanalysis and medical imaging — which come from the data I actually work with in my own research. Claude could not have supplied those items; I told it what goes wrong in those datasets."
+  },
+  {
+    "objectID": "ai-log-class2.html#review-of-teaching-to-see",
+    "href": "ai-log-class2.html#review-of-teaching-to-see",
+    "title": "Class 2: AI Use Log",
+    "section": "Review of Teaching to See",
+    "text": "Review of Teaching to See\nI watched the 37-minute film and wrote my reactions in Chinese. Claude turned them into the English review.\nThe observations are mine:\n\nThe Beethoven poster, where the letter E is drawn together with the lines of a musical staff — and the fact that I did not see the staff at first.\nThe signature exercise and the thick/thin variation produced by a broad pen held at a fixed angle.\nSteve Jobs and the calligraphy class behind the Macintosh typefaces.\nThe symmetry of the Roman alphabet, and that every letter has to be adjusted so the spaces stay even.\n\nAfter reading Claude’s first draft I replaced three sections with my own text and had Claude work those in rather than paraphrase them:\n\nSection 1 — rewritten by me.\nSection 2 — I supplied the Holmes quotation on the eye and the hand.\nSection 4 — my own point that geometric accuracy and optical accuracy do not coincide, which became the section on why a letter that is mathematically correct can still look wrong."
+  },
+  {
+    "objectID": "ai-log-class2.html#why-i-used-ai-here",
+    "href": "ai-log-class2.html#why-i-used-ai-here",
+    "title": "Class 2: AI Use Log",
+    "section": "Why I Used AI Here",
+    "text": "Why I Used AI Here\nTo produce readable English at the length the course expects, in a week when I was also preparing for an exam. The reading, the viewing, and the judgements are mine; the drafting and the structure are shared."
+  },
+  {
+    "objectID": "ai-log-assignment3.html",
+    "href": "ai-log-assignment3.html",
+    "title": "Assignment 3: AI Use Log",
+    "section": "",
+    "text": "This page documents my use of generative AI for EPPS 6356 Assignment 3, following the course AI policy. Logs for the other assignments are on their own pages."
+  },
+  {
+    "objectID": "ai-log-assignment3.html#tool-information",
+    "href": "ai-log-assignment3.html#tool-information",
+    "title": "Assignment 3: AI Use Log",
+    "section": "Tool Information",
+    "text": "Tool Information\n\n\n\n\n\n\n\nItem\nDetails\n\n\n\n\nTool\nClaude (Anthropic), model claude-opus-5, used in the Claude desktop app\n\n\nDates\nOctober 1–2, 2026\n\n\nLanguage\nI asked in Traditional Chinese; the drafted English text and code comments came back in English."
+  },
+  {
+    "objectID": "ai-log-assignment3.html#how-and-why-i-used-ai",
+    "href": "ai-log-assignment3.html#how-and-why-i-used-ai",
+    "title": "Assignment 3: AI Use Log",
+    "section": "How and Why I Used AI",
+    "text": "How and Why I Used AI\n\nPlanning: breaking the five questions into an order I could finish in one evening, and explaining what “document a chart” asks for.\nChecking my understanding of base graphics: I ran the code myself and wrote down what I thought each call did; Claude corrected four of those statements (listed below).\nReviewing my scripts: catching errors in the ggplot version before I ran it.\nEditing my own draft: tightening the paragraph I wrote for the replication question.\nAssembly: turning the finished figures and text into assignment3.qmd, with the figure captions and alt text."
+  },
+  {
+    "objectID": "ai-log-assignment3.html#what-claude-corrected",
+    "href": "ai-log-assignment3.html#what-claude-corrected",
+    "title": "Assignment 3: AI Use Log",
+    "section": "What Claude Corrected",
+    "text": "What Claude Corrected\nThese are places where I had written something and Claude told me it was wrong:\n\n\n\n\n\n\n\nMy statement\nThe correction\n\n\n\n\nCalling text() before plot() just does nothing\nIt raises an error — there is no plot region to draw into yet\n\n\nplot() does “a few things”\nIt does seven: new plot, window, points, axes, box, labels, title\n\n\nMy reasoning for why freq = FALSE was needed\nMy reasoning was reversed\n\n\nboxplot(add = TRUE) is a low-level function\nboxplot() is a high-level function being used in a low-level way\n\n\n\nClaude also spotted that a paragraph of English I had typed into 04_ggplot_version.R had ## only on its first line, which would have broken source() on the whole script."
+  },
+  {
+    "objectID": "ai-log-assignment3.html#editing-my-own-writing",
+    "href": "ai-log-assignment3.html#editing-my-own-writing",
+    "title": "Assignment 3: AI Use Log",
+    "section": "Editing My Own Writing",
+    "text": "Editing My Own Writing\nFor the replication question I wrote a paragraph first and asked Claude to revise it. The changes it made:\n\n“linear variance” → “relationship” (I had used a term that does not mean what I wanted it to mean)\n“slightly skewed” → “dragged away from it” (the effect is not slight)\nadded the concrete detail that every x value is 8 except one observation at 19, which is the actual reason the fit moves\n\nThe argument of the paragraph is mine; the wording above is the edit."
+  },
+  {
+    "objectID": "ai-log-assignment3.html#what-is-my-own",
+    "href": "ai-log-assignment3.html#what-is-my-own",
+    "title": "Assignment 3: AI Use Log",
+    "section": "What Is My Own",
+    "text": "What Is My Own\n\nRunning every script and producing every figure.\nChoosing which panel of Murrell’s chapter 1 to document — I picked the scatterplot panel because it is the only one built entirely from plot.new() and low-level calls.\nThe colour choice: I tried several and settled on magenta3.\nDeciding to keep the previous week’s COVID code for question 5 rather than rewrite it under time pressure, and saying so on the page.\nThe substance of the replication paragraph."
+  },
+  {
+    "objectID": "ai-log-assignment3.html#a-workflow-problem-worth-recording",
+    "href": "ai-log-assignment3.html#a-workflow-problem-worth-recording",
+    "title": "Assignment 3: AI Use Log",
+    "section": "A Workflow Problem Worth Recording",
+    "text": "A Workflow Problem Worth Recording\nWhen Claude edited assignment3.qmd on disk while the file was open in RStudio, RStudio offered to save its own cached copy over the change. Saving would have silently reverted the edit. The fix is to choose Don’t Save, close the tab, and reopen the file from the Files pane. I mention it because it is the kind of error that leaves no trace in the output."
+  },
+  {
+    "objectID": "ai-log-assignment1.html",
+    "href": "ai-log-assignment1.html",
+    "title": "Assignment 1: AI Use Log",
+    "section": "",
+    "text": "This page documents my use of generative AI for EPPS 6356 Assignment 1, following the course AI policy. The log for the next assignment is on a separate page: Assignment 2: AI Use Log."
+  },
+  {
+    "objectID": "ai-log-assignment1.html#tool-information",
+    "href": "ai-log-assignment1.html#tool-information",
+    "title": "Assignment 1: AI Use Log",
+    "section": "Tool Information",
+    "text": "Tool Information\n\n\n\n\n\n\n\nItem\nDetails\n\n\n\n\nTool\nClaude (Anthropic), used in the Claude desktop app (Cowork mode)\n\n\nDate\nSeptember 15, 2026\n\n\nLanguage\nI asked questions in Chinese (Traditional). My original prompts are quoted below with English translations. Claude’s replies are summarized in English."
+  },
+  {
+    "objectID": "ai-log-assignment1.html#how-and-why-i-used-ai",
+    "href": "ai-log-assignment1.html#how-and-why-i-used-ai",
+    "title": "Assignment 1: AI Use Log",
+    "section": "How and Why I Used AI",
+    "text": "How and Why I Used AI\n\nHow: step-by-step guidance for setting up RStudio projects, running Fall.R and anscombe01.R, exporting figures, and adding a page to my Quarto website. I also used it to polish and translate my English writing, suggest regression diagnostics, and calculate percentage declines for the chart critique.\nWhy: to catch up on the course after starting late, to save time with unfamiliar tools (RStudio projects, Quarto rendering), and to clarify my writing in English, which is not my first language.\nWhat is my own: the choice of colors and chart, the core argument in Section 1 (summary statistics oversimplify data) and in Section 3 (length is perceived better than area; bubble charts are used because they are trendy).\n\n\n\n\n\n\n\nImportantMost Relevant Sections\n\n\n\nThe exchanges that directly shaped the submitted text are Exchange 12 (Anscombe paragraph and chart critique) and Exchange 13 (clarifying the three questions). They are highlighted below."
+  },
+  {
+    "objectID": "ai-log-assignment1.html#conversation-log",
+    "href": "ai-log-assignment1.html#conversation-log",
+    "title": "Assignment 1: AI Use Log",
+    "section": "Conversation Log",
+    "text": "Conversation Log\n\n1. Catching up on readings and understanding the assignment\n\nMe: 我目前閱讀只完成到 Week 2… 能否告訴我要下載哪些資料來閱讀呢？這個 assignment 要我做什麼呢？我已經把 R 還有網站環境處理好，也推上 GitHub 了，這是 assignment 要求的嗎？\n(I have only finished the Week 2 readings. Which materials should I download? What does this assignment ask me to do? I have already set up R and my website and pushed to GitHub. Is that what the assignment requires?)\n\nClaude: Listed the Week 3 readings (Cairo, The Truthful Art and How Charts Lie; Quarto closeread) and Week 4 readings (Ware ch. 1–3; Cleveland & McGill 1984; Heer & Bostock 2010), plus Anscombe (1973) for the assignment. Summarized the three assignment tasks. Explained that setting up the website is a prerequisite rather than the assignment itself, and reminded me to confirm that GitHub Pages is live and to include an AI appendix.\n\n\n2. Disk space and folder organization\n\nMe: 我的網站在 C 槽，但 C 槽快要滿了。R 的東西都在外接硬碟 F 槽，要怎麼處理比較好？\n(My website is on drive C, which is almost full. My R files are on external drive F. What is the best way to handle this?)\n\nClaude: Checked both folders. The website is only 3.5 MB, so it is not what fills drive C. Suggested keeping textbooks, scripts, and raw work on drive F and putting only final outputs (images, .qmd pages) in the website.\n\n\n3. Deciding not to move the website\n\nMe: 我傾向不搬，因為我已經繳交作業了，怕網址會亂掉。上傳東西會不會把槽弄滿？\n(I prefer not to move it because I already submitted my website and worry the URL will break. Will uploading assignments fill the drive?)\n\nClaude: Confirmed that the URL depends on the GitHub repository, not the local folder. Each assignment adds only a few hundred KB. Proposed the workflow: work on drive F, copy only final images to the website.\n\n\n4. Running Fall.R and choosing winter colors\n\nMe: (Shared console output and a screenshot of the default Fall plot.) 要存成圖片放到哪裡嗎？\n(Where should I save the image?)\n\nClaude: Suggested using ggsave() instead of right-click saving, and proposed a winter palette: lightsteelblue1 branches on a midnightblue background.\n\n\n5. Creating a separate RStudio project on drive F\n\nMe: 還是說要分開來用？我要重新打開 F 槽中的資料夾來執行，可否一步一步帶著我做？\n(Should I use them separately? I want to open the folder on drive F as a project. Can you guide me step by step?)\n\nClaude: Guided me to create an RStudio project in the course folder on drive F (File → New Project → Existing Directory), so relative paths save outputs there.\n\n\n6. Understanding the code changes\n\nMe: 為什麼要改這些東西呢？\n(Why do these things need to be changed?)\n\nClaude: Explained each change: branch color (task 2a), background color for contrast, storing the plot in p, and ggsave() to export the file (task 2b). Suggested other winter color combinations.\n\n\n7. Running an entire script\n\nMe: R 不能一次執行全部嗎？\n(Can’t R run the whole script at once?)\n\nClaude: Explained Ctrl+Shift+Enter (Source with Echo), Ctrl+A then Ctrl+Enter, and the Source button.\n\n\n8. Exporting the Anscombe figure\n\nMe: (Shared winter.png, then the full console output of anscombe01.R.) 另外我想知道你改的那些是什麼意思。\n(I also want to know what your changes mean.)\n\nClaude: Confirmed both images were saved. Explained png() and dev.off() for base R graphics, and the par(mfrow = c(2, 2)) layout. Summarized the regression output: all four data sets have mean x = 9, mean y = 7.5, and fitted line y = 3 + 0.5x with R² = 0.67.\n\n\n9. Why the Plots pane showed four separate plots\n\nMe: 為什麼 plot 裡面並不是出現一張圖而是四張圖呢？\n(Why does the Plots pane show four plots instead of one?)\n\nClaude: Explained that the “simple version” draws four separate plots in RStudio, while the 2×2 panel is written directly to the PNG file.\n\n\n10. Adding the Assignment 1 page to the website\n\nMe: 我有這兩張圖，接下來要如何進行呢？\n(I have both images. What should I do next?)\n\nClaude: Guided me to copy the images into images/, create assignment1.qmd, add it to the navbar in _quarto.yml, and dismiss the RStudio “save workspace” prompt. Recommended setting RStudio to never save .RData.\n\n\n11. Rendering the whole website\n\nMe: 我是使用這個按鈕，點完之後跳出網頁。\n(I used this Render button, and a web page opened.)\n\nClaude: Checked the docs/ folder and found that only assignment1.html had been updated. Explained that the editor’s Render button renders one page, so I used Build → Render Website to update the navigation menu on every page.\n\n\n\n\n\n\nNote12. Writing the Anscombe paragraph and the chart critique (most relevant)\n\n\n\n\nMe: 第一題我想是統計數據會過度簡略，畢竟它是一種摘要，但實際情況還是要觀察散點圖。\nFor the first question, I think the statistical data might be overly simplified, since it is just a summary, but in reality, you still need to look at the scatter plot.\n圖表評論來自 The Functional Art：因為人對於長短的感知相較於面積來說更好（一維好於面積），若這張圖改為 bar chart 會更好理解。但因為 bubble chart 的流行大家有點盲目跟風，所以我想我們需要重新思考我們到底需要什麼而不是只是追逐流行。\nFor the critique, from The Functional Art: people perceive length better than area, so a bar chart would be easier to understand. But because bubble charts are popular, everyone has been blindly following the trend. We need to rethink what we really need instead of chasing trends.\n\nClaude:\n\nSection 1: Polished my idea into a full paragraph. Added the specific statistics from my R output, described each data set’s structure, and suggested the solutions: plotting before and after modeling, residual plots, nonlinear models, Cook’s distance, and robust regression.\nSection 3: Pointed out that my critique repeated Cairo’s own argument, so it needed an original contribution. Calculated the percentage decline for each bank from the chart’s labels (e.g., RBS −96%, Citigroup −93%, Barclays −92%, Santander −45%). Suggested that the real story is the percentage loss, which a sorted bar chart of percentage change or a dumbbell chart would show better. Drafted the English critique around my argument plus this point.\n\n\n\n\n\n\n\n\n\nNote13. Clarifying the three questions (most relevant)\n\n\n\n\nMe: 等一等你是不是搞錯了呢？我是不是要分析一個我讀的段落，還是說其實就是要找一篇就行了，還是說這是第三點的問題？我覺得就用 A 就好了。\n(Wait, did you misunderstand? Do I need to analyze a passage I read, or just find one chart? Or is this about question 3? I think option A is fine.)\n\nClaude: Clarified that Question 1 analyzes Anscombe’s four data sets based on Anscombe (1973) and my R output, while Question 3 critiques any published chart. My bank bubble chart from The Functional Art is the Question 3 answer. Saved the chart screenshot as images/bank_bubbles.png and provided the full page text, including references and an AI use statement.\n\n\n\n\n14. Exporting this log\n\nMe: 怎麼把這段對話匯出呢？ … 做 A 就好了。\n(How do I export this conversation? … Option A is fine.)\n\nClaude: Created this log page and added a link to it from the Assignment 1 page."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "ai-log-assignment2.html",
+    "href": "ai-log-assignment2.html",
+    "title": "Assignment 2: AI Use Log",
+    "section": "",
+    "text": "This page documents my use of generative AI for EPPS 6356 Assignment 2, following the course AI policy. The log for the previous assignment is on a separate page: Assignment 1: AI Use Log."
+  },
+  {
+    "objectID": "ai-log-assignment2.html#tool-information",
+    "href": "ai-log-assignment2.html#tool-information",
+    "title": "Assignment 2: AI Use Log",
+    "section": "Tool Information",
+    "text": "Tool Information\n\n\n\n\n\n\n\nItem\nDetails\n\n\n\n\nTools\nClaude (Anthropic), used in the Claude desktop app; Codex (OpenAI)\n\n\nDates\nSeptember 21–23, 2026\n\n\nLanguage\nI asked Claude questions in Chinese (Traditional). My original prompts are quoted below with English translations; Claude’s replies are summarized in English."
+  },
+  {
+    "objectID": "ai-log-assignment2.html#how-and-why-i-used-ai",
+    "href": "ai-log-assignment2.html#how-and-why-i-used-ai",
+    "title": "Assignment 2: AI Use Log",
+    "section": "How and Why I Used AI",
+    "text": "How and Why I Used AI\n\nClaude: planning the assignment, preparing a line-by-line note template for Murrell’s chapter 1 code, checking my answers to the questions in those notes, extracting the 2024 subset of the Happy Planet Index workbook, scaffolding this page, and reviewing the finished draft.\nCodex: turning my notes into an English draft and writing the R plotting examples and figure captions from that scaffold.\nWhy: to catch up after starting the course late, to work with unfamiliar tooling (Quarto rendering, base R graphics), and to express my observations in English, which is not my first language.\nWhat is my own: the line-by-line runs of the chapter 1 code and the observations recorded in my notes, the choice of 2024, the decision about which sections of the chapter to run and which to skip, and the judgement that a bar chart would serve the regional counts better than a pie chart.\n\n\n\n\n\n\n\nImportantMost Relevant Sections\n\n\n\nExchange 4 (checking my answers to the chapter 1 questions) and Exchange 5 (extracting the data and scaffolding this page) shaped the submitted work most directly."
+  },
+  {
+    "objectID": "ai-log-assignment2.html#conversation-log-claude",
+    "href": "ai-log-assignment2.html#conversation-log-claude",
+    "title": "Assignment 2: AI Use Log",
+    "section": "Conversation Log — Claude",
+    "text": "Conversation Log — Claude\n\n1. Understanding what Assignment 2 asks for\n\nMe: 我覺得差不多要準備做 Assignment 2，考試準備到一個段落了。\n(I think it is about time to start Assignment 2; my exam preparation has reached a stopping point.)\n\nClaude: Read the handout and broke it into four tasks: run Murrell’s chapter 1 code line by line, exercise twelve plotting functions on my own data with one figure and one sentence each, use the Happy Planet Index filtered to a single year, and post the figures with the code that produced them. Estimated four to six hours and suggested splitting it over two days.\n\n\n2. Getting the chapter 1 code\n\nMe: (Shared the chapter 1 figure gallery page and reported that murrell01.R was not on Teams.)\n\nClaude: The gallery links to separate .R files rather than one script, and Claude’s own network could not reach the site. It wrote an R script that reads the chapter page from my machine, extracts every .R link, downloads them, and concatenates them into a single murrell01.R. The first attempt found nothing because the page uses uppercase HREF; after Claude made the pattern case-insensitive, all 14 files downloaded (1,295 lines).\n\nMe: (Reported system error 32 when opening the file.)\n\nClaude: Diagnosed it as a file connection left open by the failed first run (close(con) never executed), and pointed out that this is the same discipline as png() needing dev.off(). closeAllConnections() or restarting R fixed it.\n\n\n3. The note template\n\nMe: 可以幫我生一個檔案有這樣的格式嗎？我這樣子邊執行邊看。可以幫我加上一些中文讓我理解的快速一些嗎？\n(Can you generate a file in this format so I can fill it in while running the code? Can you add some Chinese so I understand faster?)\n\nClaude: Built murrell01-notes.md, listing every line of the first two sections with a Chinese hint for each argument (mar, pch, bty, theta, phi), a column for what I observed on the device, and a type column (high-level / low-level / setting / data). Added six questions drawn from the code itself.\n\n\n\n\n\n\nNote4. Checking my answers (most relevant)\n\n\n\n\nMe: (Submitted my answers to the six questions.)\n\nClaude: Confirmed two answers and corrected three:\n\ntext() before plot(): in a fresh session this is an error (plot.new has not been called yet); I had seen “the text does not appear” only because an old plot was still on the device.\nWhat plot() does: it is plot.new() + plot.window() + drawing the data + axis(1) + axis(2) + box() + title(); my answer covered only the first step.\nfreq = FALSE: I had the direction backwards. On a count scale the density curve is compressed against the axis, because counts reach the teens while the density peaks near 0.4.\nboxplot(add = TRUE): I said it still counted as high-level because it clears the plot. It does not clear the plot; with add = TRUE it behaves as a low-level call, which is why the two sets of boxes sit side by side.\nmidpts: my value was right; Claude added the reason it is needed — the bars are not at 1, 2, 3, 4, so the labels need the returned positions.\ntheta / phi: rotation versus viewing elevation.\n\nClaude also filled in the type column for all 38 rows as a check against my own reading.\n\n\n\n\n\n\n\n\nNote5. The data and the page scaffold (most relevant)\n\n\n\n\nMe: 好的就 2024 年吧。\n(All right, let’s use 2024.)\n\nClaude: Checked how complete each year is and recommended 2024, because the GDP column is empty for 2025. Extracted the 2024 rows from the All Data sheet into hpi2024.csv (153 countries), and translated the workbook’s numeric continent codes into region names after verifying the order against the workbook’s own Cont data sheet. Reported the missing values I cite on the assignment page: life satisfaction 12, HPI 16, GDP 6, footprint 4. It also wrote 02_export_csv.R so the same extract is reproducible from the original workbook, and created the skeleton of assignment2.qmd with the twelve chunks and hints — including the suggestion to fit a smoothed surface for persp(), since that function needs a grid rather than country rows.\n\n\n\n\n6. Reviewing the draft\n\nMe: 是這樣嗎？幫我看一下。\n(Is this right? Please take a look.)\n\nClaude: Checked the page and the rendered output. Confirmed the code was correct, including the hpi ~ continent formula (the data frame and the column share a name) and the orientation of the persp() matrix. Asked for three changes, which I made: naming both AI tools in the statement rather than only Codex, adding Assignment 2 to the site navigation, and hiding the str() output in favour of a short preview table. It also added fig-alt text to all twelve figures for screen readers and sharpened the par() caption to say that the call draws nothing by itself.\n\n\n7. Splitting the logs\n\nMe: 我覺得要分開會比較好，ai-log 是 Assignment 1 的，另一個是 Assignment 2。\n(I think it is better to separate them: ai-log for Assignment 1 and another one for Assignment 2.)\n\nClaude: Created this page and linked it from the Assignment 2 page."
+  },
+  {
+    "objectID": "ai-log-assignment2.html#note-on-the-codex-exchange",
+    "href": "ai-log-assignment2.html#note-on-the-codex-exchange",
+    "title": "Assignment 2: AI Use Log",
+    "section": "Note on the Codex exchange",
+    "text": "Note on the Codex exchange\nThe English drafting and the plotting code were produced in a separate session with Codex (OpenAI), working from the notes and the scaffold described above. That exchange is not reproduced here; the resulting code is visible in full on the assignment page, since every figure is shown with the code that produced it."
+  },
+  {
+    "objectID": "ai-log-assignment4.html",
+    "href": "ai-log-assignment4.html",
+    "title": "Assignment 4: AI Use Log",
+    "section": "",
+    "text": "This page documents my use of generative AI for EPPS 6356 Assignment 4, the team chart hackathon.\nAssignment 4 asks for the disclosure to sit with the code, so the authoritative record is prompts.md in the team repository. This page is a copy of my section of it."
+  },
+  {
+    "objectID": "ai-log-assignment4.html#tool-information",
+    "href": "ai-log-assignment4.html#tool-information",
+    "title": "Assignment 4: AI Use Log",
+    "section": "Tool Information",
+    "text": "Tool Information\n\n\n\n\n\n\n\nItem\nDetails\n\n\n\n\nTool\nClaude (Anthropic), model claude-opus-5, used in the Claude desktop app\n\n\nDate\nOctober 5–6, 2026\n\n\nMy files\nassignments/Chart4.R, R/theme.R, data/hpi_chart4_means.rds, output/chart4_continent_means.png, README.md, prompts.md, sessionInfo.txt"
+  },
+  {
+    "objectID": "ai-log-assignment4.html#prompts",
+    "href": "ai-log-assignment4.html#prompts",
+    "title": "Assignment 4: AI Use Log",
+    "section": "Prompts",
+    "text": "Prompts\nThe conversation was in Traditional Chinese.\n\n\n接著幫我依照他的風格完成第四張圖\n(Now complete the fourth chart, following her style.)\nContext supplied beforehand: the assignment PDF, my teammate’s published page, and read access to the cloned repository — in particular Chart3.R, assign04.qmd, and data/hpi_clean.csv.\n\n\n幫我看一下\n(Take a look at this.) — sent with the first rendered PNG, asking for a review against the other three charts."
+  },
+  {
+    "objectID": "ai-log-assignment4.html#what-i-had-to-fix",
+    "href": "ai-log-assignment4.html#what-i-had-to-fix",
+    "title": "Assignment 4: AI Use Log",
+    "section": "What I Had to Fix",
+    "text": "What I Had to Fix\n\nThe y-axis title came out horizontal. theme_hackathon() re-declares axis.title.y through %+replace% without an angle, so the angle resets to zero and the panel is squeezed. I caught it by comparing the first render against Chart 1, where the same fix already appears. Commit 07f074f.\nThe first draft of the commit would have touched the whole repository. The clone is on Windows, so every text file showed as modified on line endings alone — 13,521 insertions and 13,527 deletions across 52 files, all whitespace. I staged only the four new paths instead of git add -A.\nsource(\"R/theme.R\") pointed at a file that was not in the repository. Chart1.R and Chart3.R both call it, but the theme existed only inside the setup chunk of the Quarto document, so those scripts failed from a clean R session. Extracting it fixed a checklist item for the whole team, not just my chart."
+  },
+  {
+    "objectID": "ai-log-assignment4.html#design-decisions-that-are-mine",
+    "href": "ai-log-assignment4.html#design-decisions-that-are-mine",
+    "title": "Assignment 4: AI Use Log",
+    "section": "Design Decisions That Are Mine",
+    "text": "Design Decisions That Are Mine\n\nSorting the continents by mean HPI rather than alphabetically, so the chart answers its own title.\nPrinting n = inside each column. Oceania’s mean rests on four countries and Asia’s on seventeen; without the counts the five columns read as equally reliable.\nStating in the subtitle that the mean is unweighted, since Chart 1 uses a population-weighted mean and the two numbers would otherwise appear to disagree."
+  },
+  {
+    "objectID": "ai-log-class3.html",
+    "href": "ai-log-class3.html",
+    "title": "Class 3: AI Use Log",
+    "section": "",
+    "text": "This page documents my use of generative AI for the Class 3 note."
+  },
+  {
+    "objectID": "ai-log-class3.html#tool-information",
+    "href": "ai-log-class3.html#tool-information",
+    "title": "Class 3: AI Use Log",
+    "section": "Tool Information",
+    "text": "Tool Information\n\n\n\n\n\n\n\nItem\nDetails\n\n\n\n\nTool\nClaude (Anthropic), model claude-opus-5, used in the Claude desktop app\n\n\nDate\nSeptember 23, 2026\n\n\nLanguage\nI worked in Traditional Chinese and asked for an English version of the finished note."
+  },
+  {
+    "objectID": "ai-log-class3.html#how-the-note-was-produced",
+    "href": "ai-log-class3.html#how-the-note-was-produced",
+    "title": "Class 3: AI Use Log",
+    "section": "How the Note Was Produced",
+    "text": "How the Note Was Produced\nI watched Journalism in the Age of Data and read the accompanying site, then dictated my points to Claude, which organised them into the Chinese note and then into the English version published here.\nThe content is mine. These were the points I brought out of the video:\n\nMany Eyes and IBM’s push to democratise visualization — and my reservation that an easy tool does not make data easy to interpret.\nThe Martini Glass structure, and the worked example of how I would stage an interactive unemployment chart: trend and definitions first, comparison after.\nThe streamgraph of box-office revenues as a case where visual appeal and readability pull apart.\nThe conclusion I wanted to reach: a chart should be judged by the task it supports — compare, follow a trend, read a distribution — not by how novel it looks.\n\nWhat Claude contributed: the ordering of the paragraphs, the transitions, and the English wording. The draft structure is the model’s; the observations and the judgements in it are mine."
+  },
+  {
+    "objectID": "ai-log-class3.html#reading-support",
+    "href": "ai-log-class3.html#reading-support",
+    "title": "Class 3: AI Use Log",
+    "section": "Reading Support",
+    "text": "Reading Support\nSeparately, I asked Claude to produce a Traditional Chinese reading guide to chapters 1–3 of Ware’s Information Visualization, to get through the assigned reading faster in a second language. That guide is a study aid kept in my course folder; it is not part of any submitted work, and nothing from it was copied into the note above."
+  },
+  {
+    "objectID": "ai-log-class3.html#why-i-used-ai-here",
+    "href": "ai-log-class3.html#why-i-used-ai-here",
+    "title": "Class 3: AI Use Log",
+    "section": "Why I Used AI Here",
+    "text": "Why I Used AI Here\nEnglish is not my first language and the note was due in the same week as work for two other courses. Using AI to draft from my own points let me spend the time on the video and the reading rather than on sentence construction."
+  },
+  {
+    "objectID": "ai-log-class5.html",
+    "href": "ai-log-class5.html",
+    "title": "Class 5: AI Use Log",
+    "section": "",
+    "text": "This page documents my use of generative AI for the Class 5 note, following the course AI policy."
+  },
+  {
+    "objectID": "ai-log-class5.html#tool-and-scope",
+    "href": "ai-log-class5.html#tool-and-scope",
+    "title": "Class 5: AI Use Log",
+    "section": "Tool and scope",
+    "text": "Tool and scope\nOpenAI Codex desktop assistant, GPT-6 family (the exact model build/version was not exposed in the session), used October 7, 2026. AI assisted with the English draft, checking sources, writing and running the base R simulation, and preparing the Quarto website page."
+  },
+  {
+    "objectID": "ai-log-class5.html#user-prompt",
+    "href": "ai-log-class5.html#user-prompt",
+    "title": "Class 5: AI Use Log",
+    "section": "User prompt",
+    "text": "User prompt\nThe user supplied the Chinese reading guide GFT_Ginsberg2009_Lazer2014_中文導讀.md and this request:\n\nPost one note as a Quarto page on your GitHub website (about one page, 500–700 words), in your own words and with sources cited, in three short sections: a. Big data analytics pitfalls. Use Google Flu Trends as your case. Address at least “big data hubris,” algorithm dynamics (the data-generating process changes under you), and transparency and replicability. b. Overfitting and overparameterization. Define both and explain how they apply to Google Flu Trends (millions of candidate search terms screened against a limited set of CDC flu observations). Optional bonus: include one R chart that shows overfitting, e.g., training vs. test error as polynomial degree increases. c. Wickham talk summary (from item 2b). 幫我做這些"
+  },
+  {
+    "objectID": "ai-log-class5.html#sources-and-verification-limits",
+    "href": "ai-log-class5.html#sources-and-verification-limits",
+    "title": "Class 5: AI Use Log",
+    "section": "Sources and verification limits",
+    "text": "Sources and verification limits\nThe course preparation PDF identified the assigned EMBL keynote. The assistant consulted the original Ginsberg publication page and the full Lazer paper, checked the video description and chapter navigation, and inspected selected on-screen demonstrations. YouTube did not provide an exportable transcript; the assistant did not review the complete spoken lecture. The talk summary is limited to the observed workflow and demonstrations and should be checked against the full lecture by the student.\nThe draft distinguishes candidate feature screening from the final regression’s coefficient count, avoids claiming that overparameterization guarantees overfitting, and treats search-platform changes as plausible contributors rather than a proven single cause. The chart is an original fixed-seed simulation, not empirical Google or CDC data. No earlier student’s work is used as a source.\nThe submitted page began as an AI-generated draft. Publication does not establish that the student has independently read, watched, or endorsed every interpretation; the student should review the wording and examples against their own understanding."
+  },
+  {
+    "objectID": "assignment2.html",
+    "href": "assignment2.html",
+    "title": "EPPS 6356 Assignment 2: Base R Graphics",
+    "section": "",
+    "text": "The data come from the Hot or Cool Institute’s Happy Planet Index 2026 public data set, available through the Happy Planet Index website. The source workbook covers 2006–2025; I use 2024 because it is the most recent year with observations for every variable, whereas GDP is entirely missing in 2025. The 2024 extract contains 153 countries, with missing values for life satisfaction (12), HPI (16), GDP (6), and ecological footprint (4); HPI rank is also missing for 16 countries, while life expectancy has no missing values. Each figure uses the available observations for its own variables, so choosing 2024 does not mean that every country has complete data.\n\nknitr::kable(head(hpi[, c(\"country\", \"continent\", \"life_exp\", \"life_sat\",\n                          \"footprint\", \"hpi\", \"gdp\")]), digits = 2)\n\n\n\nTable 1: First rows of the 2024 extract used throughout this page.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncountry\ncontinent\nlife_exp\nlife_sat\nfootprint\nhpi\ngdp\n\n\n\n\nAfghanistan\nSouth Asia\n66.29\nNA\n0.79\nNA\nNA\n\n\nAlbania\nEastern Europe & Central Asia\n79.78\n5.58\n2.38\n55.85\n21641.07\n\n\nAlgeria\nMiddle East & N. Africa\n76.47\n5.63\n2.75\n51.61\n15501.92\n\n\nArgentina\nLatin America\n77.54\n6.54\n2.68\n58.31\n26771.97\n\n\nArmenia\nEastern Europe & Central Asia\n75.85\n5.42\n2.75\n49.83\n20078.78\n\n\nAustralia\nN America & Oceania\n84.07\n6.86\n7.86\n42.97\n60303.98"
+  },
+  {
+    "objectID": "assignment2.html#the-data",
+    "href": "assignment2.html#the-data",
+    "title": "EPPS 6356 Assignment 2: Base R Graphics",
+    "section": "",
+    "text": "The data come from the Hot or Cool Institute’s Happy Planet Index 2026 public data set, available through the Happy Planet Index website. The source workbook covers 2006–2025; I use 2024 because it is the most recent year with observations for every variable, whereas GDP is entirely missing in 2025. The 2024 extract contains 153 countries, with missing values for life satisfaction (12), HPI (16), GDP (6), and ecological footprint (4); HPI rank is also missing for 16 countries, while life expectancy has no missing values. Each figure uses the available observations for its own variables, so choosing 2024 does not mean that every country has complete data.\n\nknitr::kable(head(hpi[, c(\"country\", \"continent\", \"life_exp\", \"life_sat\",\n                          \"footprint\", \"hpi\", \"gdp\")]), digits = 2)\n\n\n\nTable 1: First rows of the 2024 extract used throughout this page.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncountry\ncontinent\nlife_exp\nlife_sat\nfootprint\nhpi\ngdp\n\n\n\n\nAfghanistan\nSouth Asia\n66.29\nNA\n0.79\nNA\nNA\n\n\nAlbania\nEastern Europe & Central Asia\n79.78\n5.58\n2.38\n55.85\n21641.07\n\n\nAlgeria\nMiddle East & N. Africa\n76.47\n5.63\n2.75\n51.61\n15501.92\n\n\nArgentina\nLatin America\n77.54\n6.54\n2.68\n58.31\n26771.97\n\n\nArmenia\nEastern Europe & Central Asia\n75.85\n5.42\n2.75\n49.83\n20078.78\n\n\nAustralia\nN America & Oceania\n84.07\n6.86\n7.86\n42.97\n60303.98"
+  },
+  {
+    "objectID": "assignment2.html#working-through-murrells-chapter-1-code",
+    "href": "assignment2.html#working-through-murrells-chapter-1-code",
+    "title": "EPPS 6356 Assignment 2: Base R Graphics",
+    "section": "1. Working through Murrell’s chapter 1 code",
+    "text": "1. Working through Murrell’s chapter 1 code\nThe opening examples helped me understand the difference between starting a plot and adding to one. A high-level call such as plot() normally creates a new plot, establishes coordinates, and draws the data, axes, frame, and labels. The scatterplot panel in the standard-plot examples separates these steps: plot.new() opens a blank plot, plot.window() establishes the coordinate ranges, and low-level calls supply the lines, points, axes, frame, and text. This makes the work that a single plot() call normally handles much easier to see.\npar() changes the graphics settings rather than drawing observations. For example, mfrow determines how subsequent plots share the device, mar reserves space around each plot, and las controls the orientation of axis labels. These changes become visible when the relevant elements are drawn. Saving the previous settings and restoring them afterward matters because otherwise a later plot may inherit margins, colors, or a layout intended for an earlier example.\nThe order of commands is especially important in base graphics. My notes initially described the text as simply not appearing when text() came before plot(), but the more precise explanation depends on the device state: without an existing plot, text() produces an error; with one, it adds text to that plot, which a subsequent high-level call can replace. Base graphics draws onto the current device as commands execute, so changing an earlier element usually means drawing the plot again. In ggplot2, layers and settings are normally assembled into a plot object before that object is printed.\nTwo examples corrected my initial interpretation of the code. In the histogram, freq = FALSE puts the bars on a probability-density scale so that the dnorm() curve uses the same units; a density curve over a count histogram would usually appear compressed near the baseline. Also, boxplot() normally starts a new plot, but boxplot(add = TRUE) adds boxes to the existing coordinates. The function’s behavior therefore depends on its arguments, and the two offset sets of boxes can appear side by side without erasing each other.\nThe bar-chart example showed that a plotting function can also return useful information. barplot() returns the bar midpoints, which the later mtext() and text() calls use to align labels with the bars. This also clarified the difference between text positioned in the margins and text placed at data coordinates inside the plot. For the surface example, theta changes the horizontal viewing direction, phi changes the viewing elevation, and expand controls the relative height of the surface.\nMy recorded work covers the introduction and standard base-graphics examples. The notes do not document completed runs of the later lattice, ggplot2, or other package-dependent sections, so I do not report those sections as completed. Those examples require additional plotting systems, packages, or image resources; the discussion here is limited to what the base-graphics notes support."
+  },
+  {
+    "objectID": "assignment2.html#the-plotting-functions",
+    "href": "assignment2.html#the-plotting-functions",
+    "title": "EPPS 6356 Assignment 2: Base R Graphics",
+    "section": "2. The plotting functions",
+    "text": "2. The plotting functions\nEach function below is used on the 2024 Happy Planet Index data. The code that produced every figure is shown with it. The final five examples build up the same GDP–life satisfaction comparison, redrawing the plot in each chunk so that every figure is reproducible.\n\n2.1 Setting up the canvas\n\npar()\n\nop &lt;- par(mfrow = c(1, 2), mar = c(4.5, 4, 1, 1), las = 1)\nhist(hpi$life_exp, breaks = 12, col = \"grey80\", main = \"\",\n     xlab = \"Life expectancy (years), 2024\")\nhist(hpi$hpi, breaks = 12, col = \"lightblue\", main = \"\",\n     xlab = \"Happy Planet Index, 2024\")\npar(op)\n\n\n\n\n\n\n\nFigure 1: par() draws nothing itself: it sets the layout, margins, and axis-label orientation that later calls use, which only becomes visible once the two histograms are drawn into the 1 x 2 layout.\n\n\n\n\n\n\n\nbox()\n\nplot(hpi$life_exp, hpi$hpi, bty = \"n\", pch = 16,\n     col = \"steelblue\", xlab = \"Life expectancy (years), 2024\",\n     ylab = \"Happy Planet Index, 2024\")\nbox(bty = \"l\", col = \"grey30\", lwd = 2)\n\n\n\n\n\n\n\nFigure 2: box() adds a frame to an existing plot; bty = ‘l’ draws only its left and bottom edges.\n\n\n\n\n\n\n\naxis()\n\nplot(hpi$life_exp, hpi$hpi, axes = FALSE, pch = 16,\n     col = \"steelblue\", xlab = \"Life expectancy (years), 2024\",\n     ylab = \"Happy Planet Index, 2024\")\naxis(1, at = seq(50, 90, 10), labels = paste(seq(50, 90, 10), \"yr\"))\naxis(2, at = seq(0, 80, 20), las = 1)\nbox(bty = \"l\")\n\n\n\n\n\n\n\nFigure 3: axis() adds axes to an existing plot and controls their sides, tick positions, labels, and label orientation.\n\n\n\n\n\n\n\n\n2.2 Drawing whole plots\n\nhist()\n\nhist(hpi$life_exp, breaks = 12, col = \"grey80\", main = \"\",\n     xlab = \"Life expectancy (years), 2024\")\n\n\n\n\n\n\n\nFigure 4: hist() starts a new plot and groups life expectancy into bins whose bar heights show the number of countries in each interval.\n\n\n\n\n\n\n\nboxplot()\n\nop &lt;- par(mar = c(4.5, 13, 1, 1))\nboxplot(hpi ~ continent, data = hpi, horizontal = TRUE,\n        las = 1, col = \"lightblue\", main = \"\", ylab = \"\",\n        xlab = \"Happy Planet Index, 2024\", cex.axis = 0.8)\npar(op)\n\n\n\n\n\n\n\nFigure 5: boxplot() compares regional HPI distributions through medians, quartiles, whiskers extending to observations within 1.5 interquartile ranges, and points beyond the whiskers.\n\n\n\n\n\n\n\npie()\n\nregion_counts &lt;- table(hpi$continent)\nregion_labels &lt;- paste0(names(region_counts), \" (\", region_counts, \")\")\npie(region_counts, labels = region_labels,\n    col = hcl.colors(length(region_counts), \"Pastel 1\"),\n    radius = 0.65, cex = 0.7, main = \"Countries by region, 2024\")\n\n\n\n\n\n\n\nFigure 6: pie() shows each region’s share of the 153 country records as a slice, although a bar chart would make comparisons easier because lengths are easier to compare than angles or areas.\n\n\n\n\n\n\n\npersp()\n\nsurface_data &lt;- hpi[complete.cases(hpi[c(\"hpi\", \"life_exp\", \"footprint\")]), ]\nsurface_model &lt;- lm(hpi ~ life_exp + footprint, data = surface_data)\nxs &lt;- seq(min(surface_data$life_exp), max(surface_data$life_exp), length.out = 30)\nys &lt;- seq(min(surface_data$footprint), max(surface_data$footprint), length.out = 30)\ngrid &lt;- expand.grid(life_exp = xs, footprint = ys)\nz &lt;- matrix(predict(surface_model, newdata = grid), nrow = length(xs))\npersp(xs, ys, z, theta = 35, phi = 25, expand = 0.5,\n      col = \"lightblue\", shade = 0.3, ticktype = \"detailed\",\n      xlab = \"Life expectancy\", ylab = \"Footprint\", zlab = \"Fitted HPI\",\n      cex.axis = 0.65, cex.lab = 0.8)\n\n\n\n\n\n\n\nFigure 7: persp() projects a grid of fitted HPI values into a three-dimensional surface with a chosen viewing angle; this illustrative linear-model surface is not raw country data or the HPI formula, and some grid combinations may lack observations.\n\n\n\n\n\nLife expectancy is measured in years and ecological footprint in global hectares per person. The fitted surface is a descriptive graphics demonstration, not a causal model.\n\n\n\n2.3 Adding to an existing plot\n\npoints()\n\nscatter &lt;- hpi[complete.cases(hpi[c(\"gdp\", \"life_sat\")]) &\n                 hpi$continent %in% c(\"East Asia\", \"Western Europe\"), ]\nscatter$gdp_thousands &lt;- scatter$gdp / 1000\nregions &lt;- c(\"East Asia\", \"Western Europe\")\nregion_colors &lt;- c(\"#0072B2\", \"#D55E00\")\nregion_symbols &lt;- c(16, 17)\ngroup_id &lt;- match(scatter$continent, regions)\n\n# Reuse the same background and points in the following examples.\ndraw_scatter &lt;- function() {\n  plot(scatter$gdp_thousands, scatter$life_sat, type = \"n\",\n       xlab = \"GDP per capita (thousands, PPP international dollars), 2024\",\n       ylab = \"Life satisfaction (0-10), 2024\", ylim = c(3, 9))\n  points(scatter$gdp_thousands, scatter$life_sat,\n         col = region_colors[group_id], pch = region_symbols[group_id])\n}\ndraw_scatter()\n\n\n\n\n\n\n\nFigure 8: points() adds country observations to an existing coordinate system, using blue circles for East Asia and orange triangles for Western Europe.\n\n\n\n\n\n\n\nlines()\n\ntrend &lt;- lowess(scatter$gdp_thousands, scatter$life_sat)\ndraw_scatter()\nlines(trend, col = \"grey30\", lwd = 2)\n\n\n\n\n\n\n\nFigure 9: lines() connects ordered coordinates on an existing plot, here adding a LOWESS trend for the two displayed regions pooled together.\n\n\n\n\n\n\n\n\n2.4 Annotating\n\ntext()\n\nlabel_rows &lt;- unique(c(which.min(scatter$life_sat), which.max(scatter$life_sat)))\nadd_country_labels &lt;- function() {\n  text(scatter$gdp_thousands[label_rows], scatter$life_sat[label_rows],\n       labels = scatter$country[label_rows], pos = c(1, 3), cex = 0.8)\n}\ndraw_scatter()\nlines(trend, col = \"grey30\", lwd = 2)\nadd_country_labels()\n\n\n\n\n\n\n\nFigure 10: text() places country labels at data coordinates inside the existing plot, here identifying the highest and lowest life satisfaction among the displayed countries.\n\n\n\n\n\n\n\nmtext()\n\nop &lt;- par(mar = c(6, 4.5, 2, 1))\ndraw_scatter()\nlines(trend, col = \"grey30\", lwd = 2)\nadd_country_labels()\nmtext(\"Source: Happy Planet Index 2026; observations from 2024\",\n      side = 1, line = 4.5, cex = 0.8)\npar(op)\n\n\n\n\n\n\n\nFigure 11: mtext() adds a source note in the plot margin using a side and line offset, whereas text() positions labels using data coordinates.\n\n\n\n\n\n\n\nlegend()\n\nop &lt;- par(mar = c(6, 4.5, 2, 1))\ndraw_scatter()\nlines(trend, col = \"grey30\", lwd = 2)\nadd_country_labels()\nmtext(\"Source: Happy Planet Index 2026; observations from 2024\",\n      side = 1, line = 4.5, cex = 0.8)\nlegend(\"topright\", legend = c(regions, \"Pooled LOWESS trend\"),\n       col = c(region_colors, \"grey30\"), pch = c(region_symbols, NA),\n       lty = c(NA, NA, 1), lwd = c(NA, NA, 2), bty = \"n\", cex = 0.8)\npar(op)\n\n\n\n\n\n\n\nFigure 12: legend() explains the colors, point symbols, and fitted line used in the existing plot.\n\n\n\n\n\n\n\n\nA note on names()\nnames() is not a plotting function: it reads or sets an object’s names attribute, which functions such as pie() and barplot() can use as labels. It belongs to data preparation rather than drawing on a graphics device."
+  },
+  {
+    "objectID": "assignment2.html#references",
+    "href": "assignment2.html#references",
+    "title": "EPPS 6356 Assignment 2: Base R Graphics",
+    "section": "References",
+    "text": "References\nMurrell, Paul. 2019. R Graphics. Third edition. Boca Raton: Chapman & Hall/CRC.\nHot or Cool Institute. 2026. Happy Planet Index 2006–2025 Public Data Set. https://happyplanetindex.org/countries/"
+  },
+  {
+    "objectID": "assignment2.html#ai-use-statement",
+    "href": "assignment2.html#ai-use-statement",
+    "title": "EPPS 6356 Assignment 2: Base R Graphics",
+    "section": "AI Use Statement",
+    "text": "AI Use Statement\nI used two AI tools for this assignment. Claude (Anthropic), in the Claude desktop app, helped me plan the assignment, build the line-by-line note template for Murrell’s chapter 1 code, check my answers to the questions in those notes, extract the 2024 subset of the Happy Planet Index workbook into hpi2024.csv (including the mapping from the workbook’s numeric continent codes to region names), and scaffold the structure of this page. Codex (OpenAI) turned my notes into an English draft, corrected misunderstandings about base graphics, and wrote the R plotting examples and figure captions from that scaffold. The observations in Section 1 come from my own line-by-line runs of the code; the wording, the plotting code, and the illustrative fitted surface were developed with AI assistance. I used AI to clarify the graphics concepts, to express my observations in English, and to keep the examples reproducible.\nThe full log of my exchange with Claude for this assignment is available here: Assignment 2: AI Use Log."
+  },
+  {
+    "objectID": "assignment4.html",
+    "href": "assignment4.html",
+    "title": "EPPS 6356 Assignment 4: Chart Hackathon (Team)",
+    "section": "",
+    "text": "Assignment 4 was a team deliverable. Our group’s portfolio site holds the finished product; this page records the part I built and how it was made."
+  },
+  {
+    "objectID": "assignment4.html#chart-4-one-variable-across-a-few-items",
+    "href": "assignment4.html#chart-4-one-variable-across-a-few-items",
+    "title": "EPPS 6356 Assignment 4: Chart Hackathon (Team)",
+    "section": "Chart 4: one variable across a few items",
+    "text": "Chart 4: one variable across a few items\nAbela’s Chart Thought-Starter sends a comparison of one variable among a few items to a column chart, so that is what the brief called for. The variable is the Happy Planet Index; the items are the five continents.\n\n\n\nMean Happy Planet Index by continent, 2024. Columns ordered from highest to lowest mean; the white label inside each column gives the number of countries behind the mean.\n\n\n\nThe code\n\ndf_chart4 &lt;- hpi_clean |&gt;\n  group_by(continent) |&gt;\n  summarise(mean_hpi = mean(hpi, na.rm = TRUE),\n            n        = dplyr::n(),\n            .groups  = \"drop\") |&gt;\n  mutate(continent_ordered = fct_reorder(continent, mean_hpi, .desc = TRUE))\n\np4 &lt;- ggplot(df_chart4,\n             aes(x = continent_ordered, y = mean_hpi, fill = continent)) +\n  geom_col(width = 0.68, show.legend = FALSE) +\n  geom_text(aes(label = sprintf(\"%.1f\", mean_hpi)),\n            vjust = -0.55, size = 3.6, fontface = \"bold\") +\n  geom_text(aes(y = 1.8, label = paste0(\"n = \", n)),\n            size = 2.9, colour = \"#FFFFFF\", fontface = \"bold\") +\n  scale_fill_continent() +\n  scale_y_continuous(name = \"Mean Happy Planet Index Score (0-100 Scale)\",\n                     limits = c(0, 62), breaks = seq(0, 60, by = 10),\n                     expand = expansion(mult = c(0, 0.02))) +\n  theme_hackathon(legend_pos = \"none\")\n\nThe full script is assignments/Chart4.R in the team repository.\n\n\nThree decisions behind the chart\nThe bars start at zero and the axis says so. A column encodes a quantity by length, so a truncated baseline makes the lengths lie. limits = c(0, 62) with expand = expansion(mult = c(0, 0.02)) pins the columns to the axis line instead of floating them above it.\nThe columns are sorted, not alphabetical. Alphabetical order would be a second, irrelevant variable competing with the one the reader came for. Sorting by the mean turns the ranking into something read at a glance, which is the cheapest comparison in Cleveland and McGill’s hierarchy — position along a common scale.\nThe chart states its own n. A continental mean hides how many countries it averages: Oceania’s mean rests on a handful of countries, Africa’s on dozens. The white n = label inside each column puts that caveat where the number is, rather than in a footnote nobody reads."
+  },
+  {
+    "objectID": "assignment4.html#beyond-the-chart",
+    "href": "assignment4.html#beyond-the-chart",
+    "title": "EPPS 6356 Assignment 4: Chart Hackathon (Team)",
+    "section": "Beyond the chart",
+    "text": "Beyond the chart\nChart1.R and Chart3.R both called source(\"R/theme.R\"), but that file was not in the repository — the palette and theme lived only inside a setup chunk in the Quarto document, so the scripts could not be run on their own. I extracted the Okabe–Ito palette, the three scale_* helpers and theme_hackathon() into R/theme.R, which made every chart script reproducible from a clean clone and gave Chart 4 the same visual language as the other three.\nI also wrote the team README.md (reproduction steps, package list, repo layout, data source) and prompts.md, the AI disclosure covering my prompts for Chart 4, and generated sessionInfo.txt."
+  },
+  {
+    "objectID": "assignment4.html#ai-use",
+    "href": "assignment4.html#ai-use",
+    "title": "EPPS 6356 Assignment 4: Chart Hackathon (Team)",
+    "section": "AI use",
+    "text": "AI use\nMy AI use for this assignment is disclosed in the team repository’s prompts.md, so that the disclosure sits next to the code it describes. A copy of my section of it is on this site: Assignment 4: AI Use Log."
+  },
+  {
+    "objectID": "assignment4.html#commits",
+    "href": "assignment4.html#commits",
+    "title": "EPPS 6356 Assignment 4: Chart Hackathon (Team)",
+    "section": "Commits",
+    "text": "Commits\nMy work is visible in the team repository’s history:\n\n\n\nCommit\nWhat it added\n\n\n\n\n2587b84\nChart 4 and the extracted R/theme.R\n\n\n07f074f\nRotated the Chart 4 y-axis title to match Chart 1\n\n\nbc0e230\nREADME.md, prompts.md, sessionInfo.txt"
+  },
+  {
+    "objectID": "class2-teaching-to-see.html",
+    "href": "class2-teaching-to-see.html",
+    "title": "Class 2: Review of Teaching to See",
+    "section": "",
+    "text": "Film: Teaching to See, directed by Andrei Severny, produced by Edward Tufte, on the teaching of designer Inge Druckrey (37 min)."
+  },
+  {
+    "objectID": "class2-teaching-to-see.html#opening-impression",
+    "href": "class2-teaching-to-see.html#opening-impression",
+    "title": "Class 2: Review of Teaching to See",
+    "section": "Opening impression",
+    "text": "Opening impression\nThe image that stayed with me was the Beethoven poster, where the letter E is drawn together with the lines of a musical staff. I did not see the staff at first; it appeared only after I had been looking for a while. That is the point of the film in one image: visual design is not decoration handed to the viewer all at once. Some things have to be looked at for a while before the details come out. Druckrey trains exactly this kind of looking."
+  },
+  {
+    "objectID": "class2-teaching-to-see.html#thinthick-and-curvelinearity",
+    "href": "class2-teaching-to-see.html#thinthick-and-curvelinearity",
+    "title": "Class 2: Review of Teaching to See",
+    "section": "1. Thin/thick and curve/linearity",
+    "text": "1. Thin/thick and curve/linearity\nThe exercises focus on the thick and thin parts of a letter. At first I did not understand why a stroke would be thicker at the ends and thinner in the middle, but the result looks balanced and calm rather than stiff. The variation comes from the writing tool: a broad pen held at a fixed angle produces a wide mark in one direction and a narrow one in the other, so the thickness of a curve changes continuously as it turns. Where a straight stem meets a curve, that transition has to be smoothed by hand, or the letter looks broken. Redrawing the same letter many times is how the students learn to feel where the weight should go.\nThe work is also about space, not only about the strokes themselves. The Roman alphabet is remarkably symmetrical, and when the students modify an existing typeface, every letter has to be adjusted so that the spaces inside and between the letters stay even. Design has to leave room."
+  },
+  {
+    "objectID": "class2-teaching-to-see.html#the-eye-and-the-hand",
+    "href": "class2-teaching-to-see.html#the-eye-and-the-hand",
+    "title": "Class 2: Review of Teaching to See",
+    "section": "2. The eye and the hand",
+    "text": "2. The eye and the hand\nHolmes separates writing into two opposing aspects. The eye is the conservative one: “the eye wants to look at an orderly set of marks on a page — the eye wants pattern,” something regular and reliable. The hand is “the radical aspect of writing”: it wants to move, and to “write faster and faster.” Writing is the negotiation between them.\nA signature is where that tension becomes visible. It is produced too quickly for the eye to impose order on it, so what remains is the trace of the hand — which is exactly why a signature is unique and hard to forget. The letterform exercises in the film work in the opposite direction: they slow the hand down until the eye can lead."
+  },
+  {
+    "objectID": "class2-teaching-to-see.html#calligraphy-steve-jobs-and-the-macintosh",
+    "href": "class2-teaching-to-see.html#calligraphy-steve-jobs-and-the-macintosh",
+    "title": "Class 2: Review of Teaching to See",
+    "section": "3. Calligraphy, Steve Jobs, and the Macintosh",
+    "text": "3. Calligraphy, Steve Jobs, and the Macintosh\nJobs took a calligraphy class, and the film connects that class to the typography of the Macintosh. What he learned was not only that letters can be beautiful. Calligraphy teaches judgment about proportion, spacing, and the small visual corrections that make a line of text read well. When the Macintosh shipped with proportionally spaced fonts and careful letterforms, it carried that judgment into a machine, and from there into everything that was made with it."
+  },
+  {
+    "objectID": "class2-teaching-to-see.html#geometric-accuracy-versus-optical-accuracy",
+    "href": "class2-teaching-to-see.html#geometric-accuracy-versus-optical-accuracy",
+    "title": "Class 2: Review of Teaching to See",
+    "section": "4. Geometric accuracy versus optical accuracy",
+    "text": "4. Geometric accuracy versus optical accuracy\nGeometric accuracy and optical accuracy are not the same thing. A letter can be measured and constructed so that every dimension is exactly equal, and it will still look wrong to the eye — a little heavy here, a little short there. The eye does not measure; it compares, and it is easily misled by shape. So the designer deliberately introduces small deviations from the geometry until the letter looks right, and at that point the viewer accepts it as correct without noticing that anything was changed.\nThe thinning of a stem toward its middle, which I described above, is one of these corrections: geometrically the stroke is no longer of even width, but optically it reads as straighter and steadier than a stroke of constant width.\nThe same judgment governs the alphabet as a whole. In the film the students work toward three things at once. First, the letters have to share a common structure, so that they read as one alphabet rather than a collection of separate drawings. Second, each letter has to stay different enough from every other letter to remain legible — the shared structure cannot be pushed so far that an a starts to look like an o. Third, the spacing between letters has to produce an even rhythm and an even color on the page.\nSpacing is the clearest case of optical over geometric accuracy. Equal measured gaps do not look equal, because the shapes on either side differ: the space between two straight stems and the space beside a round or diagonal letter are measured the same and seen differently. The spacing is therefore set by eye until the line of text has an even texture, not by making the distances equal.\nThis is why Druckrey’s students correct their letters by eye rather than by ruler. Being measurably right is not the goal; being read correctly is."
+  },
+  {
+    "objectID": "class2-teaching-to-see.html#what-this-means-for-data-visualization",
+    "href": "class2-teaching-to-see.html#what-this-means-for-data-visualization",
+    "title": "Class 2: Review of Teaching to See",
+    "section": "What this means for data visualization",
+    "text": "What this means for data visualization\nDruckrey’s students spend hours on one letter, redrawing it and adjusting the space around it. That is the same work we do when we choose an axis range, a color, or how much white space a chart gets. In both cases the measurement is not the goal — being read correctly is. A chart can be geometrically accurate, with every value plotted exactly, and still be read wrongly, in the same way that a geometrically perfect letter can look wrong. Anscombe’s quartet is the statistical version of the same lesson, and the bubble chart I critiqued in Assignment 1 is the visual one: the circles were scaled correctly by area, yet readers still could not see how much the banks had lost.\nLearning to see is learning to check what the reader’s eye actually receives, not what the number says should be there.\n\nNote: I drafted this review from my own notes after watching the film. Claude (Anthropic) helped organize the notes and polish the English; the sections marked above were written after re-watching the relevant parts of the film.\n\nAI assistance for this note is documented in the Class AI use log."
+  },
+  {
+    "objectID": "class4.html",
+    "href": "class4.html",
+    "title": "Class 4: Reflection on Data Analysis and Visualization",
+    "section": "",
+    "text": "The idea that stood out to me most in this video is that the purpose of data analysis is to “get it right.” Analysts must continually ask whether their evidence actually supports their conclusions. In the context of our data visualization course, this means that a chart should be evaluated by how well it helps readers understand a phenomenon, make meaningful comparisons, and recognize the limits of an interpretation. Attractive colors and polished graphics cannot compensate for unreliable data or selective analysis. They may even make a misleading conclusion more persuasive.\nThe discussion of Google Flu illustrates the danger of overfitting. A model that fits existing observations well may still perform poorly when applied to new situations. This makes the distinction between exploratory and confirmatory research especially useful. Exploring different variables and patterns can generate valuable questions, but those discoveries require further testing with independent evidence. Specifying an analysis in advance helps prevent researchers from changing their questions after seeing the results. For me, the lesson is to be clear about whether an analysis is generating a hypothesis or testing one.\nAnother important takeaway is that reliable analysis begins with understanding how data were collected. Missing values, spreadsheet conversions, sampling decisions, and the incentives of data providers can all shape the patterns that eventually appear in a visualization. In future assignments, I should examine variable definitions and document which observations were excluded before drawing conclusions. The same critical attitude should apply to the video’s striking examples of research failures: I should ask about their original evidence and scope rather than accept them simply because the presentation is convincing.\nFor visualization design, the question “Compared to what?” provides a practical starting point. A single number or rising line often means little without a relevant baseline, another group, or a longer time period. The discussion of information-rich displays also challenges the assumption that simpler graphics are always better. Removing clutter can improve understanding, but removing necessary context can distort it. Clear labels, visual hierarchy, and thoughtful arrangement can help readers examine both broad patterns and specific details. A visualization should also avoid implying that an observed association establishes causation.\nUltimately, I want to make “How do I know that?” a regular part of my analytical process. Before creating a chart, I should define the question, identify an appropriate comparison, and record the reasoning behind data-cleaning and analytical choices. Afterward, I should check whether the conclusion goes beyond what the evidence supports. When the available data cannot answer the question, acknowledging that uncertainty is part of doing the work well. Responsible visualization helps readers understand both what we have learned and what still needs to be investigated.\nVideo source: https://www.youtube.com/watch?v=rHUDJ8RyseQ\n\nAI assistance for this note is documented in the Class AI use log."
   },
   {
     "objectID": "cv.html",
@@ -292,61 +656,5 @@
     "title": "Research",
     "section": "Research Project",
     "text": "Research Project\n\nWeather Forecasting with Fourier Neural Operators\nThis project investigates the use of Fourier Neural Operators and related deep-learning architectures for spatiotemporal weather forecasting.\nData-generating process. The data are derived from ERA5, a global atmospheric reanalysis dataset produced by the European Centre for Medium-Range Weather Forecasts (ECMWF). ERA5 combines historical observations from satellites, weather stations, and other instruments with numerical weather prediction models to generate consistent estimates of atmospheric conditions over time."
-  },
-  {
-    "objectID": "assignment5.html",
-    "href": "assignment5.html",
-    "title": "Class 5: More Data, Better Questions",
-    "section": "",
-    "text": "Google Flu Trends (GFT) offered a compelling shortcut: estimate influenza-like illness from searches before conventional surveillance reports arrived. Ginsberg et al. (2009) reported estimates with roughly a one-day lag. However, searches measure information-seeking, not infections, and the CDC target itself measures the proportion of visits involving influenza-like symptoms, not laboratory-confirmed influenza incidence.\nBig data hubris means assuming that abundant digital traces can replace established measurement and analysis. Lazer et al. (2014) reported that GFT overestimated the CDC measure in 100 of 108 weeks beginning in August 2011. More searches did not repair the mismatch between searching and being ill.\nAlgorithm dynamics make that mismatch unstable. Search suggestions and symptom-related results can change what people search for even without a corresponding change in illness. Lazer and colleagues identify these platform changes as plausible contributors, rather than proving one specific update caused the failure. Deliberate manipulation by users is another possible platform-data problem, although they do not identify it as a GFT explanation.\nTransparency and replicability also matter: undisclosed search terms and incomplete methodological detail obstructed independent reconstruction. My takeaway is to preserve model versions, document data processing, and evaluate against external benchmarks. Search data can supplement surveillance, with repeated checks as behavior and platforms change."
-  },
-  {
-    "objectID": "assignment5.html#a.-big-data-analytics-pitfalls",
-    "href": "assignment5.html#a.-big-data-analytics-pitfalls",
-    "title": "Class 5: More Data, Better Questions",
-    "section": "",
-    "text": "Google Flu Trends (GFT) offered a compelling shortcut: estimate influenza-like illness from searches before conventional surveillance reports arrived. Ginsberg et al. (2009) reported estimates with roughly a one-day lag. However, searches measure information-seeking, not infections, and the CDC target itself measures the proportion of visits involving influenza-like symptoms, not laboratory-confirmed influenza incidence.\nBig data hubris means assuming that abundant digital traces can replace established measurement and analysis. Lazer et al. (2014) reported that GFT overestimated the CDC measure in 100 of 108 weeks beginning in August 2011. More searches did not repair the mismatch between searching and being ill.\nAlgorithm dynamics make that mismatch unstable. Search suggestions and symptom-related results can change what people search for even without a corresponding change in illness. Lazer and colleagues identify these platform changes as plausible contributors, rather than proving one specific update caused the failure. Deliberate manipulation by users is another possible platform-data problem, although they do not identify it as a GFT explanation.\nTransparency and replicability also matter: undisclosed search terms and incomplete methodological detail obstructed independent reconstruction. My takeaway is to preserve model versions, document data processing, and evaluate against external benchmarks. Search data can supplement surveillance, with repeated checks as behavior and platforms change."
-  },
-  {
-    "objectID": "assignment5.html#b.-overfitting-and-overparameterization",
-    "href": "assignment5.html#b.-overfitting-and-overparameterization",
-    "title": "Class 5: More Data, Better Questions",
-    "section": "b. Overfitting and overparameterization",
-    "text": "b. Overfitting and overparameterization\nOverfitting occurs when a fitted procedure captures accidental features of its training sample and consequently generalizes poorly. Overparameterization describes a model with more adjustable parameters than the available observations can adequately constrain; in an interpolating regression setting, the parameter count can exceed the sample size. It concerns capacity, whereas overfitting concerns performance. Regularization and other constraints can prevent a highly parameterized model from generalizing badly.\nGFT illustrates a related danger in feature selection. The original procedure screened about 50 million candidate queries against a limited CDC series and combined 45 selected queries into one predictor. Its final regression had an intercept and slope, not 50 million fitted coefficients (Ginsberg et al., 2009). Counting only those two coefficients nevertheless misses the flexibility spent selecting the predictor. Lazer et al. describe 1,152 fitting observations and irrelevant seasonal candidates such as high-school basketball. Searching so widely creates opportunities to select coincidences.\nThis distinction changes how I would validate the analysis: repeat feature selection inside training folds, reserve later time periods for evaluation, and compare with simple seasonal baselines. A successful historical test cannot guarantee robustness to a changed search platform. Overfitting and a shifting data-generating process can coexist.\nThe R simulation below isolates overfitting using noisy quadratic data. Training error falls with polynomial degree, while error on independently generated test data can rise. These are simulated observations, not GFT estimates; the curve illustrates a mechanism rather than reconstructing Google’s failure.\n\n\n\nTraining and independent test error for polynomial regressions fitted to simulated quadratic data.\n\n\nReproduce the chart with this base R script. Run it from the website project directory."
-  },
-  {
-    "objectID": "assignment5.html#c.-wickham-talk-summary",
-    "href": "assignment5.html#c.-wickham-talk-summary",
-    "title": "Class 5: More Data, Better Questions",
-    "section": "c. Wickham talk summary",
-    "text": "c. Wickham talk summary\nIn his 2019 EMBL keynote, Wickham presents visualization as part of an iterative programming workflow. Technologies include R, RStudio, tidyverse tools, ggplot2, and R Markdown. Techniques include reshaping tidy data, mapping variables to aesthetics, layering plots, adjusting scales, handling overplotting, faceting, animation, and using functions to reduce repetition. His country income and life-expectancy example makes these choices concrete: colour and size add information, while a logarithmic income scale changes what differences are visible.\nThe larger point is that reusable components and readable code make exploration easier, while executable reports connect explanations to computations. Visualization and modeling can inform each other: a residual plot may reveal a pattern that a single error statistic conceals.\nI would qualify the emphasis on programming: reproducible code can faithfully reproduce a flawed measurement. For example, a polished chart of campus flu-related searches could reflect an awareness campaign rather than an outbreak. Wickham’s workflow helps expose analytical choices, but the GFT case shows why those choices still require substantive knowledge and independent validation.\n\nAI assistance: drafting, source checks, and chart code were assisted by Codex. See the AI use record for the prompt, model information, and verification limits."
-  },
-  {
-    "objectID": "ai-log-assignment5.html",
-    "href": "ai-log-assignment5.html",
-    "title": "AI Use Record: Class 5 Note",
-    "section": "",
-    "text": "OpenAI Codex desktop assistant, GPT-6 family (the exact model build/version was not exposed in the session), used October 7, 2026. AI assisted with the English draft, checking sources, writing and running the base R simulation, and preparing the Quarto website page."
-  },
-  {
-    "objectID": "ai-log-assignment5.html#tool-and-scope",
-    "href": "ai-log-assignment5.html#tool-and-scope",
-    "title": "AI Use Record: Class 5 Note",
-    "section": "",
-    "text": "OpenAI Codex desktop assistant, GPT-6 family (the exact model build/version was not exposed in the session), used October 7, 2026. AI assisted with the English draft, checking sources, writing and running the base R simulation, and preparing the Quarto website page."
-  },
-  {
-    "objectID": "ai-log-assignment5.html#user-prompt",
-    "href": "ai-log-assignment5.html#user-prompt",
-    "title": "AI Use Record: Class 5 Note",
-    "section": "User prompt",
-    "text": "User prompt\nThe user supplied the Chinese reading guide GFT_Ginsberg2009_Lazer2014_中文導讀.md and this request:\n\nPost one note as a Quarto page on your GitHub website (about one page, 500–700 words), in your own words and with sources cited, in three short sections: a. Big data analytics pitfalls. Use Google Flu Trends as your case. Address at least “big data hubris,” algorithm dynamics (the data-generating process changes under you), and transparency and replicability. b. Overfitting and overparameterization. Define both and explain how they apply to Google Flu Trends (millions of candidate search terms screened against a limited set of CDC flu observations). Optional bonus: include one R chart that shows overfitting, e.g., training vs. test error as polynomial degree increases. c. Wickham talk summary (from item 2b). 幫我做這些"
-  },
-  {
-    "objectID": "ai-log-assignment5.html#sources-and-verification-limits",
-    "href": "ai-log-assignment5.html#sources-and-verification-limits",
-    "title": "AI Use Record: Class 5 Note",
-    "section": "Sources and verification limits",
-    "text": "Sources and verification limits\nThe course preparation PDF identified the assigned EMBL keynote. The assistant consulted the original Ginsberg publication page and the full Lazer paper, checked the video description and chapter navigation, and inspected selected on-screen demonstrations. YouTube did not provide an exportable transcript; the assistant did not review the complete spoken lecture. The talk summary is limited to the observed workflow and demonstrations and should be checked against the full lecture by the student.\nThe draft distinguishes candidate feature screening from the final regression’s coefficient count, avoids claiming that overparameterization guarantees overfitting, and treats search-platform changes as plausible contributors rather than a proven single cause. The chart is an original fixed-seed simulation, not empirical Google or CDC data. No earlier student’s work is used as a source.\nThe submitted page began as an AI-generated draft. Publication does not establish that the student has independently read, watched, or endorsed every interpretation; the student should review the wording and examples against their own understanding."
   }
 ]

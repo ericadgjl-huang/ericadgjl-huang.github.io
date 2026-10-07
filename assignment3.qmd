@@ -279,3 +279,5 @@ Our World in Data. *COVID-19 Dataset*. <https://github.com/owid/covid-19-data>
 ## AI Use Statement
 
 I used Claude (Anthropic) in the Claude desktop app to plan this assignment, to scaffold the five R scripts, to check my answers, and to assemble this page. The choice of chart to document, the colours and the plotting character, the reading of the four Anscombe fits, and the comparison of the base R and ggplot2 figures are mine; Claude supplied the structure, the label-selection rule for the COVID chart, and corrections to my English.
+
+The full AI conversation log is available here: [Assignment 3: AI Use Log](ai-log-assignment3.qmd).

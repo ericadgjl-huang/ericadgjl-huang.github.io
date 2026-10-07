@@ -1,8 +1,11 @@
 ---
-title: "AI Use Record: Class 5 Note"
+title: "Class 5: AI Use Log"
 date: 2026-10-07
 engine: markdown
 ---
+
+This page documents my use of generative AI for the
+[Class 5 note](class5.qmd), following the course AI policy.
 
 ## Tool and scope
 

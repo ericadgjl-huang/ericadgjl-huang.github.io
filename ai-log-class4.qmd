@@ -1,0 +1,55 @@
+---
+title: "Class 4: AI Use Log"
+toc: true
+engine: markdown
+---
+
+This page documents my use of generative AI for the
+[Class 4 note](class4.qmd).
+
+## Tool Information
+
+| Item | Details |
+|---|---|
+| **Tool** | Claude (Anthropic), model `claude-opus-5`, used in the Claude desktop app |
+| **Date** | September 30, 2026 |
+| **Language** | I worked in Traditional Chinese and asked for an English version of the finished note. |
+
+## How the Note Was Produced
+
+I watched the assigned video, then dictated my points to Claude, which organised
+them into the Chinese note and then into the English version published here.
+
+**The content is mine.** These were the points I brought out of the video:
+
+- That the purpose of analysis is to **"get it right"**, and that a polished chart
+  can make an unreliable analysis *more* persuasive rather than less.
+- **Google Flu** as an illustration of overfitting, and the distinction between
+  **exploratory and confirmatory** work that follows from it — including the
+  point that pre-specifying an analysis is what stops the question from moving
+  after the results are seen.
+- That reliable analysis starts from **how the data were collected**: missing
+  values, spreadsheet conversions, sampling, and the incentives of whoever
+  supplied the data.
+- **"Compared to what?"** as a practical starting point for design, and my
+  reservation about information-rich displays — removing clutter helps, removing
+  context distorts.
+
+**What Claude contributed:** the ordering of the paragraphs, the transitions, and
+the English wording. The draft structure is the model's; the observations and the
+judgements in it are mine.
+
+## Reading Support
+
+Separately, I asked Claude for two Traditional Chinese reading guides — one to
+Cairo's *The Functional Art* (chapters 1–9) and one to chapter 3 of Yau's
+*Visualize This* — to get through the assigned reading faster in a second
+language. Both are study aids kept in my course folder; they are not part of any
+submitted work, and nothing from them was copied into the note above.
+
+## A Note on Overlap with Class 5
+
+The Google Flu material reappears in my [Class 5 note](class5.qmd), where it is
+the assigned case study and is treated at length from the two original papers.
+The paragraph here records what I took from the video; the Class 5 note records
+what I took from Ginsberg et al. (2009) and Lazer et al. (2014).

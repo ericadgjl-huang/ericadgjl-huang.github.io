@@ -23,16 +23,37 @@ website:
             text: "Assignment 3: Anatomy of a Chart"
           - href: assignment4.qmd
             text: "Assignment 4: Chart Hackathon (Team)"
-          - href: assignment5.qmd
-            text: "Class 5: Big Data & Visualization"
+      - text: Classes
+        menu:
+          - href: class2-data-guide.qmd
+            text: "Class 2: Huang's Data Guide"
+          - href: class2-teaching-to-see.qmd
+            text: "Class 2: Review of Teaching to See"
+          - href: class3.qmd
+            text: "Class 3: Journalism in the Age of Data"
+          - href: class4.qmd
+            text: "Class 4: Getting the Analysis Right"
+          - href: class5.qmd
+            text: "Class 5: More Data, Better Questions"
       - text: AI Use Logs
         menu:
           - href: ai-log-assignment1.qmd
-            text: "Assignment 1 Log"
+            text: "Assignment 1"
           - href: ai-log-assignment2.qmd
-            text: "Assignment 2 Log"
-          - href: ai-log-assignment5.qmd
-            text: "Class 5 Log"
+            text: "Assignment 2"
+          - href: ai-log-assignment3.qmd
+            text: "Assignment 3"
+          - href: ai-log-assignment4.qmd
+            text: "Assignment 4"
+          - text: "---"
+          - href: ai-log-class2.qmd
+            text: "Class 2"
+          - href: ai-log-class3.qmd
+            text: "Class 3"
+          - href: ai-log-class4.qmd
+            text: "Class 4"
+          - href: ai-log-class5.qmd
+            text: "Class 5"
       - href: cv.qmd
         text: CV
     right:
@@ -48,4 +69,3 @@ format:
     toc: true
     
 editor: visual
-

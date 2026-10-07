@@ -1,0 +1,64 @@
+---
+title: "Assignment 4: AI Use Log"
+toc: true
+engine: markdown
+---
+
+This page documents my use of generative AI for
+[EPPS 6356 Assignment 4](assignment4.qmd), the team chart hackathon.
+
+Assignment 4 asks for the disclosure to sit with the code, so the authoritative
+record is
+[`prompts.md`](https://github.com/nedretsencavus/portfolio/blob/main/prompts.md)
+in the team repository. This page is a copy of my section of it.
+
+## Tool Information
+
+| Item | Details |
+|---|---|
+| **Tool** | Claude (Anthropic), model `claude-opus-5`, used in the Claude desktop app |
+| **Date** | October 5–6, 2026 |
+| **My files** | `assignments/Chart4.R`, `R/theme.R`, `data/hpi_chart4_means.rds`, `output/chart4_continent_means.png`, `README.md`, `prompts.md`, `sessionInfo.txt` |
+
+## Prompts
+
+The conversation was in Traditional Chinese.
+
+1. > 接著幫我依照他的風格完成第四張圖
+>
+>    *(Now complete the fourth chart, following her style.)*
+>
+>    Context supplied beforehand: the assignment PDF, my teammate's published
+>    page, and read access to the cloned repository — in particular `Chart3.R`,
+>    `assign04.qmd`, and `data/hpi_clean.csv`.
+
+2. > 幫我看一下
+>
+>    *(Take a look at this.)* — sent with the first rendered PNG, asking for a
+>    review against the other three charts.
+
+## What I Had to Fix
+
+- **The y-axis title came out horizontal.** `theme_hackathon()` re-declares
+  `axis.title.y` through `%+replace%` without an `angle`, so the angle resets to
+  zero and the panel is squeezed. I caught it by comparing the first render
+  against Chart 1, where the same fix already appears. Commit `07f074f`.
+- **The first draft of the commit would have touched the whole repository.**
+  The clone is on Windows, so every text file showed as modified on line endings
+  alone — 13,521 insertions and 13,527 deletions across 52 files, all whitespace.
+  I staged only the four new paths instead of `git add -A`.
+- **`source("R/theme.R")` pointed at a file that was not in the repository.**
+  `Chart1.R` and `Chart3.R` both call it, but the theme existed only inside the
+  setup chunk of the Quarto document, so those scripts failed from a clean R
+  session. Extracting it fixed a checklist item for the whole team, not just my
+  chart.
+
+## Design Decisions That Are Mine
+
+- Sorting the continents by mean HPI rather than alphabetically, so the chart
+  answers its own title.
+- Printing `n =` inside each column. Oceania's mean rests on four countries and
+  Asia's on seventeen; without the counts the five columns read as equally
+  reliable.
+- Stating in the subtitle that the mean is **unweighted**, since Chart 1 uses a
+  population-weighted mean and the two numbers would otherwise appear to disagree.

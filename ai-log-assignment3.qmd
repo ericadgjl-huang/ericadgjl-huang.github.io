@@ -1,0 +1,77 @@
+---
+title: "Assignment 3: AI Use Log"
+toc: true
+engine: markdown
+---
+
+This page documents my use of generative AI for
+[EPPS 6356 Assignment 3](assignment3.qmd), following the course AI policy.
+Logs for the other assignments are on their own pages.
+
+## Tool Information
+
+| Item | Details |
+|---|---|
+| **Tool** | Claude (Anthropic), model `claude-opus-5`, used in the Claude desktop app |
+| **Dates** | October 1–2, 2026 |
+| **Language** | I asked in Traditional Chinese; the drafted English text and code comments came back in English. |
+
+## How and Why I Used AI
+
+- **Planning:** breaking the five questions into an order I could finish in one
+  evening, and explaining what "document a chart" asks for.
+- **Checking my understanding of base graphics:** I ran the code myself and wrote
+  down what I thought each call did; Claude corrected four of those statements
+  (listed below).
+- **Reviewing my scripts:** catching errors in the ggplot version before I ran it.
+- **Editing my own draft:** tightening the paragraph I wrote for the replication
+  question.
+- **Assembly:** turning the finished figures and text into `assignment3.qmd`, with
+  the figure captions and alt text.
+
+## What Claude Corrected
+
+These are places where I had written something and Claude told me it was wrong:
+
+| My statement | The correction |
+|---|---|
+| Calling `text()` before `plot()` just does nothing | It raises an error — there is no plot region to draw into yet |
+| `plot()` does "a few things" | It does seven: new plot, window, points, axes, box, labels, title |
+| My reasoning for why `freq = FALSE` was needed | My reasoning was reversed |
+| `boxplot(add = TRUE)` is a low-level function | `boxplot()` is a high-level function being used in a low-level way |
+
+Claude also spotted that a paragraph of English I had typed into
+`04_ggplot_version.R` had `##` only on its first line, which would have broken
+`source()` on the whole script.
+
+## Editing My Own Writing
+
+For the replication question I wrote a paragraph first and asked Claude to revise
+it. The changes it made:
+
+- "linear variance" → "relationship" (I had used a term that does not mean what I
+  wanted it to mean)
+- "slightly skewed" → "dragged away from it" (the effect is not slight)
+- added the concrete detail that **every x value is 8 except one observation at 19**,
+  which is the actual reason the fit moves
+
+The argument of the paragraph is mine; the wording above is the edit.
+
+## What Is My Own
+
+- Running every script and producing every figure.
+- Choosing which panel of Murrell's chapter 1 to document — I picked the
+  scatterplot panel because it is the only one built entirely from `plot.new()`
+  and low-level calls.
+- The colour choice: I tried several and settled on `magenta3`.
+- Deciding to keep the previous week's COVID code for question 5 rather than
+  rewrite it under time pressure, and saying so on the page.
+- The substance of the replication paragraph.
+
+## A Workflow Problem Worth Recording
+
+When Claude edited `assignment3.qmd` on disk while the file was open in RStudio,
+RStudio offered to save its own cached copy over the change. Saving would have
+silently reverted the edit. The fix is to choose **Don't Save**, close the tab, and
+reopen the file from the Files pane. I mention it because it is the kind of error
+that leaves no trace in the output.

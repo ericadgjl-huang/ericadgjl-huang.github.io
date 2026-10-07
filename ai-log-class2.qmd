@@ -1,0 +1,66 @@
+---
+title: "Class 2: AI Use Log"
+toc: true
+engine: markdown
+---
+
+This page documents my use of generative AI for the two Class 2 notes:
+[Huang's Data Guide](class2-data-guide.qmd) and
+[Review of *Teaching to See*](class2-teaching-to-see.qmd).
+
+## Tool Information
+
+| Item | Details |
+|---|---|
+| **Tool** | Claude (Anthropic), model `claude-opus-5`, used in the Claude desktop app |
+| **Date** | September 20, 2026 |
+| **Language** | I worked in Traditional Chinese and asked for the final notes in English. |
+
+## Huang's Data Guide
+
+I downloaded the Quartz *Bad Data Guide* and asked Claude to help me turn its
+roughly sixty items into a checklist I would actually use.
+
+> **Me:** 我已經下載下來了 幫我完成這個做頁並把我的清單存在 F:\…\Class2
+>
+> *(I have downloaded it. Help me finish this page and save my checklist in the Class 2 folder.)*
+
+**What Claude contributed:** the organising idea of grouping the items by **who
+can fix the problem** rather than by symptom, the Tier 1 fifteen-minute subset,
+and the English wording.
+
+**What is mine:** the decision to make the guide personal rather than a summary
+of the original, and the two domain sections at the end — gridded weather
+reanalysis and medical imaging — which come from the data I actually work with
+in my own research. Claude could not have supplied those items; I told it what
+goes wrong in those datasets.
+
+## Review of *Teaching to See*
+
+I watched the 37-minute film and wrote my reactions in Chinese. Claude turned
+them into the English review.
+
+The observations are mine:
+
+- The **Beethoven poster**, where the letter E is drawn together with the lines
+  of a musical staff — and the fact that I did not see the staff at first.
+- The **signature exercise** and the thick/thin variation produced by a broad pen
+  held at a fixed angle.
+- **Steve Jobs** and the calligraphy class behind the Macintosh typefaces.
+- The **symmetry of the Roman alphabet**, and that every letter has to be adjusted
+  so the spaces stay even.
+
+After reading Claude's first draft I replaced three sections with my own text and
+had Claude work those in rather than paraphrase them:
+
+- **Section 1** — rewritten by me.
+- **Section 2** — I supplied the Holmes quotation on the eye and the hand.
+- **Section 4** — my own point that **geometric accuracy and optical accuracy do
+  not coincide**, which became the section on why a letter that is mathematically
+  correct can still look wrong.
+
+## Why I Used AI Here
+
+To produce readable English at the length the course expects, in a week when I
+was also preparing for an exam. The reading, the viewing, and the judgements are
+mine; the drafting and the structure are shared.

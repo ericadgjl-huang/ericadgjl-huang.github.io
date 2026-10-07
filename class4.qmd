@@ -1,0 +1,22 @@
+---
+title: "Class 4: Reflection on Data Analysis and Visualization"
+subtitle: "Getting it right: exploratory versus confirmatory analysis, and where data come from."
+toc: false
+engine: markdown
+---
+
+The idea that stood out to me most in this video is that the purpose of data analysis is to “get it right.” Analysts must continually ask whether their evidence actually supports their conclusions. In the context of our data visualization course, this means that a chart should be evaluated by how well it helps readers understand a phenomenon, make meaningful comparisons, and recognize the limits of an interpretation. Attractive colors and polished graphics cannot compensate for unreliable data or selective analysis. They may even make a misleading conclusion more persuasive.
+
+The discussion of Google Flu illustrates the danger of overfitting. A model that fits existing observations well may still perform poorly when applied to new situations. This makes the distinction between exploratory and confirmatory research especially useful. Exploring different variables and patterns can generate valuable questions, but those discoveries require further testing with independent evidence. Specifying an analysis in advance helps prevent researchers from changing their questions after seeing the results. For me, the lesson is to be clear about whether an analysis is generating a hypothesis or testing one.
+
+Another important takeaway is that reliable analysis begins with understanding how data were collected. Missing values, spreadsheet conversions, sampling decisions, and the incentives of data providers can all shape the patterns that eventually appear in a visualization. In future assignments, I should examine variable definitions and document which observations were excluded before drawing conclusions. The same critical attitude should apply to the video's striking examples of research failures: I should ask about their original evidence and scope rather than accept them simply because the presentation is convincing.
+
+For visualization design, the question “Compared to what?” provides a practical starting point. A single number or rising line often means little without a relevant baseline, another group, or a longer time period. The discussion of information-rich displays also challenges the assumption that simpler graphics are always better. Removing clutter can improve understanding, but removing necessary context can distort it. Clear labels, visual hierarchy, and thoughtful arrangement can help readers examine both broad patterns and specific details. A visualization should also avoid implying that an observed association establishes causation.
+
+Ultimately, I want to make “How do I know that?” a regular part of my analytical process. Before creating a chart, I should define the question, identify an appropriate comparison, and record the reasoning behind data-cleaning and analytical choices. Afterward, I should check whether the conclusion goes beyond what the evidence supports. When the available data cannot answer the question, acknowledging that uncertainty is part of doing the work well. Responsible visualization helps readers understand both what we have learned and what still needs to be investigated.
+
+Video source: https://www.youtube.com/watch?v=rHUDJ8RyseQ
+
+---
+
+*AI assistance for this note is documented in the [Class AI use log](ai-log-class4.qmd).*

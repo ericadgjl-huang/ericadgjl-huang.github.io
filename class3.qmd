@@ -1,0 +1,32 @@
+---
+title: "Class 3: From Presenting Numbers to Building Understanding"
+subtitle: "A reflection on *Journalism in the Age of Data*."
+toc: false
+engine: markdown
+---
+
+After reading the video summary and website introduction for *Journalism in the Age of Data*, my main takeaway is that the value of data visualization goes beyond turning data into attractive graphics. It helps readers understand issues that might otherwise be difficult to see. A chart can capture attention, but if readers finish looking at it without understanding its main point, it may not have achieved its purpose. This made me reconsider what I want to learn in this course. Along with learning how to use visualization tools, I should practice identifying the questions that data can answer and communicating those answers clearly.
+
+I was particularly interested in IBM's effort to democratize visualization through Many Eyes. Making visualization easier to create gives more people opportunities to explore topics they care about and share their findings. However, I do not think that accessible tools necessarily make data easy to interpret. Even when anyone can generate a chart, they still need to understand how variables are defined, where the data come from, and whether the comparisons are appropriate. Democratizing visualization therefore also requires developing the ability to interpret data, so that people understand what their charts actually represent.
+
+The Martini Glass structure discussed in the summary helped me understand the relationship between storytelling and open exploration more clearly. Guiding readers through the background and main findings before allowing them to explore can keep them from feeling overwhelmed at the beginning. If I were creating an interactive unemployment chart, I would first explain the overall trend, the reporting period, and the definition of the measure. I would then let readers compare different groups. This approach provides direction while leaving room for readers to ask their own questions. However, guidance can also influence their judgment, so I think a visualization should clearly distinguish between what the data show and how the author interprets them.
+
+Another point that stood out to me is that visual appeal and readability do not always go together. A streamgraph of movie box office revenues might convey the overall shape of the data, but readers who want to compare a particular movie's revenue over time may need a chart that makes individual values easier to read. This reminds me that a chart is not necessarily appropriate just because it looks innovative. Before designing a visualization, I should identify what readers need to do: compare values, observe trends, or understand a distribution. A chart's success should depend on how well it supports those tasks.
+
+The journalism examples also helped me recognize that visualization is the result of a series of editorial decisions. Organizing data, choosing comparisons, and writing titles and annotations all influence what readers see. Removing some information can reduce the burden on readers, but leaving out important context can also be misleading. For example, when presenting death counts across different regions, I should consider how population size affects the comparison, rather than looking only at totals. I believe an effective visualization needs a clear focus while also explaining relevant limitations, so that readers can assess the conclusions it supports.
+
+The discussion of data openness and completeness reminded me that having access to data does not mean having the whole picture. If certain categories are missing, a blank area in a chart may reflect a lack of records rather than the absence of events. Before creating a visualization, I should check which periods, locations, and populations the data cover, and distinguish between zero values and missing values. This is especially important for topics such as crime, unemployment, and war casualties, where the numbers represent real people and their lives.
+
+The website states that the video was produced in 2009–2010, so I understand its discussion of Flash and other tools within that historical context. More useful to me than remembering a particular software name is learning how creators handle data that continue to change. For example, if an unusually high value appears in a chart that updates in real time, will the original axis range still work? Although automatic updates can save time, creators still need to anticipate exceptional cases and establish appropriate checks.
+
+The most practical lesson I take from this material is to begin future class assignments by writing down a question I want to answer, and then deciding which data and charts to use. I also want to practice expressing the main finding in a single sentence and asking someone unfamiliar with the data to review the visualization. If that person has to work hard to guess what the chart means, I will know that it needs revision. My goal is to create work that helps readers understand an issue and recognize the evidence and limitations behind that understanding.
+
+---
+
+Reference: [Geoff McGhee, *Journalism in the Age of Data*](https://datajournalism.stanford.edu/). The [video introduction page](https://datajournalism.stanford.edu/accessible.html) lists the production period as 2009–2010 and the running time as 54 minutes.
+
+Basis of this reflection: the video summary provided by the user and the accessible website introduction. The complete video and transcript were not checked section by section.
+
+---
+
+*AI assistance for this note is documented in the [Class AI use log](ai-log-class3.qmd).*

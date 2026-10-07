@@ -82,9 +82,9 @@ and generated `sessionInfo.txt`.
 ## AI use
 
 My AI use for this assignment is disclosed in the team repository's
-[`prompts.md`](https://github.com/nedretsencavus/portfolio/blob/main/prompts.md)
-rather than duplicated here, so that the disclosure sits next to the code it
-describes.
+[`prompts.md`](https://github.com/nedretsencavus/portfolio/blob/main/prompts.md),
+so that the disclosure sits next to the code it describes. A copy of my section
+of it is on this site: [Assignment 4: AI Use Log](ai-log-assignment4.qmd).
 
 ## Commits
 

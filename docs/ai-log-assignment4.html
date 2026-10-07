@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>CV – Huang, SHAO-KANG(Eric)</title>
+<title>Assignment 4: AI Use Log – Huang, SHAO-KANG(Eric)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -198,7 +198,7 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="./cv.html" aria-current="page"> 
+    <a class="nav-link" href="./cv.html"> 
 <span class="menu-text">CV</span></a>
   </li>  
 </ul>
@@ -224,15 +224,24 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#tool-information" id="toc-tool-information" class="nav-link active" data-scroll-target="#tool-information">Tool Information</a></li>
+  <li><a href="#prompts" id="toc-prompts" class="nav-link" data-scroll-target="#prompts">Prompts</a></li>
+  <li><a href="#what-i-had-to-fix" id="toc-what-i-had-to-fix" class="nav-link" data-scroll-target="#what-i-had-to-fix">What I Had to Fix</a></li>
+  <li><a href="#design-decisions-that-are-mine" id="toc-design-decisions-that-are-mine" class="nav-link" data-scroll-target="#design-decisions-that-are-mine">Design Decisions That Are Mine</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">CV</h1>
+<h1 class="title">Assignment 4: AI Use Log</h1>
 </div>
 
 
@@ -249,9 +258,70 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>My curriculum vitae will be available here soon.</p>
+<p>This page documents my use of generative AI for <a href="./assignment4.html">EPPS 6356 Assignment 4</a>, the team chart hackathon.</p>
+<p>Assignment 4 asks for the disclosure to sit with the code, so the authoritative record is <a href="https://github.com/nedretsencavus/portfolio/blob/main/prompts.md"><code>prompts.md</code></a> in the team repository. This page is a copy of my section of it.</p>
+<section id="tool-information" class="level2">
+<h2 class="anchored" data-anchor-id="tool-information">Tool Information</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Tool</strong></td>
+<td>Claude (Anthropic), model <code>claude-opus-5</code>, used in the Claude desktop app</td>
+</tr>
+<tr class="even">
+<td><strong>Date</strong></td>
+<td>October 5–6, 2026</td>
+</tr>
+<tr class="odd">
+<td><strong>My files</strong></td>
+<td><code>assignments/Chart4.R</code>, <code>R/theme.R</code>, <code>data/hpi_chart4_means.rds</code>, <code>output/chart4_continent_means.png</code>, <code>README.md</code>, <code>prompts.md</code>, <code>sessionInfo.txt</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="prompts" class="level2">
+<h2 class="anchored" data-anchor-id="prompts">Prompts</h2>
+<p>The conversation was in Traditional Chinese.</p>
+<ol type="1">
+<li><blockquote class="blockquote">
+<p>接著幫我依照他的風格完成第四張圖</p>
+<p><em>(Now complete the fourth chart, following her style.)</em></p>
+<p>Context supplied beforehand: the assignment PDF, my teammate’s published page, and read access to the cloned repository — in particular <code>Chart3.R</code>, <code>assign04.qmd</code>, and <code>data/hpi_clean.csv</code>.</p>
+</blockquote></li>
+<li><blockquote class="blockquote">
+<p>幫我看一下</p>
+<p><em>(Take a look at this.)</em> — sent with the first rendered PNG, asking for a review against the other three charts.</p>
+</blockquote></li>
+</ol>
+</section>
+<section id="what-i-had-to-fix" class="level2">
+<h2 class="anchored" data-anchor-id="what-i-had-to-fix">What I Had to Fix</h2>
+<ul>
+<li><strong>The y-axis title came out horizontal.</strong> <code>theme_hackathon()</code> re-declares <code>axis.title.y</code> through <code>%+replace%</code> without an <code>angle</code>, so the angle resets to zero and the panel is squeezed. I caught it by comparing the first render against Chart 1, where the same fix already appears. Commit <code>07f074f</code>.</li>
+<li><strong>The first draft of the commit would have touched the whole repository.</strong> The clone is on Windows, so every text file showed as modified on line endings alone — 13,521 insertions and 13,527 deletions across 52 files, all whitespace. I staged only the four new paths instead of <code>git add -A</code>.</li>
+<li><strong><code>source("R/theme.R")</code> pointed at a file that was not in the repository.</strong> <code>Chart1.R</code> and <code>Chart3.R</code> both call it, but the theme existed only inside the setup chunk of the Quarto document, so those scripts failed from a clean R session. Extracting it fixed a checklist item for the whole team, not just my chart.</li>
+</ul>
+</section>
+<section id="design-decisions-that-are-mine" class="level2">
+<h2 class="anchored" data-anchor-id="design-decisions-that-are-mine">Design Decisions That Are Mine</h2>
+<ul>
+<li>Sorting the continents by mean HPI rather than alphabetically, so the chart answers its own title.</li>
+<li>Printing <code>n =</code> inside each column. Oceania’s mean rests on four countries and Asia’s on seventeen; without the counts the five columns read as equally reliable.</li>
+<li>Stating in the subtitle that the mean is <strong>unweighted</strong>, since Chart 1 uses a population-weighted mean and the two numbers would otherwise appear to disagree.</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -1,0 +1,52 @@
+---
+title: "Class 3: AI Use Log"
+toc: true
+engine: markdown
+---
+
+This page documents my use of generative AI for the
+[Class 3 note](class3.qmd).
+
+## Tool Information
+
+| Item | Details |
+|---|---|
+| **Tool** | Claude (Anthropic), model `claude-opus-5`, used in the Claude desktop app |
+| **Date** | September 23, 2026 |
+| **Language** | I worked in Traditional Chinese and asked for an English version of the finished note. |
+
+## How the Note Was Produced
+
+I watched *Journalism in the Age of Data* and read the accompanying site, then
+dictated my points to Claude, which organised them into the Chinese note and
+then into the English version published here.
+
+**The content is mine.** These were the points I brought out of the video:
+
+- Many Eyes and IBM's push to **democratise visualization** — and my reservation
+  that an easy tool does not make data easy to interpret.
+- The **Martini Glass** structure, and the worked example of how I would stage an
+  interactive unemployment chart: trend and definitions first, comparison after.
+- The **streamgraph of box-office revenues** as a case where visual appeal and
+  readability pull apart.
+- The conclusion I wanted to reach: a chart should be judged by the **task** it
+  supports — compare, follow a trend, read a distribution — not by how novel it
+  looks.
+
+**What Claude contributed:** the ordering of the paragraphs, the transitions, and
+the English wording. The draft structure is the model's; the observations and the
+judgements in it are mine.
+
+## Reading Support
+
+Separately, I asked Claude to produce a Traditional Chinese reading guide to
+chapters 1–3 of Ware's *Information Visualization*, to get through the assigned
+reading faster in a second language. That guide is a study aid kept in my course
+folder; it is not part of any submitted work, and nothing from it was copied into
+the note above.
+
+## Why I Used AI Here
+
+English is not my first language and the note was due in the same week as work
+for two other courses. Using AI to draft from my own points let me spend the time
+on the video and the reading rather than on sentence construction.

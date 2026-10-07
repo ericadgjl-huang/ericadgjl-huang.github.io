@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>CV – Huang, SHAO-KANG(Eric)</title>
+<title>Class 2: Huang’s Data Guide – Huang, SHAO-KANG(Eric)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -198,7 +198,7 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="./cv.html" aria-current="page"> 
+    <a class="nav-link" href="./cv.html"> 
 <span class="menu-text">CV</span></a>
   </li>  
 </ul>
@@ -224,15 +224,33 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#how-i-use-this" id="toc-how-i-use-this" class="nav-link active" data-scroll-target="#how-i-use-this">How I use this</a></li>
+  <li><a href="#problems-my-source-should-solve" id="toc-problems-my-source-should-solve" class="nav-link" data-scroll-target="#problems-my-source-should-solve">1. Problems my source should solve</a></li>
+  <li><a href="#problems-i-should-solve-myself" id="toc-problems-i-should-solve-myself" class="nav-link" data-scroll-target="#problems-i-should-solve-myself">2. Problems I should solve myself</a></li>
+  <li><a href="#problems-an-expert-should-help-me-solve" id="toc-problems-an-expert-should-help-me-solve" class="nav-link" data-scroll-target="#problems-an-expert-should-help-me-solve">3. Problems an expert should help me solve</a></li>
+  <li><a href="#problems-a-programmer-should-help-me-solve" id="toc-problems-a-programmer-should-help-me-solve" class="nav-link" data-scroll-target="#problems-a-programmer-should-help-me-solve">4. Problems a programmer should help me solve</a></li>
+  <li><a href="#my-own-additions" id="toc-my-own-additions" class="nav-link" data-scroll-target="#my-own-additions">5. My own additions</a>
+  <ul class="collapse">
+  <li><a href="#weather-and-climate-data-era5-station-records" id="toc-weather-and-climate-data-era5-station-records" class="nav-link" data-scroll-target="#weather-and-climate-data-era5-station-records">Weather and climate data (ERA5, station records)</a></li>
+  <li><a href="#medical-imaging-datasets-x-ray" id="toc-medical-imaging-datasets-x-ray" class="nav-link" data-scroll-target="#medical-imaging-datasets-x-ray">Medical imaging datasets (X-ray)</a></li>
+  <li><a href="#before-i-publish-a-chart" id="toc-before-i-publish-a-chart" class="nav-link" data-scroll-target="#before-i-publish-a-chart">Before I publish a chart</a></li>
+  </ul></li>
+  <li><a href="#source" id="toc-source" class="nav-link" data-scroll-target="#source">Source</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">CV</h1>
+<h1 class="title">Class 2: Huang’s Data Guide</h1>
+<p class="subtitle lead">A personal data-inspection checklist adapted from the Quartz <em>Bad Data Guide</em>.</p>
 </div>
 
 
@@ -249,9 +267,124 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>My curriculum vitae will be available here soon.</p>
+<p>A personal checklist for inspecting a dataset before I analyze or visualize it. Adapted from the Quartz <em>Bad Data Guide</em> (Christopher Groskopf and contributors, CC BY-NC 4.0) and organized by <strong>who can fix the problem</strong>, with extra items for the two kinds of data I work with: <strong>gridded weather reanalysis</strong> and <strong>medical imaging datasets</strong>.</p>
+<p>Prepared for EPPS 6356 Data Visualization (Prepare for Class 2), Fall 2026.</p>
+<hr>
+<section id="how-i-use-this" class="level2">
+<h2 class="anchored" data-anchor-id="how-i-use-this">How I use this</h2>
+<p>I do not walk through all 60 items every time. I run <strong>Tier 1</strong> on every new dataset (15 minutes), then go to the section that matches whatever looks wrong.</p>
+<p><strong>Tier 1 — always, before anything else</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox">How many rows and columns do I have, and how many did I expect?</label></li>
+<li><label><input type="checkbox">What does one row represent? (one station-hour? one patient? one image?)</label></li>
+<li><label><input type="checkbox">Print <code>summary()</code> / <code>describe()</code> for every column: min, max, mean, NA count.</label></li>
+<li><label><input type="checkbox">Plot every variable at least once — histogram for continuous, bar for categorical, time series for anything dated. <em>(Anscombe 1973: summary statistics alone will not show me the structure.)</em></label></li>
+<li><label><input type="checkbox">Where did this file come from, who made it, and when was it last updated?</label></li>
+</ul>
+<hr>
+</section>
+<section id="problems-my-source-should-solve" class="level2">
+<h2 class="anchored" data-anchor-id="problems-my-source-should-solve">1. Problems my source should solve</h2>
+<p><em>If these appear, I go back and ask, rather than patching the data myself.</em></p>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Missing values</strong> — are blanks / <code>null</code> “no measurement taken”, “refused to answer”, or “zero”? These are not the same thing.</label></li>
+<li><label><input type="checkbox"><strong>Missing values replaced by zeros</strong> — a run of <code>0</code> or <code>-1</code> in a numeric column, <code>1970-01-01</code> or <code>1969-12-31</code> in a date column, <code>0°N 0°E</code> in coordinates (Null Island). <em>Very common in sensor data.</em></label></li>
+<li><label><input type="checkbox"><strong>Rows or values duplicated</strong> — is a repeated ID a real correction, or a merge that ran twice?</label></li>
+<li><label><input type="checkbox"><strong>Data are obviously incomplete</strong> — 48 of 50 states, 11 of 12 months, a patient cohort missing a whole site.</label></li>
+<li><label><input type="checkbox"><strong>Inconsistent spelling / name order / date formats</strong> — a sign the data were typed by a human.</label></li>
+<li><label><input type="checkbox"><strong>Units are not labeled</strong> — °C or K? mm or inches? mm or pixels?</label></li>
+<li><label><input type="checkbox"><strong>Categories are badly chosen</strong> or <strong>field names are ambiguous</strong>.</label></li>
+<li><label><input type="checkbox"><strong>The provenance is not documented</strong>.</label></li>
+<li><label><input type="checkbox"><strong>Values are impossible</strong> (negative rainfall, age 200, patient height 3 m).</label></li>
+<li><label><input type="checkbox"><strong>Data are too coarse</strong> — monthly means when I need daily; county totals when I need tracts.</label></li>
+<li><label><input type="checkbox"><strong>The published total does not match the file</strong> — recount and compare.</label></li>
+<li><label><input type="checkbox"><strong>The file has exactly 65,536 rows / 255 columns</strong> — it was truncated by an old Excel limit.</label></li>
+<li><label><input type="checkbox"><strong>Text became numbers, or numbers became text</strong> — leading zeros gone, IDs in scientific notation.</label></li>
+</ul>
+</section>
+<section id="problems-i-should-solve-myself" class="level2">
+<h2 class="anchored" data-anchor-id="problems-i-should-solve-myself">2. Problems I should solve myself</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Garbled characters (mojibake)</strong> — encoding is not UTF-8; fix the encoding rather than the characters.</label></li>
+<li><label><input type="checkbox"><strong>Line endings are broken</strong> — CRLF vs LF. <em>I hit exactly this in my Quarto repository, where every file showed as modified.</em></label></li>
+<li><label><input type="checkbox"><strong>The data are locked inside a PDF</strong> — extract with a tool, never retype.</label></li>
+<li><label><input type="checkbox"><strong>The data are too granular</strong> — aggregate rather than plotting 10 million points.</label></li>
+<li><label><input type="checkbox"><strong>The data were entered by hand</strong> — spot-check a sample against the source.</label></li>
+<li><label><input type="checkbox"><strong>Formats and annotations are mixed into the cells</strong> — footnote markers, thousands separators, “N/A” as text.</label></li>
+<li><label><input type="checkbox"><strong>My calculation ignored missing values</strong> — did the mean silently drop them, or treat them as zero?</label></li>
+<li><label><input type="checkbox"><strong>The sample is not random</strong>, or <strong>is biased</strong> toward one group.</label></li>
+<li><label><input type="checkbox"><strong>The margin of error is too large, or is unknown</strong> — if I cannot state it, I say so in the chart.</label></li>
+<li><label><input type="checkbox"><strong>The data were edited by hand</strong> — keep the original file untouched and script every change, so the cleaning is reproducible.</label></li>
+<li><label><input type="checkbox"><strong>Inflation, seasonality, or population growth distorts the comparison</strong> — adjust before comparing across years.</label></li>
+<li><label><input type="checkbox"><strong>The time frame or the reference category was changed mid-series</strong> — a break in a time series is not a trend.</label></li>
+</ul>
+</section>
+<section id="problems-an-expert-should-help-me-solve" class="level2">
+<h2 class="anchored" data-anchor-id="problems-an-expert-should-help-me-solve">3. Problems an expert should help me solve</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>The author is not trustworthy</strong> — who benefits from this result?</label></li>
+<li><label><input type="checkbox"><strong>The collection process is opaque</strong> — no methodology section, no codebook.</label></li>
+<li><label><input type="checkbox"><strong>The data are suspiciously precise</strong> — 6 decimal places from an instrument accurate to 0.5.</label></li>
+<li><label><input type="checkbox"><strong>There are unexplained outliers</strong> — real event, or sensor failure?</label></li>
+<li><label><input type="checkbox"><strong>The index is meaningless</strong> — composite indices hide their weights. <em>(The Happy Planet Index in Assignment 2 is exactly this kind of number.)</em></label></li>
+<li><label><input type="checkbox"><strong>The significance test looks wrong</strong> — p-hacking, no correction for multiple comparisons.</label></li>
+<li><label><input type="checkbox"><strong>The data violate Benford’s Law</strong>, or are <strong>too good to be true</strong> — possible fabrication.</label></li>
+</ul>
+</section>
+<section id="problems-a-programmer-should-help-me-solve" class="level2">
+<h2 class="anchored" data-anchor-id="problems-a-programmer-should-help-me-solve">4. Problems a programmer should help me solve</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Data were merged on the wrong key</strong> — row counts change after a join; always check before and after.</label></li>
+<li><label><input type="checkbox"><strong>The data are inside scanned images</strong> — OCR is needed, and OCR makes mistakes.</label></li>
+</ul>
+<hr>
+</section>
+<section id="my-own-additions" class="level2">
+<h2 class="anchored" data-anchor-id="my-own-additions">5. My own additions</h2>
+<section id="weather-and-climate-data-era5-station-records" class="level3">
+<h3 class="anchored" data-anchor-id="weather-and-climate-data-era5-station-records">Weather and climate data (ERA5, station records)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Time zone and reference time</strong> — is the timestamp UTC or local? Is “daily” midnight-to-midnight in which zone?</label></li>
+<li><label><input type="checkbox"><strong>Gaps in the series</strong> — a missing hour is invisible in a line chart because the line simply connects across it. Count gaps explicitly.</label></li>
+<li><label><input type="checkbox"><strong>Units and sign conventions</strong> — K vs °C, Pa vs hPa, accumulated vs instantaneous fields, wind direction “from” vs “toward”.</label></li>
+<li><label><input type="checkbox"><strong>Grid and resolution</strong> — what is the cell size, and does the grid match between variables before I stack them?</label></li>
+<li><label><input type="checkbox"><strong>Longitude convention</strong> — 0–360 or −180–180? A wrong convention silently moves the map.</label></li>
+<li><label><input type="checkbox"><strong>Reanalysis is a model output, not an observation</strong> — it is interpolated, and should be described that way in captions.</label></li>
+<li><label><input type="checkbox"><strong>Version changes</strong> — a re-release of the same product can change values for past dates.</label></li>
+</ul>
+</section>
+<section id="medical-imaging-datasets-x-ray" class="level3">
+<h3 class="anchored" data-anchor-id="medical-imaging-datasets-x-ray">Medical imaging datasets (X-ray)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Label definitions</strong> — what exactly counts as positive, and who decided?</label></li>
+<li><label><input type="checkbox"><strong>Label source</strong> — expert reading, or text mined from reports?</label></li>
+<li><label><input type="checkbox"><strong>Multiple images per patient</strong> — splitting by image instead of by patient leaks data between train and test sets.</label></li>
+<li><label><input type="checkbox"><strong>Site and device differences</strong> — resolution, contrast, and orientation vary by hospital and scanner.</label></li>
+<li><label><input type="checkbox"><strong>Class imbalance</strong> — a rare finding makes accuracy meaningless.</label></li>
+<li><label><input type="checkbox"><strong>Preprocessing already applied</strong> — has the image been cropped, windowed, or normalized before I received it?</label></li>
+<li><label><input type="checkbox"><strong>Ordinal labels treated as categories</strong> — severity grades have an order, and the visualization should keep it.</label></li>
+</ul>
+</section>
+<section id="before-i-publish-a-chart" class="level3">
+<h3 class="anchored" data-anchor-id="before-i-publish-a-chart">Before I publish a chart</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">Does the chart state its <strong>source</strong> and the <strong>date</strong> of the data?</label></li>
+<li><label><input type="checkbox">Are <strong>units</strong> on the axis?</label></li>
+<li><label><input type="checkbox">Does the axis start at zero, and if not, is that justified and visible?</label></li>
+<li><label><input type="checkbox">Is <strong>uncertainty</strong> shown, or at least mentioned?</label></li>
+<li><label><input type="checkbox">Would the chart still be honest if someone read only the title?</label></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="source" class="level2">
+<h2 class="anchored" data-anchor-id="source">Source</h2>
+<p>Groskopf, Christopher, and contributors. <em>The Quartz Guide to Bad Data.</em> Quartz, 2015–. https://github.com/Quartz/bad-data-guide Licensed under Creative Commons Attribution-NonCommercial 4.0 International.</p>
+<hr>
+<p><em>AI assistance for this note is documented in the <a href="./ai-log-class2.html">Class AI use log</a>.</em></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

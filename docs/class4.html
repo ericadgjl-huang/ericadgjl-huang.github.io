@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-10-07">
 
-<title>Class 5: More Data, Better Questions – Huang, SHAO-KANG(Eric)</title>
+<title>Class 4: Reflection on Data Analysis and Visualization – Huang, SHAO-KANG(Eric)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -79,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -129,9 +128,32 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./assignment4.html">
  <span class="dropdown-text">Assignment 4: Chart Hackathon (Team)</span></a>
   </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-classes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Classes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-classes">    
         <li>
-    <a class="dropdown-item" href="./assignment5.html">
- <span class="dropdown-text">Class 5: Big Data &amp; Visualization</span></a>
+    <a class="dropdown-item" href="./class2-data-guide.html">
+ <span class="dropdown-text">Class 2: Huang’s Data Guide</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./class2-teaching-to-see.html">
+ <span class="dropdown-text">Class 2: Review of Teaching to See</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./class3.html">
+ <span class="dropdown-text">Class 3: Journalism in the Age of Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./class4.html">
+ <span class="dropdown-text">Class 4: Getting the Analysis Right</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./class5.html">
+ <span class="dropdown-text">Class 5: More Data, Better Questions</span></a>
   </li>  
     </ul>
   </li>
@@ -142,15 +164,36 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-ai-use-logs">    
         <li>
     <a class="dropdown-item" href="./ai-log-assignment1.html">
- <span class="dropdown-text">Assignment 1 Log</span></a>
+ <span class="dropdown-text">Assignment 1</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./ai-log-assignment2.html">
- <span class="dropdown-text">Assignment 2 Log</span></a>
+ <span class="dropdown-text">Assignment 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./ai-log-assignment5.html">
- <span class="dropdown-text">Class 5 Log</span></a>
+    <a class="dropdown-item" href="./ai-log-assignment3.html">
+ <span class="dropdown-text">Assignment 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-assignment4.html">
+ <span class="dropdown-text">Assignment 4</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./ai-log-class2.html">
+ <span class="dropdown-text">Class 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-class3.html">
+ <span class="dropdown-text">Class 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-class4.html">
+ <span class="dropdown-text">Class 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-class5.html">
+ <span class="dropdown-text">Class 5</span></a>
   </li>  
     </ul>
   </li>
@@ -181,24 +224,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#a.-big-data-analytics-pitfalls" id="toc-a.-big-data-analytics-pitfalls" class="nav-link active" data-scroll-target="#a.-big-data-analytics-pitfalls">a. Big data analytics pitfalls</a></li>
-  <li><a href="#b.-overfitting-and-overparameterization" id="toc-b.-overfitting-and-overparameterization" class="nav-link" data-scroll-target="#b.-overfitting-and-overparameterization">b. Overfitting and overparameterization</a></li>
-  <li><a href="#c.-wickham-talk-summary" id="toc-c.-wickham-talk-summary" class="nav-link" data-scroll-target="#c.-wickham-talk-summary">c.&nbsp;Wickham talk summary</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Class 5: More Data, Better Questions</h1>
-<p class="subtitle lead">Google Flu Trends, overfitting, and Wickham’s visualization workflow</p>
+<h1 class="title">Class 4: Reflection on Data Analysis and Visualization</h1>
+<p class="subtitle lead">Getting it right: exploratory versus confirmatory analysis, and where data come from.</p>
 </div>
 
 
@@ -206,12 +239,6 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">October 7, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -221,37 +248,16 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="a.-big-data-analytics-pitfalls" class="level2">
-<h2 class="anchored" data-anchor-id="a.-big-data-analytics-pitfalls">a. Big data analytics pitfalls</h2>
-<p>Google Flu Trends (GFT) offered a compelling shortcut: estimate influenza-like illness from searches before conventional surveillance reports arrived. <a href="https://doi.org/10.1038/nature07634">Ginsberg et al.&nbsp;(2009)</a> reported estimates with roughly a one-day lag. However, searches measure information-seeking, not infections, and the CDC target itself measures the proportion of visits involving influenza-like symptoms, not laboratory-confirmed influenza incidence.</p>
-<p><strong>Big data hubris</strong> means assuming that abundant digital traces can replace established measurement and analysis. <a href="https://gking.harvard.edu/files/gking/files/0314policyforumff.pdf">Lazer et al.&nbsp;(2014)</a> reported that GFT overestimated the CDC measure in 100 of 108 weeks beginning in August 2011. More searches did not repair the mismatch between searching and being ill.</p>
-<p><strong>Algorithm dynamics</strong> make that mismatch unstable. Search suggestions and symptom-related results can change what people search for even without a corresponding change in illness. Lazer and colleagues identify these platform changes as plausible contributors, rather than proving one specific update caused the failure. Deliberate manipulation by users is another possible platform-data problem, although they do not identify it as a GFT explanation.</p>
-<p><strong>Transparency and replicability</strong> also matter: undisclosed search terms and incomplete methodological detail obstructed independent reconstruction. My takeaway is to preserve model versions, document data processing, and evaluate against external benchmarks. Search data can supplement surveillance, with repeated checks as behavior and platforms change.</p>
-</section>
-<section id="b.-overfitting-and-overparameterization" class="level2">
-<h2 class="anchored" data-anchor-id="b.-overfitting-and-overparameterization">b. Overfitting and overparameterization</h2>
-<p><strong>Overfitting</strong> occurs when a fitted procedure captures accidental features of its training sample and consequently generalizes poorly. <strong>Overparameterization</strong> describes a model with more adjustable parameters than the available observations can adequately constrain; in an interpolating regression setting, the parameter count can exceed the sample size. It concerns capacity, whereas overfitting concerns performance. Regularization and other constraints can prevent a highly parameterized model from generalizing badly.</p>
-<p>GFT illustrates a related danger in feature selection. The original procedure screened about 50 million candidate queries against a limited CDC series and combined 45 selected queries into one predictor. Its final regression had an intercept and slope, not 50 million fitted coefficients (<a href="https://doi.org/10.1038/nature07634">Ginsberg et al., 2009</a>). Counting only those two coefficients nevertheless misses the flexibility spent selecting the predictor. Lazer et al.&nbsp;describe 1,152 fitting observations and irrelevant seasonal candidates such as high-school basketball. Searching so widely creates opportunities to select coincidences.</p>
-<p>This distinction changes how I would validate the analysis: repeat feature selection inside training folds, reserve later time periods for evaluation, and compare with simple seasonal baselines. A successful historical test cannot guarantee robustness to a changed search platform. Overfitting and a shifting data-generating process can coexist.</p>
-<p>The R simulation below isolates overfitting using noisy quadratic data. Training error falls with polynomial degree, while error on independently generated test data can rise. These are simulated observations, not GFT estimates; the curve illustrates a mechanism rather than reconstructing Google’s failure.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/assignment5-overfitting.png" class="img-fluid figure-img" alt="Line chart comparing training and independent test RMSE across polynomial degrees 1 through 12. The training curve falls while the test curve rises at higher degrees."></p>
-<figcaption>Training and independent test error for polynomial regressions fitted to simulated quadratic data.</figcaption>
-</figure>
-</div>
-<p><a href="scripts/assignment5-overfitting.R">Reproduce the chart with this base R script</a>. Run it from the website project directory.</p>
-</section>
-<section id="c.-wickham-talk-summary" class="level2">
-<h2 class="anchored" data-anchor-id="c.-wickham-talk-summary">c.&nbsp;Wickham talk summary</h2>
-<p>In his <a href="https://www.youtube.com/watch?v=9YTNYT1maa4">2019 EMBL keynote</a>, Wickham presents visualization as part of an iterative programming workflow. Technologies include R, RStudio, tidyverse tools, ggplot2, and R Markdown. Techniques include reshaping tidy data, mapping variables to aesthetics, layering plots, adjusting scales, handling overplotting, faceting, animation, and using functions to reduce repetition. His country income and life-expectancy example makes these choices concrete: colour and size add information, while a logarithmic income scale changes what differences are visible.</p>
-<p>The larger point is that reusable components and readable code make exploration easier, while executable reports connect explanations to computations. Visualization and modeling can inform each other: a residual plot may reveal a pattern that a single error statistic conceals.</p>
-<p>I would qualify the emphasis on programming: reproducible code can faithfully reproduce a flawed measurement. For example, a polished chart of campus flu-related searches could reflect an awareness campaign rather than an outbreak. Wickham’s workflow helps expose analytical choices, but the GFT case shows why those choices still require substantive knowledge and independent validation.</p>
+<p>The idea that stood out to me most in this video is that the purpose of data analysis is to “get it right.” Analysts must continually ask whether their evidence actually supports their conclusions. In the context of our data visualization course, this means that a chart should be evaluated by how well it helps readers understand a phenomenon, make meaningful comparisons, and recognize the limits of an interpretation. Attractive colors and polished graphics cannot compensate for unreliable data or selective analysis. They may even make a misleading conclusion more persuasive.</p>
+<p>The discussion of Google Flu illustrates the danger of overfitting. A model that fits existing observations well may still perform poorly when applied to new situations. This makes the distinction between exploratory and confirmatory research especially useful. Exploring different variables and patterns can generate valuable questions, but those discoveries require further testing with independent evidence. Specifying an analysis in advance helps prevent researchers from changing their questions after seeing the results. For me, the lesson is to be clear about whether an analysis is generating a hypothesis or testing one.</p>
+<p>Another important takeaway is that reliable analysis begins with understanding how data were collected. Missing values, spreadsheet conversions, sampling decisions, and the incentives of data providers can all shape the patterns that eventually appear in a visualization. In future assignments, I should examine variable definitions and document which observations were excluded before drawing conclusions. The same critical attitude should apply to the video’s striking examples of research failures: I should ask about their original evidence and scope rather than accept them simply because the presentation is convincing.</p>
+<p>For visualization design, the question “Compared to what?” provides a practical starting point. A single number or rising line often means little without a relevant baseline, another group, or a longer time period. The discussion of information-rich displays also challenges the assumption that simpler graphics are always better. Removing clutter can improve understanding, but removing necessary context can distort it. Clear labels, visual hierarchy, and thoughtful arrangement can help readers examine both broad patterns and specific details. A visualization should also avoid implying that an observed association establishes causation.</p>
+<p>Ultimately, I want to make “How do I know that?” a regular part of my analytical process. Before creating a chart, I should define the question, identify an appropriate comparison, and record the reasoning behind data-cleaning and analytical choices. Afterward, I should check whether the conclusion goes beyond what the evidence supports. When the available data cannot answer the question, acknowledging that uncertainty is part of doing the work well. Responsible visualization helps readers understand both what we have learned and what still needs to be investigated.</p>
+<p>Video source: https://www.youtube.com/watch?v=rHUDJ8RyseQ</p>
 <hr>
-<p><em>AI assistance: drafting, source checks, and chart code were assisted by Codex. See the <a href="./ai-log-assignment5.html">AI use record</a> for the prompt, model information, and verification limits.</em></p>
+<p><em>AI assistance for this note is documented in the <a href="./ai-log-class4.html">Class AI use log</a>.</em></p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
