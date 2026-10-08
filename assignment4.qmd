@@ -1,83 +1,151 @@
 ---
 title: "EPPS 6356 Assignment 4: Chart Hackathon (Team)"
+subtitle: "My contribution: Chart 4 — mean Happy Planet Index by continent"
 toc: true
 ---
 
-Assignment 4 was a team deliverable. Our group's portfolio site holds the finished
-product; this page records the part I built and how it was made.
+Assignment 4 was a team deliverable. The full report, covering all four charts,
+lives on our team site:
 
-- **Team repository:** [nedretsencavus/portfolio](https://github.com/nedretsencavus/portfolio)
-- **My contribution:** Chart 4, the shared theme file `R/theme.R`, and the
-  reproducibility paperwork (`README.md`, `prompts.md`, `sessionInfo.txt`)
-- **Data:** Happy Planet Index, 2024 edition (153 countries)
+- **Team report:** [Chart Producing Hackathon: Visualizing the Happy Planet Index](https://nedretsencavus.github.io/portfolio/assignments/assign04.html)
+- **My section of it:** [Chart 4: Column Chart of Continental Means](https://nedretsencavus.github.io/portfolio/assignments/assign04.html#chart-4-column-chart-of-continental-means)
+- **Repository:** [nedretsencavus/portfolio](https://github.com/nedretsencavus/portfolio)
+- **Data:** Happy Planet Index, 2024 edition
 
-## Chart 4: one variable across a few items
+This page carries my own section in full, together with the parts of the work
+that do not appear in the report: what I had to fix, what I contributed beyond
+the chart itself, and the commits that show it.
 
-Abela's Chart Thought-Starter sends a comparison of *one variable among a few
-items* to a column chart, so that is what the brief called for. The variable is
-the Happy Planet Index; the items are the five continents.
+## Chart 4: Column Chart of Continental Means
 
-![Mean Happy Planet Index by continent, 2024. Columns ordered from highest to lowest mean; the white label inside each column gives the number of countries behind the mean.](images/chart4_continent_means.png){fig-alt="Column chart of mean Happy Planet Index by continent. The Americas lead, followed by Asia, Europe, Oceania and Africa, with country counts printed inside each column."}
+### Implementation (Comparison: One Variable across a Few Items)
+
+Chart 4 completes the Abela comparison branch at its coarsest grain: one variable
+(the Happy Planet Index) across a few items (the five continents). Continents are
+ordered by mean HPI with `forcats::fct_reorder()` rather than alphabetically, so
+the ranking is read from position along a common baseline (Cleveland & McGill
+1984) instead of recovered by scanning labels. The mean here is **unweighted**,
+which distinguishes it from the population-weighted mean in Chart 1; the two
+figures are not interchangeable and the subtitle says so. Because a continental
+mean conceals how many countries it averages — four for Oceania against seventeen
+for Asia — the count is printed inside each column rather than relegated to a
+footnote.
+
+![Mean Happy Planet Index by continent, 2024. Columns ordered from highest to lowest mean; the white label inside each column gives the number of countries behind the mean.](images/chart4_continent_means.png){fig-alt="Column chart of mean Happy Planet Index by continent. The Americas lead, followed by Oceania, Europe, Asia and Africa, with country counts printed inside each column."}
 
 ### The code
 
+The chart runs against `hpi_clean`, the cleaned 2024 subset shared by the whole
+team, and the palette and `theme_hackathon()` come from `R/theme.R` so that all
+four charts share one visual language.
+
 ```{r}
 #| eval: false
-df_chart4 <- hpi_clean |>
-  group_by(continent) |>
-  summarise(mean_hpi = mean(hpi, na.rm = TRUE),
-            n        = dplyr::n(),
-            .groups  = "drop") |>
+df_chart4 <- hpi_clean %>%
+  group_by(continent) %>%
+  summarise(
+    mean_hpi = mean(hpi, na.rm = TRUE),
+    n        = dplyr::n(),
+    .groups  = "drop"
+  ) %>%
   mutate(continent_ordered = fct_reorder(continent, mean_hpi, .desc = TRUE))
 
-p4 <- ggplot(df_chart4,
-             aes(x = continent_ordered, y = mean_hpi, fill = continent)) +
-  geom_col(width = 0.68, show.legend = FALSE) +
-  geom_text(aes(label = sprintf("%.1f", mean_hpi)),
-            vjust = -0.55, size = 3.6, fontface = "bold") +
-  geom_text(aes(y = 1.8, label = paste0("n = ", n)),
-            size = 2.9, colour = "#FFFFFF", fontface = "bold") +
+p4 <- ggplot(df_chart4, aes(x = continent_ordered, y = mean_hpi, fill = continent)) +
+  geom_col(
+    width = 0.68,
+    show.legend = FALSE
+  ) +
+  geom_text(
+    aes(label = sprintf("%.1f", mean_hpi)),
+    vjust = -0.55,
+    size = 3.6,
+    fontface = "bold",
+    color = "#222222"
+  ) +
+  geom_text(
+    aes(y = 1.8, label = paste0("n = ", n)),
+    size = 2.9,
+    color = "#FFFFFF",
+    fontface = "bold"
+  ) +
   scale_fill_continent() +
-  scale_y_continuous(name = "Mean Happy Planet Index Score (0-100 Scale)",
-                     limits = c(0, 62), breaks = seq(0, 60, by = 10),
-                     expand = expansion(mult = c(0, 0.02))) +
-  theme_hackathon(legend_pos = "none")
+  scale_x_discrete(name = "Continent") +
+  scale_y_continuous(
+    name   = "Mean Happy Planet Index Score (0-100 Scale)",
+    limits = c(0, 62),
+    breaks = seq(0, 60, by = 10),
+    expand = expansion(mult = c(0, 0.02))
+  ) +
+  labs(
+    title    = "The Americas Convert Resources into Wellbeing More Efficiently Than Any Other Continent",
+    subtitle = "Unweighted mean Happy Planet Index of the countries in each continent; n gives the number of countries behind each column.",
+    caption  = "Source: Happy Planet Index (2024 Edition) | EPPS 6356 Hackathon"
+  ) +
+  theme_hackathon(legend_pos = "none") +
+  theme(
+    # theme_hackathon() re-declares axis.title.y through %+replace% without an
+    # angle, which prints the title flat and squeezes the panel; the same fix
+    # is applied in Chart 1.
+    axis.title.y = element_text(angle = 90, vjust = 2, margin = margin(r = 10))
+  )
+
+p4
 ```
 
-The full script is
-[`assignments/Chart4.R`](https://github.com/nedretsencavus/portfolio/blob/main/assignments/Chart4.R)
-in the team repository.
+Script: [`assignments/Chart4.R`](https://github.com/nedretsencavus/portfolio/blob/main/assignments/Chart4.R)
 
-### Three decisions behind the chart
+### Analytical Takeaway
 
-**The bars start at zero and the axis says so.** A column encodes a quantity by
-length, so a truncated baseline makes the lengths lie. `limits = c(0, 62)` with
-`expand = expansion(mult = c(0, 0.02))` pins the columns to the axis line instead
-of floating them above it.
+- **The Americas lead on efficiency, not on income.** At a mean of **53.5** across
+  sixteen countries, the Americas sit roughly four points above Oceania (**49.7**)
+  and nearly six above Europe (**47.9**), despite a lower average GDP per capita
+  than Europe. This is the HPI's central claim made visible at continental scale:
+  the index rewards converting resources into long, satisfying lives, not
+  accumulating resources.
+- **Africa's position is a footprint artefact as much as a wellbeing one.**
+  Africa's mean of **36.3** is the lowest of the five, but the cohort spreads from
+  21.1 to 47.6 — a range wider than the gap between the top two continents.
+  Reading the column as a statement about "Africa" rather than about its mean
+  would be exactly the error the embedded counts are there to resist.
+- **Oceania's column is the least reliable and says so.** Four countries stand
+  behind a mean of **49.7**, against seventeen behind Asia's **43.3**. Printing
+  `n` inside the bar keeps that asymmetry in the reader's eye at the moment of
+  comparison; without it, five columns of identical construction imply five
+  estimates of identical precision.
+- **Sorting is the analysis.** Ordering by mean rather than alphabetically turns
+  the ranking into a single left-to-right read. Wickham (2010) names alphabetical
+  ordering of categorical variables as a common and avoidable fault, after
+  Wainer's "Alabama first!"; here, sorting is what allows the title's claim to be
+  verified by looking.
 
-**The columns are sorted, not alphabetical.** Alphabetical order would be a
-second, irrelevant variable competing with the one the reader came for. Sorting
-by the mean turns the ranking into something read at a glance, which is the
-cheapest comparison in Cleveland and McGill's hierarchy — position along a common
-scale.
+## What I had to fix
 
-**The chart states its own *n*.** A continental mean hides how many countries it
-averages: Oceania's mean rests on a handful of countries, Africa's on dozens. The
-white `n = ` label inside each column puts that caveat where the number is,
-rather than in a footnote nobody reads.
+- **The y-axis title came out horizontal.** `theme_hackathon()` re-declares
+  `axis.title.y` through `%+replace%` without an `angle`, so the angle resets to
+  zero, the title prints flat at the far left, and the panel is squeezed. I caught
+  it by comparing my first render against Chart 1, where the same fix
+  (`element_text(angle = 90, vjust = 2, margin = margin(r = 10))`) already
+  appears. Commit `07f074f`.
+- **The first draft of the commit would have touched the whole repository.** The
+  clone is on Windows, so every text file in the repo showed as modified on line
+  endings alone — 13,521 insertions and 13,527 deletions across 52 files, all
+  whitespace. I staged only the paths I had actually added instead of using
+  `git add -A`, so the history stays readable.
+- **`source("R/theme.R")` pointed at a file that was not in the repository.**
+  `Chart1.R` and `Chart3.R` both call it, but the theme existed only inside the
+  setup chunk of the Quarto document, so those two scripts failed from a clean R
+  session.
 
 ## Beyond the chart
 
-`Chart1.R` and `Chart3.R` both called `source("R/theme.R")`, but that file was not
-in the repository — the palette and theme lived only inside a setup chunk in the
-Quarto document, so the scripts could not be run on their own. I extracted the
-Okabe–Ito palette, the three `scale_*` helpers and `theme_hackathon()` into
-`R/theme.R`, which made every chart script reproducible from a clean clone and
-gave Chart 4 the same visual language as the other three.
+Extracting `R/theme.R` — the Okabe–Ito palette, the `scale_*` helpers and
+`theme_hackathon()` — made every chart script runnable from a clean clone, which
+closed the *"code runs from a clean R session using only the repo contents"* item
+on the eligibility checklist for the whole team, not just for my chart.
 
 I also wrote the team `README.md` (reproduction steps, package list, repo layout,
-data source) and `prompts.md`, the AI disclosure covering my prompts for Chart 4,
-and generated `sessionInfo.txt`.
+data source) and opened `prompts.md`, the shared AI disclosure, with my own
+section filled in; and I generated `sessionInfo.txt`.
 
 ## AI use
 
@@ -95,3 +163,4 @@ My work is visible in the team repository's history:
 | [`2587b84`](https://github.com/nedretsencavus/portfolio/commit/2587b847779d2cedf31e91260d525e1ce1737c5f) | Chart 4 and the extracted `R/theme.R` |
 | [`07f074f`](https://github.com/nedretsencavus/portfolio/commit/07f074fb60669eda3c8bbb41ce5ca444fd6e55b6) | Rotated the Chart 4 y-axis title to match Chart 1 |
 | [`bc0e230`](https://github.com/nedretsencavus/portfolio/commit/bc0e2309ebc0250c452cd17c88842ce437b58be9) | `README.md`, `prompts.md`, `sessionInfo.txt` |
+| [`fdd6892`](https://github.com/nedretsencavus/portfolio/commit/fdd6892e1af3d22e3c728c855a82068e857edd5d) | The Chart 4 section in the published report |
