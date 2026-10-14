@@ -1,0 +1,7 @@
+"format","type","compression","transparency","base_KB","ggplot_KB"
+"pdf","Vector","Lossless","Yes",14.5,14.5
+"svg","Vector","Lossless","Yes",229.2,248.4
+"png","Raster","Lossless","Yes",102,183.5
+"jpg","Raster","Lossy","No",167.3,409.7
+"tiff","Raster","Lossless","Yes",6855.7,6855.7
+"bmp","Raster","Lossless","No",6857.9,6857.9

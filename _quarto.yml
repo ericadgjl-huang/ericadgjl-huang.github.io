@@ -23,6 +23,8 @@ website:
             text: "Assignment 3: Anatomy of a Chart"
           - href: assignment4.qmd
             text: "Assignment 4: Chart Hackathon (Team)"
+          - href: assignment5.qmd
+            text: "Assignment 5: Base Graphics, ggplot2 & Output Formats"
       - text: Classes
         menu:
           - href: class2-data-guide.qmd
@@ -45,6 +47,8 @@ website:
             text: "Assignment 3"
           - href: ai-log-assignment4.qmd
             text: "Assignment 4"
+          - href: ai-log-assignment5.qmd
+            text: "Assignment 5"
           - text: "---"
           - href: ai-log-class2.qmd
             text: "Class 2"

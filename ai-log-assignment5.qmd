@@ -1,0 +1,82 @@
+---
+title: "Assignment 5: AI Use Log"
+toc: true
+engine: markdown
+---
+
+This page documents my use of generative AI for
+[EPPS 6356 Assignment 5](assignment5.qmd).
+
+## Tool Information
+
+| Item | Details |
+|---|---|
+| **Tool** | Claude (Anthropic), used in the Claude app, linked to the course folder on my computer |
+| **Date** | October 13–14, 2026 |
+| **My files** | `scripts/assignment5/eric_style.R`, `part1_*.R`, `part2_*.R`, `part3_export.R`, `assignment5.qmd` |
+
+## Prompts
+
+The conversation was in Traditional Chinese. These are the prompts that shaped the
+assignment, with English translations.
+
+1. > 我需要訂下我的繪製圖的風格嗎
+   >
+   > *(Do I need to set my own chart style?)*
+   >
+   > Claude showed three style options drawn with my data.
+
+2. > 我雖然最喜歡c 但是我想要有點溫度的配色 也許b換成橘色是我想要的
+   >
+   > *(I like C the most, but I want a warmer palette — maybe B in orange.)*
+
+3. > 能否一個一個產出讓我有選項可以做調整呢 教授希望我能做多點調整
+   >
+   > *(Can you produce the charts one by one with options, so I can adjust them?
+   > The professor wants more customisation.)*
+
+4. > 我覺得B的確很好 加上C的rug和median似乎對於讀者來說更為完整
+   >
+   > *(B is good; adding the rug and median from C makes it more complete for readers.)*
+
+5. > 另外中位數和平均數近乎交疊在一起是否有解決方法 … 最後我覺得恆是比較好
+   >
+   > *(Is there a fix for the overlapping mean and median lines? … I prefer the
+   > horizontal bar chart.)*
+
+6. > 把 C 的平均數菱形加進 B 盒子是淡橘色 標出每個地區的最高分國家感覺不錯
+   >
+   > *(Add C's mean diamonds to B, use light-orange boxes, and label the top
+   > country in each region.)*
+
+7. > 我覺得有點太亂了 我覺得用回原始的C 然後幫我使用箭頭指向該圓
+   >
+   > *(It is too cluttered. Go back to the original C and use arrows that point to
+   > each labelled circle.)*
+
+8. > 這端幫我用雅思6.5的作文來寫 請幫我完成Part3吧
+   >
+   > *(Write this part at an IELTS 6.5 writing level, and help me finish Part 3.)*
+
+## What I Checked or Changed
+
+- **The histogram was missing the density curve.** I expected both elements from
+  version C; only the rug had been added, so I asked for the curve as well.
+- **The mean and median lines overlap.** They differ by only 0.1, so I asked for a
+  solution; the labels were placed on opposite sides of the lines.
+- **The bubble chart became too busy.** A version with many arrow labels and white
+  label boxes was harder to read, so I went back to the simpler version with four
+  labelled countries.
+- **The biocapacity reference line uses an outside number.** Claude pointed out
+  that 1.6 gha per person does not come from the HPI data; it was checked and the
+  source is cited on the chart and in the references.
+
+## Design Decisions That Are Mine
+
+- A warm style: the clean "B" layout with the burnt orange from option "C".
+- Version B of the histogram, plus the rug, density curve and median.
+- The horizontal bar chart as my preferred version, because it reads from top to
+  bottom and shows full region names.
+- The boxplot with every country as a dot, mean diamonds, light-orange boxes and
+  the top country in each region labelled.
+- The bubble chart that highlights Latin America, with arrows to four countries.
