@@ -1,0 +1,155 @@
+---
+title: "EPPS 6356 Assignment 6: Shiny Apps"
+toc: true
+execute:
+  echo: true
+  eval: false
+format:
+  html:
+    code-fold: true
+---
+
+## Overview
+
+In this assignment I moved from running sample Shiny apps to publishing my own. I changed the fonts of a sample app in two ways, built three apps on R's built-in datasets, built one app on my own data, and published two of them on shinyapps.io. The two published apps are embedded on this page, so they can be used directly here.
+
+All my apps share one style file, `eric_theme.R`. It uses the same warm colours as my [Assignment 5](assignment5.qmd) charts (burnt orange `#C8551E`, warm dark grey text and light gridlines), the Inter font from Google Fonts, and a ggplot2 theme with no box and a left-aligned title. Each app folder keeps its own copy of this file, so that every app can be deployed on its own.
+
+```{r}
+#| code-summary: "Show eric_theme.R"
+#| file: scripts/assignment6/eric_theme.R
+```
+
+## Part 1. Sample apps and my own fonts
+
+I ran the sample apps from the Teams folder (`01_hello` to `05_sliders`). Then I changed `04_mpg`, which compares fuel economy across groups of cars, to use my own fonts in two ways.
+
+**i. CSS.** I added a `tags$style()` block to the UI. The body text uses Segoe UI and the headings use Georgia. Each rule lists several fonts and ends with the generic family (`sans-serif` or `serif`), because a visitor's computer may not have my first choice.
+
+```{r}
+#| code-summary: "Show the CSS version"
+#| file: scripts/assignment6/part1_css_app.R
+```
+
+**ii. bslib.** I passed a `bs_theme()` with Inter from `font_google()` to the page, and added `thematic::thematic_shiny(font = "auto")` to the server. The `font = "auto"` argument is needed: without it, thematic changes the plot colours but not the plot font. I also restyled the boxplot with my own colours, gridlines, title and source note.
+
+```{r}
+#| code-summary: "Show the bslib version"
+#| file: scripts/assignment6/part1_bslib_app.R
+```
+
+When I ran both versions, the difference was clear. With CSS, the title and the controls changed, but the text inside the plot (the axis labels and numbers) stayed in R's default font. With bslib and thematic, the page and the plot used the same font.
+
+**c. Which method would I use?** For a real project I would use bslib. A single `bs_theme()` call sets the fonts and colours for the whole app, and `thematic_shiny()` passes them to the plots, so the text inside the charts matches the page. CSS cannot do this, because a Shiny plot is an image drawn by R and CSS only styles the web page around it. In addition, `font_google()` delivers the font with the app, so every visitor sees the same typeface.
+
+## Part 2. Three apps on built-in datasets
+
+I gave each app a different layout and different kinds of inputs, so that they are not the same app with the data swapped. Every app has at least two inputs, a plot plus a table or text summary, and one `reactive()` that feeds several outputs. Every chart has a title, axis labels with units and a source note.
+
+| | mtcars | USArrests | uspop |
+|---|---|---|---|
+| Layout | Sidebar | Tabs in a navigation bar | Inputs across the top, summary boxes, cards |
+| Inputs | x variable, colour grouping, horsepower range, trend line | arrest type, number of states, sort order | year range, chart type, axis scale |
+| Outputs | scatter plot, correlation sentence, car table | ranked bar chart, scatter plot, summary, data table | line or bar chart, three summary boxes, census table |
+| Shared `reactive()` | `selected_cars()` (3 outputs) | `ranked()` (5 outputs) | `selected()` (5 outputs) |
+
+### a. mtcars: what goes with fuel economy?
+
+This app plots fuel economy against a variable the user chooses (weight, horsepower, engine size, quarter-mile time or rear axle ratio). The points can be coloured by cylinders or transmission, and a slider keeps only cars in a horsepower range. The same filtered data feed the plot, the correlation sentence and the table, so the three always agree. I chose a scatter plot on purpose, so that the app is clearly different from the boxplot in the `04_mpg` sample, which uses the same data.
+
+```{r}
+#| code-summary: "Show the mtcars app"
+#| file: scripts/assignment6/app_mtcars.R
+```
+
+### b. USArrests: which states had the most arrests in 1973?
+
+This app ranks the 50 states by murder, assault or rape arrests per 100,000 residents. The user chooses how many states to highlight and whether to show the highest or the lowest rates. The three tabs show a ranked bar chart, a scatter plot against urban population, and the full data table. The same states are highlighted on every tab, because all three read from one `reactive()`.
+
+```{r}
+#| code-summary: "Show the USArrests app"
+#| file: scripts/assignment6/app_usarrests.R
+```
+
+### c. uspop: two centuries of US population growth
+
+`uspop` is a time series, so I converted it to a data frame first and added the growth since the previous census. The user chooses a range of census years, whether to see the total population or the growth per decade, and a linear or logarithmic axis. On the log axis, a straight line means a steady growth rate, which makes it easy to see that growth slowed after about 1860. I published this app, and it is embedded in Part 5.
+
+```{r}
+#| code-summary: "Show the uspop app"
+#| file: scripts/assignment6/app_uspop.R
+```
+
+## Part 3. Publishing to shinyapps.io
+
+I published the uspop app from Part 2 and my Part 4 app to my shinyapps.io account. Each app has its own folder with `app.R`, `eric_theme.R` and any data file, and it only uses relative paths (for example `read.csv("hpi_panel.csv")`). I connected RStudio to my account with `rsconnect::setAccountInfo()` and then deployed each folder:
+
+```{r}
+#| code-fold: false
+rsconnect::deployApp("assignment/assignment6/app_own",   appName = "happy-planet-explorer")
+rsconnect::deployApp("assignment/assignment6/app_uspop", appName = "uspop-growth")
+```
+
+- Part 4: <https://ericadgjl-huang.shinyapps.io/happy-planet-explorer/>
+- Part 2: <https://ericadgjl-huang.shinyapps.io/uspop-growth/>
+
+One problem appeared during deployment. rsconnect only installs packages that are named in the code, but thematic needs `ragg` or `showtext` to draw Google fonts inside plots. Without them, the published plots would fall back to the default font. I solved this by adding `library(ragg)` and `library(showtext)` inside an `if (FALSE)` block in `eric_theme.R`: the block never runs, but rsconnect sees the two packages and installs them on the server.
+
+## Part 4. An app on my own data: Happy Planet Explorer
+
+My own app uses the Happy Planet Index 2026 data file (154 countries, 2006–2025), the same source as Assignments 2 and 5, but now as a full panel over time. A short script, `prep_data.R`, turns the "All Data" sheet of the Excel file into a tidy CSV, so the app does not need the Excel file or `readxl`.
+
+How it meets the requirements:
+
+- **Three or more inputs, one not a drop-down:** none of them is a drop-down. There is a year slider (with a play button), radio buttons for the x-axis variable, checkboxes for the regions, and a click on the scatter plot.
+- **Linked outputs:** one `reactive()`, `year_data()`, feeds the scatter plot, the summary sentence, the rankings table and the CSV download, so they always show the same countries.
+- **Features from *Mastering Shiny* chapters 6–7:** a bslib theme, tabs (`page_navbar`), an interactive plot (clicking a point selects a country) and a download button.
+- **About note:** the About tab gives the data source, the dates and what the app shows.
+
+```{r}
+#| code-summary: "Show the Happy Planet Explorer app"
+#| file: scripts/assignment6/app_own.R
+```
+
+```{r}
+#| code-summary: "Show prep_data.R"
+#| file: scripts/assignment6/prep_data.R
+```
+
+## Part 5. The apps
+
+### Happy Planet Explorer (Part 4)
+
+This app shows how well each country turns its ecological resources into long and happy lives, measured by the Happy Planet Index. Choose a year with the slider (or press ▶ to play through the years), choose a variable to compare with the HPI, and tick or untick regions. Click any point to see that country's HPI from 2006 to 2025 below the scatter plot; the Rankings tab lists every country and lets you download the table as a CSV file.
+
+::: {.column-page}
+<iframe src="https://ericadgjl-huang.shinyapps.io/happy-planet-explorer/"
+        width="100%" height="900" style="border: none;"
+        title="Happy Planet Explorer Shiny app"></iframe>
+:::
+
+### US population growth, 1790–1970 (Part 2)
+
+This app shows the US population at each ten-year census from 1790 to 1970. Drag the ends of the slider to choose a period, switch between the total population and the growth per decade, and try the logarithmic axis: a straight line on that axis means a steady growth rate. The three boxes and the table update with the chosen years.
+
+::: {.column-page}
+<iframe src="https://ericadgjl-huang.shinyapps.io/uspop-growth/"
+        width="100%" height="900" style="border: none;"
+        title="US population growth Shiny app"></iframe>
+:::
+
+The apps run on the free shinyapps.io plan, so they may take a few seconds to start if nobody has used them recently.
+
+## References
+
+Abdallah, S., and E. Barberà Mas. 2026. *The Happy Planet Index 2026 Data File.* <https://happyplanetindex.org>
+
+Henderson, H. V., and P. F. Velleman. 1981. "Building Multiple Regression Models Interactively." *Biometrics* 37: 391–411. (Source of `mtcars`.)
+
+McNeil, D. R. 1977. *Interactive Data Analysis.* New York: Wiley. (Source of `USArrests` and `uspop`.)
+
+Wickham, Hadley. 2021. *Mastering Shiny.* Sebastopol, CA: O'Reilly Media. <https://mastering-shiny.org/>
+
+## AI Use Statement
+
+I used Claude (Anthropic) for this assignment. Claude explained what the assignment asked for, offered several designs for each app for me to choose from, wrote the R code, tested the apps in its own environment before I ran them, guided me through publishing on shinyapps.io, and drafted the English text of this page. The decisions were mine: I chose the font and colour style, the design of every app, the Happy Planet Index as my own data, and the apps to publish, and I ran and checked every app on my computer and online. The full log is here: [Assignment 6: AI Use Log](ai-log-assignment6.qmd).

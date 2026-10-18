@@ -25,6 +25,8 @@ website:
             text: "Assignment 4: Chart Hackathon (Team)"
           - href: assignment5.qmd
             text: "Assignment 5: Base Graphics, ggplot2 & Output Formats"
+          - href: assignment6.qmd
+            text: "Assignment 6: Shiny Apps"
       - text: Classes
         menu:
           - href: class2-data-guide.qmd
@@ -49,6 +51,8 @@ website:
             text: "Assignment 4"
           - href: ai-log-assignment5.qmd
             text: "Assignment 5"
+          - href: ai-log-assignment6.qmd
+            text: "Assignment 6"
           - text: "---"
           - href: ai-log-class2.qmd
             text: "Class 2"

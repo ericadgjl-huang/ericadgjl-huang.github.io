@@ -1,0 +1,93 @@
+---
+title: "Assignment 6: AI Use Log"
+toc: true
+engine: markdown
+---
+
+This page documents my use of generative AI for
+[EPPS 6356 Assignment 6](assignment6.qmd).
+
+## Tool Information
+
+| Item | Details |
+|---|---|
+| **Tool** | Claude (Anthropic), used in the Claude app, linked to my course folder and my website folder |
+| **Date** | October 17, 2026 |
+| **My files** | `part1_fonts_css/app.R`, `part1_fonts_bslib/app.R`, `app_mtcars/`, `app_usarrests/`, `app_uspop/`, `app_own/` (with `eric_theme.R`, `prep_data.R`, `hpi_panel.csv`), `assignment6.qmd` |
+
+## What Claude Did
+
+- Read the assignment PDF and the syllabus, and explained what was due this week.
+- Wrote the R code for all the apps and tested them in its own environment
+  (server logic, rendered plots and page screenshots) before I ran them.
+- Offered two or more designs for each app; I chose one each time.
+- Guided me through creating a shinyapps.io account and deploying two apps.
+- Drafted the English text of the assignment page.
+
+## Prompts
+
+The conversation was in Traditional Chinese. These are the prompts that shaped the
+assignment, with English translations.
+
+1. > 這禮拜好像沒有prepare for class 只有assignment 可以告訴我這禮拜要幹嘛嗎 … 然後一步一步帶著我做
+   >
+   > *(There seems to be no "Prepare for class" this week, only the assignment. Can you
+   > tell me what I need to do this week … and then guide me step by step?)*
+
+2. > 那就拿 04_mpg 來改字型吧 還是說其實五個都要改
+   >
+   > *(Let's use 04_mpg for the fonts. Or do all five apps need to be changed?)*
+   >
+   > Claude explained that only one app is needed, in two versions.
+
+3. > 這是要我們幹嘛呢 做視覺化的修改嗎 我希望就是根據你的方案選出我想要的方案來修改
+   >
+   > *(What is this part for? Is it about visual changes? I would like to choose the
+   > option I want from your proposals.)*
+   >
+   > Claude offered three font pairs and two colour schemes. I chose **A1**:
+   > Inter with my warm burnt-orange palette from Assignment 5.
+
+4. Part 2 design choices (multiple choice): **scatter plot explorer** for mtcars,
+   **state ranking with tabs** for USArrests, and **population growth with a card
+   layout** for uspop.
+
+5. > 先用B好了
+   >
+   > *(Let's use B for now.)* — I chose the Happy Planet Index instead of the team
+   > project's TEA data for Part 4, and then chose the **scatter plot with a click-to-see
+   > trend** design.
+
+6. > 這裡有說要用學校的帳號嗎 還是怎麼用
+   >
+   > *(Does it say I have to use my school account? How do I use this?)* — about
+   > signing up for shinyapps.io.
+
+7. > 做part5
+   >
+   > *(Do Part 5.)*
+
+## What I Checked or Changed
+
+- **Missing axis labels in Part 1.** My screenshot of the bslib version showed a
+  boxplot without axis labels. Claude found the cause (`boxplot(add = TRUE)` does not
+  draw them) and added `title()`.
+- **Cut-off text in a narrow window.** When I ran the Part 4 app in the RStudio
+  window, the legend, the source note and a country label near the edge were cut off.
+  These were fixed, which also matters for the iframe on this page.
+- **Collapsed tabs.** In a narrow window the USArrests tabs moved into a ☰ menu;
+  Claude explained this is bslib's responsive design, not an error.
+- **Deployment warnings.** The first deployment printed ten warnings about font
+  files. Claude explained they were harmless, and I confirmed on the live app that
+  the page and the plots used Inter.
+- **Account name.** I first typed `https://` into the shinyapps.io account box and
+  corrected it to `ericadgjl-huang`.
+- I ran every app on my computer and opened both published apps before accepting them.
+
+## Design Decisions That Are Mine
+
+- The font and colour style: Inter with my warm palette (option A1).
+- The design of each Part 2 app, chosen from Claude's options.
+- The Happy Planet Index as my own data for Part 4, and the click-to-see-trend design.
+- Signing up with GitHub and using my GitHub user name as the shinyapps.io account name.
+- Doing Part 5 on the same night instead of the next day.
