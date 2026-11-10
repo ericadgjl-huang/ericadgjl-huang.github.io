@@ -82,6 +82,9 @@ assignment, with English translations.
   the page and the plots used Inter.
 - **Account name.** I first typed `https://` into the shinyapps.io account box and
   corrected it to `ericadgjl-huang`.
+- **Exposed token.** A screenshot I shared showed my shinyapps.io token and secret.
+  After deploying, I created a new token, connected RStudio with it and deleted the
+  old one.
 - I ran every app on my computer and opened both published apps before accepting them.
 
 ## Design Decisions That Are Mine

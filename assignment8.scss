@@ -1,0 +1,12 @@
+/*-- scss:defaults --*/
+// Assignment 8 dashboard theme: same warm palette as my Assignment 5 and 6 work
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+$primary:   #C8551E;   // burnt orange accent
+$body-color: #2B2622;  // warm dark grey text
+$link-color: #A8432B;
+$font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+/*-- scss:rules --*/
+.card-header { font-weight: 600; }
+.source-note { color: #8C837C; font-size: 0.8rem; margin-top: 0.25rem; }

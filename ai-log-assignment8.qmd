@@ -1,0 +1,58 @@
+---
+title: "Assignment 8: AI Use Log"
+toc: true
+engine: markdown
+---
+
+This page documents my use of generative AI for
+[EPPS 6356 Assignment 8](assignment8.qmd).
+
+## Tool Information
+
+| Item | Details |
+|---|---|
+| **Tool** | Claude (Anthropic), used in the Claude app, linked to my course folder and my website folder |
+| **Date** | November 4–6, 2026 |
+| **My files** | `PLAN.md`, `assignment8-dashboard.qmd`, `assignment8.scss`, `assignment8.qmd`, `data/hpi_panel.csv` |
+
+## What Claude Did
+
+- Read the assignment PDF and organized the work for Classes 7–9 and Assignment 8.
+- Drafted `PLAN.md` from our team's project proposal slides.
+- Checked whether our team's TEA data were available; they were not ready, so we chose the
+  HPI data for the dashboard prototype.
+- Computed the summary numbers used in the chart titles (for example, 69 of 74 countries
+  rose; r = 0.47) so that each title matches the data.
+- Wrote the dashboard code and the theme file, reusing my `eric_theme.R` style from Assignment 6.
+- Drafted the English text of the assignment page.
+
+## Prompts
+
+The conversation was in Traditional Chinese. These are the prompts that shaped the
+assignment, with English translations.
+
+1. > 可以帶著我做assignment8嗎
+   >
+   > *(Can you guide me through Assignment 8?)*
+
+2. > 但有個疑問為什麼plan.md不改呢
+   >
+   > *(But I have a question: why isn't PLAN.md changed?)*
+
+3. > 好的那就先用HPI完成吧 不過我覺得先做的話會能夠幫助到他們 在完成HPI之後再完成TEA的
+   >
+   > *(OK, let's finish it with HPI first. But I think doing it early could help my teammates:
+   > after finishing the HPI version, I will do the TEA one.)*
+
+## My Decisions
+
+- I chose to keep `PLAN.md` about our team's TEA project, because Part A asks for the plan of the
+  final team project, and to add a note explaining why the prototype uses HPI.
+- I chose the HPI data for the dashboard so that I could finish on time, and I plan to rebuild it
+  with TEA data once the team has cleaned the files.
+
+## Verification
+
+- [ ] Rendered the dashboard in RStudio and checked every value box and chart.
+- [ ] Checked the layout at phone width (browser developer tools, F12).
+- [ ] Checked the published page and the three submission links.

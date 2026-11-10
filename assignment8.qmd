@@ -1,0 +1,38 @@
+---
+title: "EPPS 6356 Assignment 8: Dashboard"
+toc: true
+---
+
+## Links to submit
+
+| | |
+|---|---|
+| **Published dashboard** | [Happy Planet Index dashboard](assignment8-dashboard.html) |
+| **Repository** | [github.com/ericadgjl-huang/ericadgjl-huang.github.io](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io) (dashboard source: [`assignment8-dashboard.qmd`](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/blob/main/assignment8-dashboard.qmd)) |
+| **Project plan (Part A)** | [`PLAN.md`](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/blob/main/PLAN.md) |
+
+## Part A. Project plan
+
+`PLAN.md` is the one-page plan for our team project, *Unequal Discipline*: discipline disparities by student race across Texas public school districts, using TEA discipline data for the school years 2018–19 to 2023–24. It covers the question and audience, the data, five planned charts with their Abela Thought-Starter numbers, the interaction, and the deployment route.
+
+## Part B. Dashboard
+
+I chose **Route 1, a Quarto dashboard** (`format: dashboard`), published as a static page on this website. Our TEA data are not ready yet, so the dashboard uses the **Happy Planet Index (HPI), 2006–2025** as a prototype of the same layout: value boxes, a trend by group over time, a comparison chart and a searchable table. I chose Route 1 because I can extend it with Shiny or Shinylive in Assignment 9 without changing the layout.
+
+| Requirement | How the dashboard meets it |
+|---|---|
+| Layout | Title, navigation bar with two pages (**Overview** and **Data**) and a GitHub button; the Overview page has three rows |
+| Value boxes | Four: the average 2025 score, the average change since 2006, the highest 2025 score (Costa Rica), and the United States' score and rank |
+| Charts | Three, each in its own card with a title that states the message, labelled axes with units and a source note: (1) average HPI by region, 2006–2025 (**change over time**); (2) HPI against GDP per capita, 2025, with the United States and Costa Rica highlighted; (3) the largest rises and all falls in HPI, 2006–2025 |
+| Interaction | Hover tooltips on every chart (plotly), zooming by dragging on a chart, and a table you can search, sort and filter by column (DT) |
+| Design | Cosmo theme with my own SCSS (burnt-orange accent, warm dark text, Inter font); the same eight region colours in both region charts; Quarto dashboards stack the cards in one column on a phone-width screen |
+
+**The story.** My main finding is that money does not buy a high HPI. The United States has the 6th-highest GDP per capita in the data but ranks 105th of 134 countries in 2025, because its large ecological footprint cancels out its long lives and high life satisfaction. Costa Rica ranks 1st with about a third of the US income.
+
+[Open the dashboard (full screen) →](assignment8-dashboard.html){.btn .btn-primary}
+
+The dashboard opens as its own full-screen page, because a dashboard needs the whole browser window for its rows of cards; this page is the write-up with the links to submit.
+
+## AI use
+
+See the [Assignment 8 AI use log](ai-log-assignment8.qmd).

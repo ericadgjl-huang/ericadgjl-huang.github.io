@@ -1,0 +1,197 @@
+---
+title: "Happy Planet Index, 2006–2025"
+author: "Eric Huang"
+format:
+  dashboard:
+    theme: [cosmo, assignment8.scss]
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(plotly)
+library(DT)
+source(here::here("scripts", "assignment6", "eric_theme.R"))   # eric_col, eric_cat, theme_mine()
+
+hpi <- read_csv(here::here("data", "hpi_panel.csv"), show_col_types = FALSE) |>
+  filter(!is.na(hpi)) |>
+  mutate(year = as.integer(year))
+
+regions     <- sort(unique(hpi$region))
+region_cols <- setNames(eric_cat[seq_along(regions)], regions)
+plot_font   <- list(family = "Inter, Segoe UI, sans-serif", color = eric_col$ink)
+
+latest_year <- max(hpi$year)
+latest <- hpi |> filter(year == latest_year)
+
+# Countries with an HPI score in both 2006 and the latest year
+change <- hpi |>
+  filter(year %in% c(2006, latest_year)) |>
+  pivot_wider(id_cols = iso, names_from = year, values_from = hpi, names_prefix = "y") |>
+  drop_na() |>
+  mutate(change = .data[[paste0("y", latest_year)]] - y2006) |>
+  left_join(latest |> select(iso, country, region), by = "iso")
+
+top <- latest |> slice_max(hpi, n = 1)
+usa <- latest |> mutate(rank = min_rank(desc(hpi))) |> filter(iso == "USA")
+```
+
+# Overview {scrolling="true"}
+
+## Row {height="180px"}
+
+```{r}
+#| content: valuebox
+#| title: "Average HPI score, 2025"
+list(icon = "emoji-smile", color = "light", value = round(mean(latest$hpi), 1))
+```
+
+```{r}
+#| content: valuebox
+#| title: "Average change, 2006–2025"
+list(icon = "graph-up-arrow", color = "light", value = sprintf("%+.1f", mean(change$change)))
+```
+
+```{r}
+#| content: valuebox
+#| title: "Highest score, 2025: Costa Rica"
+list(icon = "trophy", color = "#C8551E", value = round(top$hpi, 1))
+```
+
+```{r}
+#| content: valuebox
+#| title: "United States, 2025: rank 105 of 134"
+list(icon = "flag", color = "#3A6FB0", value = round(usa$hpi, 1))
+```
+
+## Row {height="480px"}
+
+::: {.card title="Latin America has the highest average HPI in 18 of 20 years; Africa has the lowest in every year" width="58%"}
+
+```{r}
+#| label: chart-trend
+reg_trend <- hpi |>
+  group_by(region, year) |>
+  summarise(mean_hpi = mean(hpi), n = n(), .groups = "drop")
+
+p1 <- ggplot(reg_trend, aes(year, mean_hpi, colour = region, group = region,
+                            text = sprintf("%s, %d<br>Average HPI: %.1f<br>Countries with data: %d",
+                                           region, year, mean_hpi, n))) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 1.3) +
+  scale_colour_manual(values = region_cols, name = NULL) +
+  scale_x_continuous(breaks = seq(2006, 2024, 3)) +
+  labs(x = "Year", y = "Average HPI score (0–100)") +
+  theme_mine()
+
+ggplotly(p1, tooltip = "text") |>
+  layout(font = plot_font, legend = list(orientation = "h", y = -0.25)) |>
+  config(displayModeBar = FALSE)
+```
+
+[Unweighted mean of the countries with data in each year; the number of countries per region changes over time (hover to see it). Source: Abdallah & Barberà Mas (2026), Happy Planet Index 2026 data file (happyplanetindex.org).]{.source-note}
+:::
+
+::: {.card title="Money does not buy a high HPI: the link with GDP per capita is weak (r = 0.27)" width="42%"}
+
+```{r}
+#| label: chart-scatter
+highlight <- latest |>
+  filter(iso %in% c("USA", "CRI")) |>
+  mutate(label = if_else(iso == "USA", "United States", "Costa Rica"))
+
+p2 <- ggplot(latest, aes(gdp_pc, hpi, colour = region, size = population,
+                         text = sprintf("%s (%s)<br>HPI: %.1f<br>GDP per capita: $%s<br>Life satisfaction: %.1f / 10<br>Ecological footprint: %.1f gha per person",
+                                        country, region, hpi, format(round(gdp_pc), big.mark = ","),
+                                        life_sat, footprint))) +
+  geom_point(alpha = 0.7) +
+  geom_point(data = highlight, aes(gdp_pc, hpi), inherit.aes = FALSE,
+             shape = 21, size = 5, stroke = 1.2, colour = eric_col$ink, fill = NA) +
+  geom_text(data = highlight, aes(gdp_pc, hpi + 3.5, label = label), inherit.aes = FALSE,
+            size = 3.6, fontface = "bold", colour = eric_col$ink) +
+  scale_x_log10(labels = scales::label_dollar()) +
+  scale_size_area(max_size = 12, guide = "none") +
+  scale_colour_manual(values = region_cols, guide = "none") +
+  labs(x = "GDP per capita (US$, PPP, log scale)", y = "HPI score (0–100)") +
+  theme_mine(grid = "xy")
+
+ggplotly(p2, tooltip = "text") |>
+  layout(font = plot_font, showlegend = FALSE) |>
+  config(displayModeBar = FALSE)
+```
+
+[2025, one point per country; point size shows population; colours match the regions in the trend chart; r is computed on log GDP. The United States has the 6th-highest GDP per capita but ranks 105th of 134 on the HPI, mainly because of its large ecological footprint; Costa Rica ranks 1st with about a third of the US income. Source: Abdallah & Barberà Mas (2026), Happy Planet Index 2026 data file.]{.source-note}
+:::
+
+## Row {height="560px"}
+
+::: {.card title="69 of 74 countries raised their HPI between 2006 and 2025; only 5 fell" width="65%"}
+
+```{r}
+#| label: chart-change
+chg_show <- bind_rows(
+  change |> slice_max(change, n = 10),
+  change |> filter(change <= 0)
+) |>
+  mutate(direction = if_else(change > 0, "Rose", "Fell"),
+         country   = fct_reorder(country, change))
+
+p3 <- ggplot(chg_show, aes(change, country, fill = direction,
+                           text = sprintf("%s (%s)<br>2006: %.1f<br>2025: %.1f<br>Change: %+.1f points",
+                                          country, region, y2006, y2025, change))) +
+  geom_col(width = 0.7) +
+  geom_vline(xintercept = 0, colour = eric_col$base) +
+  scale_fill_manual(values = c(Rose = eric_col$accent, Fell = "#3A6FB0"), guide = "none") +
+  labs(x = "Change in HPI score, 2006 to 2025 (points)", y = NULL) +
+  theme_mine(grid = "x")
+
+ggplotly(p3, tooltip = "text") |>
+  layout(font = plot_font, showlegend = FALSE,
+         yaxis = list(tickfont = list(size = 12)), bargap = 0.3) |>
+  config(displayModeBar = FALSE)
+```
+
+[The 10 largest rises and all 5 falls among the 74 countries with an HPI score in both 2006 and 2025. Source: Abdallah & Barberà Mas (2026), Happy Planet Index 2026 data file.]{.source-note}
+:::
+
+::: {.card title="About this dashboard" width="35%"}
+
+The **Happy Planet Index (HPI)** combines life expectancy and life satisfaction with each country's ecological footprint: a high score means long, happy lives at a low environmental cost.
+
+**Reading the numbers:** HPI scores run from 0 to 100. In 2025, 134 countries have a score. The average change compares the 74 countries that have a score in both 2006 and 2025.
+
+**Why is Taiwan missing?** Taiwan is in the source file with life expectancy and life satisfaction, but it has no ecological footprint data, so it has no HPI score.
+
+**How to use it:** hover over any line, point or bar to see the exact values. The **Data** page has the full table for every country and year, with search, sorting and filters.
+
+**A prototype for our team project.** Our final project studies discipline disparities in Texas school districts with TEA data, which our team is still preparing. This HPI version tests the layout I plan to reuse: headline value boxes, a trend over time by group, a comparison chart and a searchable table. See the [project plan](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/blob/main/PLAN.md).
+
+Built in R with Quarto dashboards, ggplot2, plotly and DT.
+:::
+
+# Data
+
+```{r}
+#| label: table
+#| title: "Happy Planet Index data, every country and year (search, sort or filter any column)"
+hpi |>
+  transmute(Country = country,
+            Region  = region,
+            Year    = year,
+            `HPI score (0–100)`             = hpi,
+            `Life expectancy (years)`       = life_exp,
+            `Life satisfaction (0–10)`      = life_sat,
+            `Ecological footprint (gha per person)` = footprint,
+            `GDP per capita (US$)`          = gdp_pc,
+            `Population (millions)`         = population / 1000) |>
+  arrange(desc(Year), desc(`HPI score (0–100)`)) |>
+  datatable(rownames = FALSE, filter = "top",
+            options = list(pageLength = 15, scrollX = TRUE),
+            caption = "Source: Abdallah & Barberà Mas (2026), Happy Planet Index 2026 data file (happyplanetindex.org).") |>
+  formatRound(c(4:7, 9), digits = 1) |>
+  formatCurrency(8, digits = 0)
+```
