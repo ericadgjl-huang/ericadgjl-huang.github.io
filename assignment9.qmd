@@ -8,7 +8,7 @@ toc: true
 | | |
 |---|---|
 | **Static maps (Part B)** | [Mapping Discipline Gaps in Texas School Districts](maps.qmd) |
-| **Deployed dashboard (Part C)** | [Unequal Discipline dashboard on Posit Connect Cloud](CONNECT_URL) (embedded [below](#the-dashboard)) |
+| **Deployed dashboard (Part C)** | [Unequal Discipline dashboard on Posit Connect Cloud](https://01a1e69f-c9d5-7e8f-10b6-10a95bd85db8.share.connect.posit.cloud/) (embedded [below](#the-dashboard)) |
 | **Repository** | [github.com/ericadgjl-huang/ericadgjl-huang.github.io](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io) (dashboard source: [`dashboard/index.qmd`](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/blob/main/dashboard/index.qmd); data scripts: [`scripts/tea/`](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/tree/main/scripts/tea)) |
 | **Updated plan (Part A)** | [`PLAN.md`](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/blob/main/PLAN.md), section "Assignment 9. Spatial plan" |
 
@@ -41,9 +41,9 @@ I chose **Route 1, a Quarto dashboard with `server: shiny`**, deployed to Posit 
 
 ## The dashboard
 
-<iframe src="CONNECT_URL" width="100%" height="900" style="border: 1px solid #ddd; border-radius: 6px;" title="Unequal Discipline dashboard"></iframe>
+<iframe src="https://01a1e69f-c9d5-7e8f-10b6-10a95bd85db8.share.connect.posit.cloud/" width="100%" height="900" style="border: 1px solid #ddd; border-radius: 6px;" title="Unequal Discipline dashboard"></iframe>
 
-[Open the dashboard in a new tab →](CONNECT_URL){.btn .btn-primary target="_blank"}
+[Open the dashboard in a new tab →](https://01a1e69f-c9d5-7e8f-10b6-10a95bd85db8.share.connect.posit.cloud/){.btn .btn-primary target="_blank"}
 
 The dashboard may take 20–30 seconds to wake up the first time, because Connect Cloud puts free apps to sleep when nobody is using them.
 
