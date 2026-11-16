@@ -1,0 +1,7 @@
+# The dashboard is its own small Quarto project, separate from the website.
+# Without this file, `quarto serve` treats the website as the project root and
+# looks for the app in dashboard/dashboard. Connect Cloud deploys this folder alone.
+project:
+  type: default
+
+editor: source

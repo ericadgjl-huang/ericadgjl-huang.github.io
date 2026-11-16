@@ -1,0 +1,306 @@
+---
+title: "Unequal Discipline: Texas School Districts"
+author: "Eric Huang"
+format:
+  dashboard:
+    theme: [cosmo, dashboard.scss]
+    nav-buttons:
+      - icon: github
+        href: https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/tree/main/dashboard
+server: shiny
+---
+
+```{r}
+#| context: setup
+library(shiny)
+library(bslib)
+library(bsicons)
+library(leaflet)
+library(sf)
+library(dplyr)
+library(readr)
+library(ggplot2)
+library(stringr)
+library(DT)
+
+# ---- Read and join the data once (outside the server) ------------------------
+# Built by scripts/tea/02_clean_tea.R and 03_boundaries.R, copied here by 04_dashboard_data.R
+tea <- read_csv("data/tea_district_year.csv",
+                col_types = cols(district = col_character()), show_col_types = FALSE)
+districts <- readRDS("data/tx_districts_web.rds")   # EPSG:4326, what Leaflet expects
+
+# One row per mapped district x school year x action. Charter networks have no
+# boundary, so the inner join keeps traditional districts only.
+tea_sf <- districts |>
+  select(district, county, locale_type) |>
+  inner_join(filter(tea, charter == "Traditional ISD"), by = "district") |>
+  mutate(name = str_replace(str_to_title(distname), "\\bIsd\\b", "ISD"))
+
+measures <- c("Black/White risk ratio"    = "rrr_black",
+              "Hispanic/White risk ratio" = "rrr_hispanic",
+              "All students: risk (%)"    = "risk_all")
+actions  <- c("Out-of-school suspension (OSS)" = "OSS",
+              "In-school suspension (ISS)"     = "ISS",
+              "DAEP placement"                 = "DAEP")
+years    <- sort(unique(tea$school_year))
+
+# Colour classes (same as the static maps in maps.qmd)
+ratio_breaks <- c(0, 0.8, 1.25, 2, 3, 5, Inf)
+ratio_labels <- c("Under 0.8", "0.8 to 1.25 (about equal)", "1.25 to 2", "2 to 3", "3 to 5", "5 or more")
+ratio_cols   <- c("#7FA6D3", "#F4EFE9", "#F6CDB0", "#E99A68", "#C8551E", "#7A2C0E")
+risk_breaks  <- c(0, 1, 2, 4, 6, 10, Inf)
+risk_labels  <- c("Under 1%", "1 to 2%", "2 to 4%", "4 to 6%", "6 to 10%", "10% or more")
+risk_cols    <- c("#FBE3D2", "#F6C4A2", "#EE9D6C", "#DB7440", "#B44816", "#6B260B")
+na_col       <- "#CCCCCC"
+accent       <- "#C8551E"
+
+theme_dash <- function() {
+  theme_minimal(base_size = 13) +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major.y = element_blank(),
+          plot.title = element_text(face = "bold", colour = "#2B2622"),
+          plot.title.position = "plot",
+          plot.caption = element_text(colour = "#8C837C", hjust = 0),
+          plot.caption.position = "plot",
+          axis.text = element_text(colour = "#5E5650"))
+}
+```
+
+# {.sidebar}
+
+```{r}
+selectInput("measure", "Measure", choices = measures)
+radioButtons("action", "Discipline action", choices = actions)
+selectInput("year", "School year", choices = years, selected = max(years))
+selectInput("locale", "Districts",
+            choices = c("All districts" = "All", "City", "Suburb", "Town", "Rural"))
+```
+
+**How to read the risk ratio.** The share of Black (or Hispanic) students who received the action at least once, divided by the same share for White students in the same district. **1** means equal; **2** means twice as likely.
+
+Districts where TEA masked a number, or where a group has fewer than 30 students, are **grey**.
+
+<small>Data: Texas Education Agency, Discipline Action Group Summary Reports, 2018-19 to 2023-24. Boundaries: NCES EDGE 2023-24 (Census TIGER/Line 2024).</small>
+
+# Map
+
+## Row {height="20%"}
+
+```{r}
+value_box(textOutput("n_title", inline = TRUE), textOutput("n_value"),
+          showcase = bs_icon("geo-alt"), theme = "light")
+```
+
+```{r}
+value_box(textOutput("med_title", inline = TRUE), textOutput("med_value"),
+          showcase = bs_icon("bar-chart"), theme = value_box_theme(bg = accent, fg = "white"))
+```
+
+```{r}
+value_box(textOutput("coverage_title", inline = TRUE), textOutput("coverage"),
+          showcase = bs_icon("people"), theme = "light")
+```
+
+## Row {height="82%"}
+
+### Column {width="62%"}
+
+```{r}
+#| title: "Where the selected measure is highest (hover or click a district)"
+leafletOutput("district_map", height = "100%")
+```
+
+### Column {width="38%"}
+
+```{r}
+#| title: "Top 10 districts on the selected measure"
+plotOutput("top10", height = "100%")
+```
+
+# Trends
+
+## Row
+
+```{r}
+#| title: "Has the gap changed since before COVID? Median risk ratio across districts, by school year"
+plotOutput("trend", height = "100%")
+```
+
+# Data
+
+## Row
+
+```{r}
+#| title: "Every mapped district for the selected year, action and locale (search or sort any column)"
+DTOutput("table")
+```
+
+```{r}
+#| context: server
+
+# ---- One shared reactive: the filtered sf data ------------------------------
+dat <- reactive({
+  d <- tea_sf |> filter(school_year == input$year, action == input$action)
+  if (input$locale != "All") d <- filter(d, locale_type == input$locale)
+  reliable <- switch(input$measure,
+    rrr_black    = d$rrr_black_reliable,
+    rrr_hispanic = d$rrr_hispanic_reliable,
+    risk_all     = !is.na(d$risk_all) & d$enrolled_all >= 30)
+  d$value <- ifelse(reliable %in% TRUE, d[[input$measure]], NA_real_)
+  d
+})
+
+is_ratio <- reactive(input$measure != "risk_all")
+group    <- reactive(switch(input$measure, rrr_black = "Black", rrr_hispanic = "Hispanic", "All"))
+var_label <- reactive({
+  if (is_ratio()) sprintf("%s/White risk ratio, %s (times as likely)", group(), input$action)
+  else sprintf("Students with at least one %s (%% of all students)", input$action)
+})
+big <- function(x) formatC(x, big.mark = ",", format = "d")
+fmt <- function(x) {
+  if (is_ratio()) ifelse(is.na(x), "no reliable value", sprintf("%.2f", x))
+  else ifelse(is.na(x), "no reliable value", sprintf("%.1f%%", x))
+}
+
+# ---- Value boxes ------------------------------------------------------------
+output$n_value <- renderText(sprintf("%d of %s", sum(!is.na(dat()$value)), big(nrow(dat()))))
+output$n_title <- renderText("Districts with a reliable value")
+output$med_title <- renderText(if (is_ratio()) "Median risk ratio" else "Median risk")
+output$med_value <- renderText({
+  m <- median(dat()$value, na.rm = TRUE)
+  if (is.na(m)) "–" else if (is_ratio()) sprintf("%.2f×", m) else sprintf("%.1f%%", m)
+})
+output$coverage <- renderText({
+  d <- sf::st_drop_geometry(dat())
+  n <- switch(input$measure, rrr_black = d$n_black, rrr_hispanic = d$n_hispanic, d$enrolled_all)
+  share <- sum(n[!is.na(d$value)], na.rm = TRUE) / sum(n, na.rm = TRUE)
+  if (is.nan(share)) "–" else sprintf("%.0f%%", 100 * share)
+})
+output$coverage_title <- renderText(
+  sprintf("%s covered by these districts",
+          switch(group(), Black = "Black students", Hispanic = "Hispanic students", "All students")))
+
+# ---- Map: draw the base once, then update the polygons ----------------------
+# The output is called "district_map", not "map": Quarto gives the "Map" page the
+# HTML id "map", and a second element with the same id would catch the updates.
+output$district_map <- renderLeaflet(
+  leaflet(options = leafletOptions(minZoom = 4, zoomSnap = 0.25, zoomDelta = 0.5)) |>
+    addProviderTiles(providers$Esri.WorldGrayCanvas) |>
+    fitBounds(-106.4, 25.9, -93.6, 36.4)
+)
+
+observe({
+  d <- dat()
+  if (is_ratio()) { brks <- ratio_breaks; labs <- ratio_labels; cols <- ratio_cols }
+  else            { brks <- risk_breaks;  labs <- risk_labels;  cols <- risk_cols }
+  cls <- cut(d$value, brks, labels = labs, right = FALSE)
+  d$fill <- ifelse(is.na(cls), na_col, cols[as.integer(cls)])
+
+  hover <- sprintf("<b>%s</b><br>%s: %s", d$name,
+                   if (is_ratio()) "Risk ratio" else "Risk", fmt(d$value)) |>
+    lapply(htmltools::HTML)
+  popup <- sprintf(paste0(
+    "<b>%s</b><br>%s County · %s<br><hr style='margin:4px 0'>",
+    "<b>%s:</b> %s<br>",
+    "Black students: %s%% of %s<br>Hispanic students: %s%% of %s<br>",
+    "White students: %s%% of %s<br>All students: %s%% of %s"),
+    d$name, str_remove(d$county, " County$"), d$locale_type, var_label(), fmt(d$value),
+    ifelse(is.na(d$risk_black), "masked", sprintf("%.1f", d$risk_black)),
+    ifelse(is.na(d$n_black), "masked", big(d$n_black)),
+    ifelse(is.na(d$risk_hispanic), "masked", sprintf("%.1f", d$risk_hispanic)),
+    ifelse(is.na(d$n_hispanic), "masked", big(d$n_hispanic)),
+    ifelse(is.na(d$risk_white), "masked", sprintf("%.1f", d$risk_white)),
+    ifelse(is.na(d$n_white), "masked", big(d$n_white)),
+    ifelse(is.na(d$risk_all), "masked", sprintf("%.1f", d$risk_all)),
+    big(d$enrolled_all))
+
+  leafletProxy("district_map", data = d) |>
+    clearShapes() |>
+    clearControls() |>
+    addPolygons(fillColor = ~fill, fillOpacity = 0.85, color = "white", weight = 0.4,
+                label = hover, popup = popup,
+                labelOptions = labelOptions(direction = "auto"),
+                # bringToFront = FALSE: moving the hovered polygon to the top makes
+                # Chrome miss the mouse-out event, so hover labels get stuck on screen
+                highlightOptions = highlightOptions(weight = 2.5, color = "#2B2622",
+                                                    fillOpacity = 1, bringToFront = FALSE)) |>
+    addLegend(position = "bottomright", colors = c(cols, na_col),
+              labels = c(labs, "No reliable value"), opacity = 0.85,
+              title = HTML(str_replace(var_label(), " \\(", "<br>(")))
+})
+
+# ---- Companion chart: top 10 districts --------------------------------------
+output$top10 <- renderPlot({
+  d <- dat() |> sf::st_drop_geometry() |> filter(!is.na(value)) |>
+    slice_max(value, n = 10, with_ties = FALSE)
+  validate(need(nrow(d) > 0, "No district has a reliable value for this selection."))
+  n_col <- switch(input$measure, rrr_black = "n_black", rrr_hispanic = "n_hispanic", "enrolled_all")
+  d <- d |> mutate(label = sprintf("%s (%s)", name, big(.data[[n_col]])),
+                   label = reorder(label, value))
+  p <- ggplot(d, aes(value, label)) +
+    geom_col(fill = accent, width = 0.7) +
+    geom_text(aes(label = fmt(value)), hjust = -0.15, size = 4, colour = "#2B2622") +
+    scale_x_continuous(expand = expansion(mult = c(0, 0.18))) +
+    labs(title = sprintf("Highest: %s, %s", d$name[1], fmt(d$value[1])),
+         x = var_label(), y = NULL,
+         caption = sprintf("In brackets: number of %s enrolled. Source: TEA, %s.",
+                           switch(group(), Black = "Black students", Hispanic = "Hispanic students",
+                                  "students"), input$year)) +
+    theme_dash()
+  if (is_ratio()) p <- p + geom_vline(xintercept = 1, linetype = "dashed", colour = "#5E5650")
+  p
+})
+
+# ---- Trend page (all years, same action and locale) -------------------------
+output$trend <- renderPlot({
+  d <- tea_sf |> sf::st_drop_geometry() |> filter(action == input$action)
+  if (input$locale != "All") d <- filter(d, locale_type == input$locale)
+  tr <- bind_rows(
+    d |> filter(rrr_black_reliable) |> mutate(group = "Black / White", v = rrr_black),
+    d |> filter(rrr_hispanic_reliable) |> mutate(group = "Hispanic / White", v = rrr_hispanic)
+  ) |>
+    summarise(med = median(v), q1 = quantile(v, 0.25), q3 = quantile(v, 0.75), n = n(),
+              .by = c(group, school_year, year_start))
+  validate(need(nrow(tr) > 0, "No reliable risk ratios for this selection."))
+  last <- tr |> filter(year_start == max(year_start))
+  ggplot(tr, aes(year_start, med, colour = group, fill = group)) +
+    annotate("rect", xmin = 2018.5, xmax = 2020.5, ymin = -Inf, ymax = Inf,
+             fill = "grey92") +
+    annotate("text", x = 2019.5, y = Inf, label = "COVID disruption", vjust = 1.5,
+             colour = "#8C837C", size = 4) +
+    geom_hline(yintercept = 1, linetype = "dashed", colour = "#5E5650") +
+    geom_ribbon(aes(ymin = q1, ymax = q3), alpha = 0.15, colour = NA) +
+    geom_line(linewidth = 1.1) + geom_point(size = 2.5) +
+    geom_text(data = last, aes(label = sprintf("%s\n%.2f×", str_remove(group, " / White"), med)),
+              hjust = -0.08, size = 4.2, show.legend = FALSE) +
+    scale_colour_manual(values = c("Black / White" = accent, "Hispanic / White" = "#3A6FB0"),
+                        aesthetics = c("colour", "fill"), guide = "none") +
+    scale_x_continuous(breaks = 2018:2023, labels = \(x) sprintf("%d-%02d", x, (x + 1) %% 100),
+                       expand = expansion(mult = c(0.03, 0.04))) +
+    labs(x = "School year", y = sprintf("Median risk ratio, %s (times as likely)", input$action),
+         caption = paste0("Line: median across districts with a reliable ratio. Band: middle half of districts (25th to 75th percentile).\n",
+                          "Dashed line: parity (1). Orange: Black/White; blue: Hispanic/White. Source: TEA.")) +
+    coord_cartesian(clip = "off") +
+    theme_dash() +
+    theme(panel.grid.major.y = element_line(colour = "#ECE6E0"),
+          plot.margin = margin(10, 70, 10, 10))
+})
+
+# ---- Data table ------------------------------------------------------------
+output$table <- renderDT({
+  dat() |>
+    sf::st_drop_geometry() |>
+    transmute(District = name, County = str_remove(county, " County$"), Locale = locale_type,
+              `Students` = enrolled_all,
+              `% Black` = round(pct_black, 1), `% Hispanic` = round(pct_hispanic, 1),
+              `% White` = round(pct_white, 1), `% econ. disadvantaged` = round(pct_econ_dis, 1),
+              `Risk, all (%)` = round(risk_all, 2), `Risk, Black (%)` = round(risk_black, 2),
+              `Risk, Hispanic (%)` = round(risk_hispanic, 2), `Risk, White (%)` = round(risk_white, 2),
+              `Black/White ratio` = if_else(rrr_black_reliable, round(rrr_black, 2), NA_real_),
+              `Hispanic/White ratio` = if_else(rrr_hispanic_reliable, round(rrr_hispanic, 2), NA_real_)) |>
+    arrange(desc(Students)) |>
+    datatable(rownames = FALSE, filter = "top",
+              options = list(pageLength = 15, scrollX = TRUE),
+              caption = "Risk = % of the group with at least one action. Ratios shown only where reliable. Source: TEA; NCES EDGE.")
+})
+```

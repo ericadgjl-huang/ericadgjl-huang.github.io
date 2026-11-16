@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>plan – Huang, SHAO-KANG(Eric)</title>
+<title>Assignment 9: AI Use Log – Huang, SHAO-KANG(Eric)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -144,6 +144,14 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./assignment8-dashboard.html">
  <span class="dropdown-text">↳ Open the Assignment 8 dashboard</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment9.html">
+ <span class="dropdown-text">Assignment 9: Maps &amp; Reactive Dashboard</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./maps.html">
+ <span class="dropdown-text">↳ Static maps</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -206,6 +214,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./ai-log-assignment8.html">
  <span class="dropdown-text">Assignment 8</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-assignment9.html">
+ <span class="dropdown-text">Assignment 9</span></a>
+  </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="./ai-log-class2.html">
@@ -257,141 +269,113 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-plan-unequal-discipline" id="toc-project-plan-unequal-discipline" class="nav-link active" data-scroll-target="#project-plan-unequal-discipline">Project Plan: Unequal Discipline</a>
-  <ul class="collapse">
-  <li><a href="#question" id="toc-question" class="nav-link" data-scroll-target="#question">1. Question</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">2. Data</a></li>
-  <li><a href="#charts" id="toc-charts" class="nav-link" data-scroll-target="#charts">3. Charts</a></li>
-  <li><a href="#interaction" id="toc-interaction" class="nav-link" data-scroll-target="#interaction">4. Interaction</a></li>
-  <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">5. Deployment</a></li>
-  </ul></li>
+  <li><a href="#tool-information" id="toc-tool-information" class="nav-link active" data-scroll-target="#tool-information">Tool Information</a></li>
+  <li><a href="#what-claude-did" id="toc-what-claude-did" class="nav-link" data-scroll-target="#what-claude-did">What Claude Did</a></li>
+  <li><a href="#prompts" id="toc-prompts" class="nav-link" data-scroll-target="#prompts">Prompts</a></li>
+  <li><a href="#my-decisions" id="toc-my-decisions" class="nav-link" data-scroll-target="#my-decisions">My Decisions</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Assignment 9: AI Use Log</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="project-plan-unequal-discipline" class="level1">
-<h1>Project Plan: Unequal Discipline</h1>
-<p><strong>Team:</strong> Nedret Sen-Cavus · Anugraha Samuel Gloria · Eric Huang <strong>Course:</strong> EPPS 6356 Data Visualization, Fall 2026 · Assignment 8, Part A</p>
-<section id="question" class="level2">
-<h2 class="anchored" data-anchor-id="question">1. Question</h2>
-<p><strong>What do we want the audience to learn?</strong> How much more often Black and Hispanic students receive discretionary discipline (in-school suspension, out-of-school suspension, and DAEP placement) than White students in the same Texas public school district, after accounting for economic disadvantage; where these gaps are largest; and how they changed before, during, and after COVID.</p>
-<p><strong>Audience:</strong> Texas education policymakers, district administrators, journalists, and parents. They are not statisticians, so every chart shows rates per enrolled student, not raw counts, and gives one clear message.</p>
-</section>
-<section id="data" class="level2">
-<h2 class="anchored" data-anchor-id="data">2. Data</h2>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This page documents my use of generative AI for EPPS 6356 Assignment 9 (<a href="./maps.html">static maps</a>).</p>
+<section id="tool-information" class="level2">
+<h2 class="anchored" data-anchor-id="tool-information">Tool Information</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>Main source</strong></td>
-<td>Texas Education Agency (TEA), district-level discipline data reports, school years 2018–19 to 2023–24</td>
-</tr>
-<tr class="even">
-<td><strong>Spatial source</strong></td>
-<td>U.S. Census Bureau, TIGER/Line Shapefiles: Texas school district boundaries (loaded in R with <code>tigris</code>, handled with <code>sf</code>)</td>
-</tr>
-<tr class="odd">
-<td><strong>Join</strong></td>
-<td>District ID crosswalk (TEA district number ↔︎ NCES ID)</td>
-</tr>
-<tr class="even">
-<td><strong>Unit of observation</strong></td>
-<td>District × school year × student group × action type</td>
-</tr>
-<tr class="odd">
-<td><strong>Time span</strong></td>
-<td>Six school years: 2018–19 to 2023–24 (pre-COVID, COVID disruption 2019–21, post-COVID)</td>
-</tr>
-<tr class="even">
-<td><strong>Key variables</strong></td>
-<td>Discipline counts (ISS, OSS, DAEP, expulsion) by race/ethnicity; enrollment by group; % economically disadvantaged; urban/rural locale; computed <strong>discipline rate</strong> (actions ÷ enrolled students in the group) and <strong>relative risk ratio</strong> (RRR = group rate ÷ White rate)</td>
-</tr>
-<tr class="odd">
-<td><strong>Variable over time</strong></td>
-<td>School year: rates and RRR for each of the six years</td>
-</tr>
-</tbody>
-</table>
-<p>Citations: Texas Education Agency, PEIMS district discipline data reports, school years 2018–19 to 2023–24; U.S. Census Bureau, TIGER/Line Shapefiles: School Districts (Texas). Exact file names and access dates will be added when the team finalizes the downloads.</p>
-<p>Known issues: small counts are masked by TEA for privacy (they are flagged, never treated as zero); charter networks have no map boundary (kept in tables, left off the map).</p>
-</section>
-<section id="charts" class="level2">
-<h2 class="anchored" data-anchor-id="charts">3. Charts</h2>
-<p>Numbers refer to Abela’s <em>Chart Suggestions—A Thought-Starter</em> as numbered in the course handouts.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>#</th>
-<th>Chart</th>
-<th>Abela #</th>
-<th>Why it fits</th>
+<th>Item</th>
+<th>Details</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>A</td>
-<td><strong>Risk-ratio dot plot:</strong> RRR by student group and action type, with interval bars, on a log scale with a line at parity (1.0)</td>
-<td>#3 Bar chart (Comparison, among many items), drawn as dots</td>
-<td>Position on a common scale is the most accurate way to compare groups (Cleveland &amp; McGill), and the log scale makes 0.5× and 2× equally far from parity.</td>
+<td><strong>Tool</strong></td>
+<td>Claude (Anthropic), used in the Claude app, linked to my course folder and my website folder</td>
 </tr>
 <tr class="even">
-<td>B</td>
-<td><strong>District choropleth:</strong> RRR across Texas districts with a perceptually uniform diverging palette</td>
-<td>— (maps are not in the Thought-Starter)</td>
-<td>Shows where the gaps are concentrated and whether neighboring districts look alike (spatial dependency).</td>
+<td><strong>Date</strong></td>
+<td>November 16, 2026</td>
 </tr>
 <tr class="odd">
-<td>C</td>
-<td><strong>Trend chart:</strong> discipline rate by student group, 2018–19 to 2023–24, with the COVID years shaded</td>
-<td>#6 Line chart (Comparison, over time)</td>
-<td>Several student groups over six school years: one line per group shows the pre/post-COVID change and keeps the groups comparable.</td>
-</tr>
-<tr class="even">
-<td>D</td>
-<td><strong>Model counterfactuals:</strong> predicted probability of discipline by group with simulated uncertainty intervals</td>
-<td>#4 Column chart (Comparison, among few items), drawn as points with intervals</td>
-<td>A few groups compared on one scale; showing the adjusted gap as intervals instead of a regression table (King et al.).</td>
-</tr>
-<tr class="odd">
-<td>E</td>
-<td><strong>District table:</strong> searchable table of every district, including charter networks, with a small trend line per row</td>
-<td>#2 Table with embedded charts (Comparison, many categories)</td>
-<td>About 1,200 districts are too many for one chart; a table lets readers find their own district.</td>
+<td><strong>My files</strong></td>
+<td><code>scripts/tea/01_download_tea.R</code>, <code>02_clean_tea.R</code>, <code>03_boundaries.R</code>, <code>data/tea/README.md</code>, <code>PLAN.md</code>, <code>maps.qmd</code></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="interaction" class="level2">
-<h2 class="anchored" data-anchor-id="interaction">4. Interaction</h2>
-<p>Users can:</p>
+<section id="what-claude-did" class="level2">
+<h2 class="anchored" data-anchor-id="what-claude-did">What Claude Did</h2>
 <ul>
-<li><strong>Select</strong> a district (search box), a school year, a student group, and an action type (ISS, OSS, or DAEP).</li>
-<li><strong>Hover</strong> over a district, dot, or point to see the rate, the RRR, the raw count, the enrollment (the denominator), and whether the value is masked.</li>
-<li><strong>Compare</strong> one district against the statewide rate, and pre-COVID years against post-COVID years.</li>
-<li><strong>Sort and search</strong> a table of all districts, including charter networks that are not on the map.</li>
+<li>Read the Assignment 9 and Class 10 handouts and my Assignment 8 dashboard, and pointed out that our PLAN said Shinylive, which Assignment 9 does not accept for a Quarto dashboard, so the deployment plan changed to Posit Connect Cloud.</li>
+<li>Found the TEA download page for district discipline data and checked its file format in the browser, then wrote the R script that downloads the 120 files (6 school years x 20 regions) and the script that cleans them and computes the risk ratios.</li>
+<li>Found a boundary file (NCES EDGE 2023-24) that already contains the TEA district number, so no crosswalk is needed, and wrote the script that downloads it.</li>
+<li>Tested the cleaning script on sample files, checked the join (which districts do not match and why), and computed the numbers used in the map titles.</li>
+<li>Wrote the Assignment 9 section of <code>PLAN.md</code> and the code and text of <code>maps.qmd</code>.</li>
 </ul>
 </section>
-<section id="deployment" class="level2">
-<h2 class="anchored" data-anchor-id="deployment">5. Deployment</h2>
-<p><strong>Quarto dashboard on the GitHub Pages website</strong> for Assignment 8 (static page; interactivity from htmlwidgets: <code>plotly</code>, <code>leaflet</code>, <code>DT</code>).</p>
-<p>Plan for Assignment 9: add Shiny inputs and deploy <strong>serverless with Shinylive</strong> on the same GitHub Pages site. Why: all our data are public, so it does not matter that Shinylive makes code and data visible; hosting is free and handles many viewers; the district-level data are small enough to bundle with the app. If a package we need is not available for webR, the fallback is Posit Connect Cloud.</p>
-
-
+<section id="prompts" class="level2">
+<h2 class="anchored" data-anchor-id="prompts">Prompts</h2>
+<p>The conversation was in Traditional Chinese. These are the prompts that shaped the assignment, with English translations.</p>
+<ol type="1">
+<li><blockquote class="blockquote">
+<p>這禮拜要完成這個可以帶我做嗎 好像要和隊友報告什麼的</p>
+<p><em>(I need to finish this this week. Can you guide me? I think I also need to report something to my teammates.)</em></p>
+</blockquote></li>
+<li><blockquote class="blockquote">
+<p>隊友叫我先整理這些東西TEA，這可以說是我這禮拜的作業</p>
+<p><em>(My teammates asked me to prepare the TEA data first; you could say that is my homework this week.)</em></p>
+</blockquote></li>
+<li><blockquote class="blockquote">
+<p>從下載 TEA 資料開始</p>
+<p><em>(Start with downloading the TEA data.)</em></p>
+</blockquote></li>
+</ol>
 </section>
+<section id="my-decisions" class="level2">
+<h2 class="anchored" data-anchor-id="my-decisions">My Decisions</h2>
+<ul>
+<li>I chose to use our team’s TEA data instead of the HPI data, so that the same work serves both Assignment 9 and my task for the team.</li>
+<li>I ran the download and cleaning scripts on my own computer and checked the results before sharing them with my teammates.</li>
+<li>Two choices are still open for the team: whether the risk ratio counts students or actions, and whether we need discretionary actions only (see <code>data/tea/README.md</code>).</li>
+</ul>
+</section>
+<section id="verification" class="level2">
+<h2 class="anchored" data-anchor-id="verification">Verification</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="">Ran <code>01_download_tea.R</code>: all 120 files downloaded.</label></li>
+<li><label><input type="checkbox" checked="">Ran <code>02_clean_tea.R</code>: about 1,021 traditional districts and 180 charters per year.</label></li>
+<li><label><input type="checkbox" checked="">Ran <code>03_boundaries.R</code>: 1,018 district boundaries, all matched to a TEA district.</label></li>
+<li><label><input type="checkbox">Rendered <code>maps.qmd</code> in RStudio and checked every map and title.</label></li>
+<li><label><input type="checkbox">Checked the published page.</label></li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->

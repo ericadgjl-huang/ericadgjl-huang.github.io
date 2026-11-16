@@ -19,3 +19,8 @@ data-raw/
 **/*.quarto_ipynb
 # Full-detail district boundaries (30 MB); rebuild with scripts/tea/03_boundaries.R
 data/tea/tx_districts.gpkg
+# Dashboard: rendered and hosted by Posit Connect Cloud, not committed
+dashboard/index.html
+dashboard/index_files/
+dashboard/rsconnect/
+docs/dashboard/

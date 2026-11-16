@@ -1,0 +1,279 @@
+---
+title: "Assignment 9: Mapping Discipline Gaps in Texas School Districts"
+subtitle: "Joining TEA discipline data to district boundaries, choosing a projection and a classification"
+format:
+  html:
+    code-fold: show
+    code-summary: "Show the code"
+    toc: true
+lightbox: true
+execute:
+  warning: false
+  message: false
+---
+
+This page maps our team project data: **Texas Education Agency (TEA) discipline data for every school district, 2018–19 to 2023–24**, joined to the 2023–24 district boundaries. The main measure is the **relative risk ratio (RRR)**: the share of Black students who received at least one out-of-school suspension (OSS), divided by the same share for White students in the same district. An RRR of 2 means Black students were twice as likely as White students to be suspended. How the data were downloaded and cleaned is described in [`data/tea/README.md`](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/blob/main/data/tea/README.md); the spatial plan is in [`PLAN.md`](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/blob/main/PLAN.md).
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(sf)
+library(classInt)
+library(patchwork)
+library(here)
+source(here("scripts", "assignment6", "eric_theme.R"))   # eric_col, theme_mine()
+
+# District x year x action table (rates and risk ratios), from scripts/tea/02_clean_tea.R
+tea <- read_csv(here("data", "tea", "tea_district_year.csv"),
+                col_types = cols(district = col_character()))
+# Same data, one row per district x year x student group x action (for counts)
+tea_long <- read_csv(here("data", "tea", "tea_discipline_long.csv.gz"),
+                     col_types = cols(district = col_character()))
+# 2023-24 district boundaries with the TEA district number, from scripts/tea/03_boundaries.R
+districts <- readRDS(here("data", "tea", "tx_districts_web.rds"))   # EPSG:4326
+
+crs_static <- "EPSG:3083"   # NAD83 / Texas Centric Albers Equal Area
+
+# A clean map theme in my course colours
+theme_map <- function() {
+  theme_void(base_size = 11) +
+    theme(plot.title = element_text(face = "bold", colour = eric_col$ink, size = rel(1.15),
+                                    margin = margin(b = 4)),
+          plot.subtitle = element_text(colour = eric_col$ink2, margin = margin(b = 6)),
+          plot.caption = element_text(colour = eric_col$muted, size = rel(0.75), hjust = 0,
+                                      margin = margin(t = 8)),
+          plot.title.position = "plot", plot.caption.position = "plot",
+          legend.title = element_text(colour = eric_col$ink2, size = rel(0.9)),
+          legend.text = element_text(colour = eric_col$ink2, size = rel(0.85)),
+          plot.margin = margin(8, 8, 8, 8))
+}
+
+src_caption <- paste0(
+  "Data: Texas Education Agency, Discipline Action Group Summary Reports, 2023-24.\n",
+  "Boundaries: NCES EDGE School District Characteristics 2023-24 (Census TIGER/Line 2024).\n",
+  "Projection: NAD83 / Texas Centric Albers Equal Area (EPSG:3083). ",
+  "Charter networks have no boundary and are not shown.")
+
+wrap <- function(x, width = 80) str_wrap(x, width)   # long titles on several lines
+```
+
+## 1. Join and check
+
+Each district's TEA number (`district`) is the join key. The NCES boundary file stores the same number in `ST_LEAID`, which `03_boundaries.R` already turned into a `district` column.
+
+```{r}
+#| label: join
+oss_2324 <- tea |> filter(year_start == 2023, action == "OSS")
+
+districts_map <- districts |>
+  left_join(oss_2324, by = "district") |>
+  st_transform(crs_static)
+
+# Boundaries with no TEA record
+anti_join(st_drop_geometry(districts), oss_2324, by = "district") |>
+  select(district, nces_name)
+
+# TEA districts (any year) with no boundary
+unmatched <- tea |>
+  distinct(district, distname, charter, school_year) |>
+  anti_join(st_drop_geometry(districts), by = "district")
+
+count(unmatched, school_year, charter) |>
+  pivot_wider(names_from = charter, values_from = n)
+
+unmatched |>
+  filter(charter == "Traditional ISD") |>
+  summarise(years = paste(school_year, collapse = ", "), .by = c(district, distname))
+```
+
+Every one of the `r nrow(districts)` boundaries matches a TEA district, so nothing needed recoding: the NCES file already carries TEA's own district number. What remains unmatched are the charter networks (about 180 a year), which are schools without a territory, and six traditional districts: three that have no boundary of their own (South Texas ISD is a regional magnet district; Texas Tech University K-12 and University of Texas at Austin High School are online schools) and three small districts that merged into neighbours before 2023–24 (Roxton, Higgins and Etoile ISD), so they are not in the 2023–24 boundary file. They stay in our tables and are left off the maps.
+
+## 2. Projection comparison
+
+To make the distortion visible, I colour the Panhandle (TEA Region 16, in the north) and the Rio Grande Valley (Region 1, in the south) and compare their size on each map. Texas spans about 10 degrees of latitude, so the choice matters.
+
+```{r}
+#| label: projections
+#| fig-width: 10
+#| fig-height: 3.8
+regions <- tea |> distinct(district, region)
+tx_regions <- districts |>
+  left_join(regions, by = "district") |>
+  mutate(highlight = case_when(region == 16 ~ "Panhandle (Region 16)",
+                               region == 1  ~ "Rio Grande Valley (Region 1)",
+                               .default = "Other"))
+
+# How big Region 16 is drawn relative to Region 1: planar area of the drawn coordinates
+drawn_ratio <- function(crs) {
+  d <- st_transform(tx_regions, crs)
+  if (st_is_longlat(d)) d <- st_set_crs(d, NA)          # degrees drawn as if flat
+  a <- d |> group_by(highlight) |> summarise() |> mutate(a = as.numeric(st_area(geometry)))
+  a$a[a$highlight == "Panhandle (Region 16)"] / a$a[a$highlight == "Rio Grande Valley (Region 1)"]
+}
+true_ratio <- drawn_ratio(crs_static)                   # equal-area: the true ratio
+
+panel <- function(crs, label) {
+  ggplot(st_transform(tx_regions, crs)) +
+    geom_sf(aes(fill = highlight), colour = "white", linewidth = 0.05) +
+    scale_fill_manual(values = c("Panhandle (Region 16)" = "#3A6FB0",
+                                 "Rio Grande Valley (Region 1)" = eric_col$accent,
+                                 Other = "grey88"), name = NULL) +
+    labs(title = label,
+         subtitle = sprintf("Panhandle drawn %.2fx the Valley (true: %.2fx)",
+                            drawn_ratio(crs), true_ratio)) +
+    theme_map() +
+    theme(panel.grid.major = element_line(colour = eric_col$grid, linewidth = 0.3),
+          plot.subtitle = element_text(size = rel(0.85)))
+}
+
+panel("EPSG:4326", "EPSG:4326 (longitude/latitude)") +
+  panel("EPSG:3857", "EPSG:3857 (Web Mercator)") +
+  panel(crs_static, "EPSG:3083 (Texas Albers equal-area)") +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+```
+
+In longitude/latitude (EPSG:4326) and especially Web Mercator (EPSG:3857) Texas is stretched as it goes north: Web Mercator draws the Panhandle `r sprintf("%.2f", drawn_ratio("EPSG:3857"))` times the size of the Rio Grande Valley when the true ratio is `r sprintf("%.2f", true_ratio)`, and the graticule shows the north–south squeeze of the flat lon/lat map. I publish the static maps in **EPSG:3083, the Texas Centric Albers Equal Area projection**, because a choropleth asks readers to compare coloured areas, and only an equal-area projection keeps the large rural districts from looking more important than they are.
+
+## 3. Choropleth: Black/White risk ratio for out-of-school suspension
+
+The breaks are chosen around parity (1): 0.8 to 1.25 counts as "about equal", and each class above it is a step readers can say aloud ("twice", "three times"). Districts where TEA masked a number, or where either group has fewer than 30 students, are grey with their own legend entry.
+
+```{r}
+#| label: choropleth
+#| fig-width: 8
+#| fig-height: 8
+rrr_breaks <- c(0, 0.8, 1.25, 2, 3, 5, Inf)
+rrr_labels <- c("Under 0.8 (White students more likely)", "0.8 to 1.25 (about equal)",
+                "1.25 to 2", "2 to 3", "3 to 5", "5 or more")
+rrr_cols   <- c("#7FA6D3", "#F4EFE9", "#F6CDB0", "#E99A68", "#C8551E", "#7A2C0E")
+
+choro <- districts_map |>
+  mutate(rrr_class = if_else(rrr_black_reliable %in% TRUE,
+                             as.character(cut(rrr_black, rrr_breaks, labels = rrr_labels,
+                                              right = FALSE)),
+                             "No reliable ratio (masked or < 30 students)"),
+         rrr_class = factor(rrr_class, levels = c(rrr_labels,
+                                                  "No reliable ratio (masked or < 30 students)")))
+
+n_shown <- sum(choro$rrr_black_reliable %in% TRUE)
+share_2 <- mean(choro$rrr_black[choro$rrr_black_reliable %in% TRUE] >= 2)
+cover   <- with(st_drop_geometry(choro),
+                sum(n_black[rrr_black_reliable %in% TRUE], na.rm = TRUE) / sum(n_black, na.rm = TRUE))
+
+counts <- table(choro$rrr_class)
+legend_labels <- sprintf("%s  (%d)", names(counts), as.integer(counts))
+
+ggplot(choro) +
+  geom_sf(aes(fill = rrr_class), colour = "white", linewidth = 0.06) +
+  scale_fill_manual(values = c(setNames(rrr_cols, rrr_labels),
+                               "No reliable ratio (masked or < 30 students)" = "grey80"),
+                    labels = legend_labels, drop = FALSE,
+                    name = "Black/White risk ratio, OSS\n(times as likely; number of districts)") +
+  labs(title = wrap(sprintf("In %.0f%% of measurable districts, Black students were at least twice as likely as White students to be suspended",
+                            100 * share_2), 70),
+       subtitle = wrap(sprintf("Out-of-school suspension (OSS), 2023-24. %d districts have a reliable ratio; they enroll %.0f%% of the Black students in the districts on this map.",
+                               n_shown, 100 * cover), 90),
+       caption = src_caption) +
+  theme_map() +
+  theme(legend.position = "inside", legend.position.inside = c(0.02, 0.02),
+        legend.justification = c(0, 0), legend.key.size = unit(0.45, "cm"),
+        plot.title = element_text(size = rel(1.05)))
+```
+
+## 4. Classification comparison
+
+Same variable, same 5 classes, three ways to cut them. The colours are sequential because these classes are not built around parity.
+
+```{r}
+#| label: classes
+#| fig-width: 11
+#| fig-height: 4.6
+measured <- choro |> filter(rrr_black_reliable %in% TRUE)
+
+class_map <- function(style) {
+  ci <- classIntervals(measured$rrr_black, n = 5, style = style)
+  brks <- ci$brks
+  labs_ <- sprintf("%.2f to %.2f", head(brks, -1), tail(brks, -1))
+  d <- choro |>
+    mutate(cls = if_else(rrr_black_reliable %in% TRUE,
+                         as.character(cut(rrr_black, brks, labels = labs_, include.lowest = TRUE)),
+                         "No reliable ratio"),
+           cls = factor(cls, levels = c(labs_, "No reliable ratio")))
+  n_per <- table(d$cls)[labs_]
+  ggplot(d) +
+    geom_sf(aes(fill = cls), colour = "white", linewidth = 0.04) +
+    scale_fill_manual(values = c(setNames(c("#FBE3D2", "#F2B48D", "#E07B45", "#B44816", "#6B260B"), labs_),
+                                 "No reliable ratio" = "grey85"),
+                      labels = c(sprintf("%s (%d)", labs_, as.integer(n_per)), "No reliable ratio"),
+                      drop = FALSE, name = NULL) +
+    labs(title = str_to_title(if (style == "equal") "equal interval" else style)) +
+    theme_map() +
+    theme(legend.position = "bottom", legend.direction = "vertical",
+          legend.text = element_text(size = rel(0.8)))
+}
+
+wrap_plots(map(c("equal", "quantile", "jenks"), class_map), nrow = 1) +
+  plot_annotation(
+    title = "The same risk ratios, three classifications",
+    subtitle = "Black/White risk ratio for out-of-school suspension, 2023-24; number of districts in each class in brackets",
+    caption = src_caption,
+    theme = theme_map())
+```
+
+**Equal intervals** split the range from 0 to the maximum of about 8.3 into equal steps, so one outlier sets the classes and most measured districts fall into a single class: the map looks uniform and hides real differences between, say, 1.8 and 3.2. **Quantiles** put the same number of districts in each class, which spreads the colours evenly but makes a district at 1.7 look very different from one at 2.2, even though both mean "about twice as likely". **Jenks** natural breaks follow gaps in the data, and its first class ends near parity, so it separates the few districts with little or no gap from the rest. Of these three I would publish **Jenks**, but for the final dashboard I prefer the **fixed breaks around parity** of map 3, because a reader can say what each colour means ("two to three times as likely") and the classes stay the same from year to year.
+
+## 5. Proportional symbols: how many students were suspended
+
+The risk ratio is a ratio, so it belongs in a choropleth. The number of students suspended is a **count**, so it is drawn as circles sized by value at a point inside each district (`st_point_on_surface()`), over a grey base map.
+
+```{r}
+#| label: symbols
+#| fig-width: 8
+#| fig-height: 8
+oss_counts <- tea_long |>
+  filter(year_start == 2023, action == "OSS", group == "All students") |>
+  select(district, distname, students, enrolled)
+
+pts <- districts |>
+  st_transform(crs_static) |>
+  inner_join(oss_counts, by = "district") |>
+  filter(!is.na(students), students > 0) |>
+  st_point_on_surface() |>
+  arrange(desc(students))                     # draw big circles first, small on top
+
+tidy_name <- function(x) str_replace(str_to_title(x), "\\bIsd\\b", "ISD")
+top <- slice_head(pts, n = 1)
+metro_share <- pts |> st_drop_geometry() |>
+  summarise(share = sum(students[locale_type %in% c("City", "Suburb")]) / sum(students)) |>
+  pull(share)
+# Label the district with the most suspended students in each of the top metro regions
+big_labels <- pts |>
+  left_join(distinct(tea, district, region), by = "district") |>
+  slice_max(students, n = 1, by = region) |>
+  slice_max(students, n = 3) |>
+  mutate(label = tidy_name(distname))
+
+ggplot() +
+  geom_sf(data = st_transform(districts, crs_static), fill = "grey92", colour = "white",
+          linewidth = 0.05) +
+  geom_sf(data = pts, aes(size = students), shape = 21, fill = eric_col$accent,
+          colour = "white", stroke = 0.3, alpha = 0.75) +
+  geom_sf_text(data = big_labels, aes(label = label), size = 3, colour = eric_col$ink,
+               nudge_y = -32000, fontface = "bold") +
+  scale_size_area(max_size = 14, breaks = c(100, 1000, 5000, 10000),
+                  labels = scales::label_comma(),
+                  name = "Students with at least one out-of-school suspension") +
+  labs(title = wrap(sprintf("%.0f%% of suspended students attend city or suburban districts; %s alone suspended %s",
+                            100 * metro_share, tidy_name(top$distname), scales::comma(top$students)), 70),
+       subtitle = wrap("Students with at least one out-of-school suspension, all student groups, 2023-24. Circle area is proportional to the number of students.", 90),
+       caption = paste0(src_caption, "\nDistricts where TEA masked the count are not drawn.")) +
+  theme_map() +
+  theme(legend.position = "bottom", plot.title = element_text(size = rel(1.05)))
+```
+
+The count map and the risk-ratio map tell different stories. `r sprintf("%.0f%%", 100 * metro_share)` of suspended students (in the districts we can map) attend city or suburban districts around Houston, Dallas–Fort Worth, San Antonio and Austin, mostly because that is where most students are. The choropleth shows that the *gap* between Black and White students is not only an urban problem: rural and small-town districts with enough students to measure have ratios almost as high as the cities (a median of about 2.4, against about 2.7 in city districts).
+
+---
+
+*Built in R with sf, ggplot2, classInt and patchwork. AI use: see the [Assignment 9 AI use log](ai-log-assignment9.qmd).*

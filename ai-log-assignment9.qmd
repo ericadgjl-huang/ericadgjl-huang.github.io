@@ -1,0 +1,64 @@
+---
+title: "Assignment 9: AI Use Log"
+toc: true
+engine: markdown
+---
+
+This page documents my use of generative AI for EPPS 6356 Assignment 9
+([static maps](maps.qmd)).
+
+## Tool Information
+
+| Item | Details |
+|---|---|
+| **Tool** | Claude (Anthropic), used in the Claude app, linked to my course folder and my website folder |
+| **Date** | November 16, 2026 |
+| **My files** | `scripts/tea/01_download_tea.R`, `02_clean_tea.R`, `03_boundaries.R`, `data/tea/README.md`, `PLAN.md`, `maps.qmd` |
+
+## What Claude Did
+
+- Read the Assignment 9 and Class 10 handouts and my Assignment 8 dashboard, and
+  pointed out that our PLAN said Shinylive, which Assignment 9 does not accept for a
+  Quarto dashboard, so the deployment plan changed to Posit Connect Cloud.
+- Found the TEA download page for district discipline data and checked its file format
+  in the browser, then wrote the R script that downloads the 120 files (6 school years x
+  20 regions) and the script that cleans them and computes the risk ratios.
+- Found a boundary file (NCES EDGE 2023-24) that already contains the TEA district number,
+  so no crosswalk is needed, and wrote the script that downloads it.
+- Tested the cleaning script on sample files, checked the join (which districts do not
+  match and why), and computed the numbers used in the map titles.
+- Wrote the Assignment 9 section of `PLAN.md` and the code and text of `maps.qmd`.
+
+## Prompts
+
+The conversation was in Traditional Chinese. These are the prompts that shaped the
+assignment, with English translations.
+
+1. > 這禮拜要完成這個可以帶我做嗎 好像要和隊友報告什麼的
+   >
+   > *(I need to finish this this week. Can you guide me? I think I also need to report something to my teammates.)*
+
+2. > 隊友叫我先整理這些東西TEA，這可以說是我這禮拜的作業
+   >
+   > *(My teammates asked me to prepare the TEA data first; you could say that is my homework this week.)*
+
+3. > 從下載 TEA 資料開始
+   >
+   > *(Start with downloading the TEA data.)*
+
+## My Decisions
+
+- I chose to use our team's TEA data instead of the HPI data, so that the same work
+  serves both Assignment 9 and my task for the team.
+- I ran the download and cleaning scripts on my own computer and checked the results
+  before sharing them with my teammates.
+- Two choices are still open for the team: whether the risk ratio counts students or
+  actions, and whether we need discretionary actions only (see `data/tea/README.md`).
+
+## Verification
+
+- [x] Ran `01_download_tea.R`: all 120 files downloaded.
+- [x] Ran `02_clean_tea.R`: about 1,021 traditional districts and 180 charters per year.
+- [x] Ran `03_boundaries.R`: 1,018 district boundaries, all matched to a TEA district.
+- [ ] Rendered `maps.qmd` in RStudio and checked every map and title.
+- [ ] Checked the published page.

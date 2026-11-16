@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Assignment 9: Mapping Discipline Gaps in Texas School Districts – Huang, SHAO-KANG(Eric)</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Huang, SHAO-KANG(Eric)</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./research.html"> 
+<span class="menu-text">Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./teaching.html"> 
+<span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-assignments" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Assignments</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-assignments">    
+        <li>
+    <a class="dropdown-item" href="./assignment1.html">
+ <span class="dropdown-text">Assignment 1: Anscombe &amp; Chart Critique</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment2.html">
+ <span class="dropdown-text">Assignment 2: Base R Graphics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment3.html">
+ <span class="dropdown-text">Assignment 3: Anatomy of a Chart</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment4.html">
+ <span class="dropdown-text">Assignment 4: Chart Hackathon (Team)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment5.html">
+ <span class="dropdown-text">Assignment 5: Base Graphics, ggplot2 &amp; Output Formats</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment6.html">
+ <span class="dropdown-text">Assignment 6: Shiny Apps</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment8.html">
+ <span class="dropdown-text">Assignment 8: Dashboard &amp; Project Plan</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment8-dashboard.html">
+ <span class="dropdown-text">↳ Open the Assignment 8 dashboard</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment9.html">
+ <span class="dropdown-text">Assignment 9: Maps &amp; Reactive Dashboard</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./maps.html">
+ <span class="dropdown-text">↳ Static maps</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-classes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Classes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-classes">    
+        <li>
+    <a class="dropdown-item" href="./class2-data-guide.html">
+ <span class="dropdown-text">Class 2: Huang’s Data Guide</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./class2-teaching-to-see.html">
+ <span class="dropdown-text">Class 2: Review of Teaching to See</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./class3.html">
+ <span class="dropdown-text">Class 3: Journalism in the Age of Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./class4.html">
+ <span class="dropdown-text">Class 4: Getting the Analysis Right</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./class5.html">
+ <span class="dropdown-text">Class 5: More Data, Better Questions</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ai-use-logs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">AI Use Logs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-ai-use-logs">    
+        <li>
+    <a class="dropdown-item" href="./ai-log-assignment1.html">
+ <span class="dropdown-text">Assignment 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-assignment2.html">
+ <span class="dropdown-text">Assignment 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-assignment3.html">
+ <span class="dropdown-text">Assignment 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-assignment4.html">
+ <span class="dropdown-text">Assignment 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-assignment5.html">
+ <span class="dropdown-text">Assignment 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-assignment6.html">
+ <span class="dropdown-text">Assignment 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-assignment8.html">
+ <span class="dropdown-text">Assignment 8</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-assignment9.html">
+ <span class="dropdown-text">Assignment 9</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./ai-log-class2.html">
+ <span class="dropdown-text">Class 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-class3.html">
+ <span class="dropdown-text">Class 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-class4.html">
+ <span class="dropdown-text">Class 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ai-log-class5.html">
+ <span class="dropdown-text">Class 5</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./cv.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ericadgjl-huang"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:DAL660345@utdallas.edu"> <i class="bi bi-envelope" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#join-and-check" id="toc-join-and-check" class="nav-link active" data-scroll-target="#join-and-check">1. Join and check</a></li>
+  <li><a href="#projection-comparison" id="toc-projection-comparison" class="nav-link" data-scroll-target="#projection-comparison">2. Projection comparison</a></li>
+  <li><a href="#choropleth-blackwhite-risk-ratio-for-out-of-school-suspension" id="toc-choropleth-blackwhite-risk-ratio-for-out-of-school-suspension" class="nav-link" data-scroll-target="#choropleth-blackwhite-risk-ratio-for-out-of-school-suspension">3. Choropleth: Black/White risk ratio for out-of-school suspension</a></li>
+  <li><a href="#classification-comparison" id="toc-classification-comparison" class="nav-link" data-scroll-target="#classification-comparison">4. Classification comparison</a></li>
+  <li><a href="#proportional-symbols-how-many-students-were-suspended" id="toc-proportional-symbols-how-many-students-were-suspended" class="nav-link" data-scroll-target="#proportional-symbols-how-many-students-were-suspended">5. Proportional symbols: how many students were suspended</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Assignment 9: Mapping Discipline Gaps in Texas School Districts</h1>
+<p class="subtitle lead">Joining TEA discipline data to district boundaries, choosing a projection and a classification</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This page maps our team project data: <strong>Texas Education Agency (TEA) discipline data for every school district, 2018–19 to 2023–24</strong>, joined to the 2023–24 district boundaries. The main measure is the <strong>relative risk ratio (RRR)</strong>: the share of Black students who received at least one out-of-school suspension (OSS), divided by the same share for White students in the same district. An RRR of 2 means Black students were twice as likely as White students to be suspended. How the data were downloaded and cleaned is described in <a href="https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/blob/main/data/tea/README.md"><code>data/tea/README.md</code></a>; the spatial plan is in <a href="https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/blob/main/PLAN.md"><code>PLAN.md</code></a>.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(classInt)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"scripts"</span>, <span class="st">"assignment6"</span>, <span class="st">"eric_theme.R"</span>))   <span class="co"># eric_col, theme_mine()</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># District x year x action table (rates and risk ratios), from scripts/tea/02_clean_tea.R</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>tea <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"tea"</span>, <span class="st">"tea_district_year.csv"</span>),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">district =</span> <span class="fu">col_character</span>()))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Same data, one row per district x year x student group x action (for counts)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>tea_long <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"tea"</span>, <span class="st">"tea_discipline_long.csv.gz"</span>),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">district =</span> <span class="fu">col_character</span>()))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 2023-24 district boundaries with the TEA district number, from scripts/tea/03_boundaries.R</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>districts <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"tea"</span>, <span class="st">"tx_districts_web.rds"</span>))   <span class="co"># EPSG:4326</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>crs_static <span class="ot">&lt;-</span> <span class="st">"EPSG:3083"</span>   <span class="co"># NAD83 / Texas Centric Albers Equal Area</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># A clean map theme in my course colours</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>theme_map <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">colour =</span> eric_col<span class="sc">$</span>ink, <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">1.15</span>),</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">4</span>)),</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> eric_col<span class="sc">$</span>ink2, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">6</span>)),</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> eric_col<span class="sc">$</span>muted, <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.75</span>), <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">8</span>)),</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot.title.position =</span> <span class="st">"plot"</span>, <span class="at">plot.caption.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> eric_col<span class="sc">$</span>ink2, <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.9</span>)),</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> eric_col<span class="sc">$</span>ink2, <span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.85</span>)),</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>))</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>src_caption <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Data: Texas Education Agency, Discipline Action Group Summary Reports, 2023-24.</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Boundaries: NCES EDGE School District Characteristics 2023-24 (Census TIGER/Line 2024).</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Projection: NAD83 / Texas Centric Albers Equal Area (EPSG:3083). "</span>,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Charter networks have no boundary and are not shown."</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>wrap <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">width =</span> <span class="dv">80</span>) <span class="fu">str_wrap</span>(x, width)   <span class="co"># long titles on several lines</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="join-and-check" class="level2">
+<h2 class="anchored" data-anchor-id="join-and-check">1. Join and check</h2>
+<p>Each district’s TEA number (<code>district</code>) is the join key. The NCES boundary file stores the same number in <code>ST_LEAID</code>, which <code>03_boundaries.R</code> already turned into a <code>district</code> column.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>oss_2324 <span class="ot">&lt;-</span> tea <span class="sc">|&gt;</span> <span class="fu">filter</span>(year_start <span class="sc">==</span> <span class="dv">2023</span>, action <span class="sc">==</span> <span class="st">"OSS"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>districts_map <span class="ot">&lt;-</span> districts <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(oss_2324, <span class="at">by =</span> <span class="st">"district"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(crs_static)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Boundaries with no TEA record</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">anti_join</span>(<span class="fu">st_drop_geometry</span>(districts), oss_2324, <span class="at">by =</span> <span class="st">"district"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(district, nces_name)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] district  nces_name
+&lt;0 列&gt; (或零長度的 row.names)</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># TEA districts (any year) with no boundary</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>unmatched <span class="ot">&lt;-</span> tea <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(district, distname, charter, school_year) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(<span class="fu">st_drop_geometry</span>(districts), <span class="at">by =</span> <span class="st">"district"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(unmatched, school_year, charter) <span class="sc">|&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> charter, <span class="at">values_from =</span> n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  school_year Charter `Traditional ISD`
+  &lt;chr&gt;         &lt;int&gt;             &lt;int&gt;
+1 2018-19         179                 4
+2 2019-20         180                 4
+3 2020-21         183                 3
+4 2021-22         185                 4
+5 2022-23         188                 3
+6 2023-24         186                 3</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>unmatched <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(charter <span class="sc">==</span> <span class="st">"Traditional ISD"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">years =</span> <span class="fu">paste</span>(school_year, <span class="at">collapse =</span> <span class="st">", "</span>), <span class="at">.by =</span> <span class="fu">c</span>(district, distname))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  district distname                          years                              
+  &lt;chr&gt;    &lt;chr&gt;                             &lt;chr&gt;                              
+1 031916   SOUTH TEXAS ISD                   2018-19, 2019-20, 2020-21, 2021-22…
+2 139908   ROXTON ISD                        2018-19                            
+3 148903   HIGGINS ISD                       2018-19, 2019-20                   
+4 152504   TEXAS TECH UNIVERSITY K-12        2021-22, 2022-23, 2023-24          
+5 174910   ETOILE ISD                        2018-19, 2019-20, 2020-21, 2021-22 
+6 227506   UNIVERSITY OF TEXAS AT AUSTIN H S 2019-20, 2020-21, 2021-22, 2022-23…</code></pre>
+</div>
+</div>
+<p>Every one of the 1018 boundaries matches a TEA district, so nothing needed recoding: the NCES file already carries TEA’s own district number. What remains unmatched are the charter networks (about 180 a year), which are schools without a territory, and six traditional districts: three that have no boundary of their own (South Texas ISD is a regional magnet district; Texas Tech University K-12 and University of Texas at Austin High School are online schools) and three small districts that merged into neighbours before 2023–24 (Roxton, Higgins and Etoile ISD), so they are not in the 2023–24 boundary file. They stay in our tables and are left off the maps.</p>
+</section>
+<section id="projection-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="projection-comparison">2. Projection comparison</h2>
+<p>To make the distortion visible, I colour the Panhandle (TEA Region 16, in the north) and the Rio Grande Valley (Region 1, in the south) and compare their size on each map. Texas spans about 10 degrees of latitude, so the choice matters.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>regions <span class="ot">&lt;-</span> tea <span class="sc">|&gt;</span> <span class="fu">distinct</span>(district, region)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>tx_regions <span class="ot">&lt;-</span> districts <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(regions, <span class="at">by =</span> <span class="st">"district"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">highlight =</span> <span class="fu">case_when</span>(region <span class="sc">==</span> <span class="dv">16</span> <span class="sc">~</span> <span class="st">"Panhandle (Region 16)"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                               region <span class="sc">==</span> <span class="dv">1</span>  <span class="sc">~</span> <span class="st">"Rio Grande Valley (Region 1)"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                               <span class="at">.default =</span> <span class="st">"Other"</span>))</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># How big Region 16 is drawn relative to Region 1: planar area of the drawn coordinates</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>drawn_ratio <span class="ot">&lt;-</span> <span class="cf">function</span>(crs) {</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(tx_regions, crs)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">st_is_longlat</span>(d)) d <span class="ot">&lt;-</span> <span class="fu">st_set_crs</span>(d, <span class="cn">NA</span>)          <span class="co"># degrees drawn as if flat</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> d <span class="sc">|&gt;</span> <span class="fu">group_by</span>(highlight) <span class="sc">|&gt;</span> <span class="fu">summarise</span>() <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">a =</span> <span class="fu">as.numeric</span>(<span class="fu">st_area</span>(geometry)))</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  a<span class="sc">$</span>a[a<span class="sc">$</span>highlight <span class="sc">==</span> <span class="st">"Panhandle (Region 16)"</span>] <span class="sc">/</span> a<span class="sc">$</span>a[a<span class="sc">$</span>highlight <span class="sc">==</span> <span class="st">"Rio Grande Valley (Region 1)"</span>]</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>true_ratio <span class="ot">&lt;-</span> <span class="fu">drawn_ratio</span>(crs_static)                   <span class="co"># equal-area: the true ratio</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>panel <span class="ot">&lt;-</span> <span class="cf">function</span>(crs, label) {</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">st_transform</span>(tx_regions, crs)) <span class="sc">+</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> highlight), <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Panhandle (Region 16)"</span> <span class="ot">=</span> <span class="st">"#3A6FB0"</span>,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Rio Grande Valley (Region 1)"</span> <span class="ot">=</span> eric_col<span class="sc">$</span>accent,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">Other =</span> <span class="st">"grey88"</span>), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> label,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">subtitle =</span> <span class="fu">sprintf</span>(<span class="st">"Panhandle drawn %.2fx the Valley (true: %.2fx)"</span>,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">drawn_ratio</span>(crs), true_ratio)) <span class="sc">+</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_map</span>() <span class="sc">+</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> eric_col<span class="sc">$</span>grid, <span class="at">linewidth =</span> <span class="fl">0.3</span>),</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.85</span>)))</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="fu">panel</span>(<span class="st">"EPSG:4326"</span>, <span class="st">"EPSG:4326 (longitude/latitude)"</span>) <span class="sc">+</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">panel</span>(<span class="st">"EPSG:3857"</span>, <span class="st">"EPSG:3857 (Web Mercator)"</span>) <span class="sc">+</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">panel</span>(crs_static, <span class="st">"EPSG:3083 (Texas Albers equal-area)"</span>) <span class="sc">+</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">&amp;</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="maps_files/figure-html/projections-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="maps_files/figure-html/projections-1.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In longitude/latitude (EPSG:4326) and especially Web Mercator (EPSG:3857) Texas is stretched as it goes north: Web Mercator draws the Panhandle 2.85 times the size of the Rio Grande Valley when the true ratio is 2.39, and the graticule shows the north–south squeeze of the flat lon/lat map. I publish the static maps in <strong>EPSG:3083, the Texas Centric Albers Equal Area projection</strong>, because a choropleth asks readers to compare coloured areas, and only an equal-area projection keeps the large rural districts from looking more important than they are.</p>
+</section>
+<section id="choropleth-blackwhite-risk-ratio-for-out-of-school-suspension" class="level2">
+<h2 class="anchored" data-anchor-id="choropleth-blackwhite-risk-ratio-for-out-of-school-suspension">3. Choropleth: Black/White risk ratio for out-of-school suspension</h2>
+<p>The breaks are chosen around parity (1): 0.8 to 1.25 counts as “about equal”, and each class above it is a step readers can say aloud (“twice”, “three times”). Districts where TEA masked a number, or where either group has fewer than 30 students, are grey with their own legend entry.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rrr_breaks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.8</span>, <span class="fl">1.25</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="cn">Inf</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>rrr_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Under 0.8 (White students more likely)"</span>, <span class="st">"0.8 to 1.25 (about equal)"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">"1.25 to 2"</span>, <span class="st">"2 to 3"</span>, <span class="st">"3 to 5"</span>, <span class="st">"5 or more"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>rrr_cols   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#7FA6D3"</span>, <span class="st">"#F4EFE9"</span>, <span class="st">"#F6CDB0"</span>, <span class="st">"#E99A68"</span>, <span class="st">"#C8551E"</span>, <span class="st">"#7A2C0E"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>choro <span class="ot">&lt;-</span> districts_map <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rrr_class =</span> <span class="fu">if_else</span>(rrr_black_reliable <span class="sc">%in%</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">as.character</span>(<span class="fu">cut</span>(rrr_black, rrr_breaks, <span class="at">labels =</span> rrr_labels,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">right =</span> <span class="cn">FALSE</span>)),</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"No reliable ratio (masked or &lt; 30 students)"</span>),</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">rrr_class =</span> <span class="fu">factor</span>(rrr_class, <span class="at">levels =</span> <span class="fu">c</span>(rrr_labels,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                                                  <span class="st">"No reliable ratio (masked or &lt; 30 students)"</span>)))</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>n_shown <span class="ot">&lt;-</span> <span class="fu">sum</span>(choro<span class="sc">$</span>rrr_black_reliable <span class="sc">%in%</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>share_2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(choro<span class="sc">$</span>rrr_black[choro<span class="sc">$</span>rrr_black_reliable <span class="sc">%in%</span> <span class="cn">TRUE</span>] <span class="sc">&gt;=</span> <span class="dv">2</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>cover   <span class="ot">&lt;-</span> <span class="fu">with</span>(<span class="fu">st_drop_geometry</span>(choro),</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                <span class="fu">sum</span>(n_black[rrr_black_reliable <span class="sc">%in%</span> <span class="cn">TRUE</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sum</span>(n_black, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">table</span>(choro<span class="sc">$</span>rrr_class)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>legend_labels <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">"%s  (%d)"</span>, <span class="fu">names</span>(counts), <span class="fu">as.integer</span>(counts))</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(choro) <span class="sc">+</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> rrr_class), <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.06</span>) <span class="sc">+</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="fu">setNames</span>(rrr_cols, rrr_labels),</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"No reliable ratio (masked or &lt; 30 students)"</span> <span class="ot">=</span> <span class="st">"grey80"</span>),</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> legend_labels, <span class="at">drop =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>                    <span class="at">name =</span> <span class="st">"Black/White risk ratio, OSS</span><span class="sc">\n</span><span class="st">(times as likely; number of districts)"</span>) <span class="sc">+</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">wrap</span>(<span class="fu">sprintf</span>(<span class="st">"In %.0f%% of measurable districts, Black students were at least twice as likely as White students to be suspended"</span>,</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>                            <span class="dv">100</span> <span class="sc">*</span> share_2), <span class="dv">70</span>),</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">wrap</span>(<span class="fu">sprintf</span>(<span class="st">"Out-of-school suspension (OSS), 2023-24. %d districts have a reliable ratio; they enroll %.0f%% of the Black students in the districts on this map."</span>,</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>                               n_shown, <span class="dv">100</span> <span class="sc">*</span> cover), <span class="dv">90</span>),</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> src_caption) <span class="sc">+</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_map</span>() <span class="sc">+</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"inside"</span>, <span class="at">legend.position.inside =</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.02</span>),</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.justification =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">legend.key.size =</span> <span class="fu">unit</span>(<span class="fl">0.45</span>, <span class="st">"cm"</span>),</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">1.05</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="maps_files/figure-html/choropleth-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="maps_files/figure-html/choropleth-1.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="classification-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="classification-comparison">4. Classification comparison</h2>
+<p>Same variable, same 5 classes, three ways to cut them. The colours are sequential because these classes are not built around parity.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>measured <span class="ot">&lt;-</span> choro <span class="sc">|&gt;</span> <span class="fu">filter</span>(rrr_black_reliable <span class="sc">%in%</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>class_map <span class="ot">&lt;-</span> <span class="cf">function</span>(style) {</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  ci <span class="ot">&lt;-</span> <span class="fu">classIntervals</span>(measured<span class="sc">$</span>rrr_black, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">style =</span> style)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  brks <span class="ot">&lt;-</span> ci<span class="sc">$</span>brks</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  labs_ <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">"%.2f to %.2f"</span>, <span class="fu">head</span>(brks, <span class="sc">-</span><span class="dv">1</span>), <span class="fu">tail</span>(brks, <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> choro <span class="sc">|&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cls =</span> <span class="fu">if_else</span>(rrr_black_reliable <span class="sc">%in%</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">as.character</span>(<span class="fu">cut</span>(rrr_black, brks, <span class="at">labels =</span> labs_, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"No reliable ratio"</span>),</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">cls =</span> <span class="fu">factor</span>(cls, <span class="at">levels =</span> <span class="fu">c</span>(labs_, <span class="st">"No reliable ratio"</span>)))</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  n_per <span class="ot">&lt;-</span> <span class="fu">table</span>(d<span class="sc">$</span>cls)[labs_]</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(d) <span class="sc">+</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> cls), <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.04</span>) <span class="sc">+</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"#FBE3D2"</span>, <span class="st">"#F2B48D"</span>, <span class="st">"#E07B45"</span>, <span class="st">"#B44816"</span>, <span class="st">"#6B260B"</span>), labs_),</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"No reliable ratio"</span> <span class="ot">=</span> <span class="st">"grey85"</span>),</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="fu">sprintf</span>(<span class="st">"%s (%d)"</span>, labs_, <span class="fu">as.integer</span>(n_per)), <span class="st">"No reliable ratio"</span>),</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>                      <span class="at">drop =</span> <span class="cn">FALSE</span>, <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">str_to_title</span>(<span class="cf">if</span> (style <span class="sc">==</span> <span class="st">"equal"</span>) <span class="st">"equal interval"</span> <span class="cf">else</span> style)) <span class="sc">+</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_map</span>() <span class="sc">+</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">legend.direction =</span> <span class="st">"vertical"</span>,</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">0.8</span>)))</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(<span class="fu">map</span>(<span class="fu">c</span>(<span class="st">"equal"</span>, <span class="st">"quantile"</span>, <span class="st">"jenks"</span>), class_map), <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"The same risk ratios, three classifications"</span>,</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Black/White risk ratio for out-of-school suspension, 2023-24; number of districts in each class in brackets"</span>,</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> src_caption,</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">theme =</span> <span class="fu">theme_map</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="maps_files/figure-html/classes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="maps_files/figure-html/classes-1.png" class="img-fluid figure-img" width="1056"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Equal intervals</strong> split the range from 0 to the maximum of about 8.3 into equal steps, so one outlier sets the classes and most measured districts fall into a single class: the map looks uniform and hides real differences between, say, 1.8 and 3.2. <strong>Quantiles</strong> put the same number of districts in each class, which spreads the colours evenly but makes a district at 1.7 look very different from one at 2.2, even though both mean “about twice as likely”. <strong>Jenks</strong> natural breaks follow gaps in the data, and its first class ends near parity, so it separates the few districts with little or no gap from the rest. Of these three I would publish <strong>Jenks</strong>, but for the final dashboard I prefer the <strong>fixed breaks around parity</strong> of map 3, because a reader can say what each colour means (“two to three times as likely”) and the classes stay the same from year to year.</p>
+</section>
+<section id="proportional-symbols-how-many-students-were-suspended" class="level2">
+<h2 class="anchored" data-anchor-id="proportional-symbols-how-many-students-were-suspended">5. Proportional symbols: how many students were suspended</h2>
+<p>The risk ratio is a ratio, so it belongs in a choropleth. The number of students suspended is a <strong>count</strong>, so it is drawn as circles sized by value at a point inside each district (<code>st_point_on_surface()</code>), over a grey base map.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>oss_counts <span class="ot">&lt;-</span> tea_long <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year_start <span class="sc">==</span> <span class="dv">2023</span>, action <span class="sc">==</span> <span class="st">"OSS"</span>, group <span class="sc">==</span> <span class="st">"All students"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(district, distname, students, enrolled)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> districts <span class="sc">|&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(crs_static) <span class="sc">|&gt;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(oss_counts, <span class="at">by =</span> <span class="st">"district"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(students), students <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_point_on_surface</span>() <span class="sc">|&gt;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(students))                     <span class="co"># draw big circles first, small on top</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>tidy_name <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">str_replace</span>(<span class="fu">str_to_title</span>(x), <span class="st">"</span><span class="sc">\\</span><span class="st">bIsd</span><span class="sc">\\</span><span class="st">b"</span>, <span class="st">"ISD"</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>top <span class="ot">&lt;-</span> <span class="fu">slice_head</span>(pts, <span class="at">n =</span> <span class="dv">1</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>metro_share <span class="ot">&lt;-</span> pts <span class="sc">|&gt;</span> <span class="fu">st_drop_geometry</span>() <span class="sc">|&gt;</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">share =</span> <span class="fu">sum</span>(students[locale_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"City"</span>, <span class="st">"Suburb"</span>)]) <span class="sc">/</span> <span class="fu">sum</span>(students)) <span class="sc">|&gt;</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(share)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Label the district with the most suspended students in each of the top metro regions</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>big_labels <span class="ot">&lt;-</span> pts <span class="sc">|&gt;</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">distinct</span>(tea, district, region), <span class="at">by =</span> <span class="st">"district"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(students, <span class="at">n =</span> <span class="dv">1</span>, <span class="at">by =</span> region) <span class="sc">|&gt;</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(students, <span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">tidy_name</span>(distname))</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_transform</span>(districts, crs_static), <span class="at">fill =</span> <span class="st">"grey92"</span>, <span class="at">colour =</span> <span class="st">"white"</span>,</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>          <span class="at">linewidth =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> pts, <span class="fu">aes</span>(<span class="at">size =</span> students), <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> eric_col<span class="sc">$</span>accent,</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">stroke =</span> <span class="fl">0.3</span>, <span class="at">alpha =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf_text</span>(<span class="at">data =</span> big_labels, <span class="fu">aes</span>(<span class="at">label =</span> label), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> eric_col<span class="sc">$</span>ink,</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">nudge_y =</span> <span class="sc">-</span><span class="dv">32000</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_area</span>(<span class="at">max_size =</span> <span class="dv">14</span>, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>),</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>(),</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>                  <span class="at">name =</span> <span class="st">"Students with at least one out-of-school suspension"</span>) <span class="sc">+</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">wrap</span>(<span class="fu">sprintf</span>(<span class="st">"%.0f%% of suspended students attend city or suburban districts; %s alone suspended %s"</span>,</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>                            <span class="dv">100</span> <span class="sc">*</span> metro_share, <span class="fu">tidy_name</span>(top<span class="sc">$</span>distname), scales<span class="sc">::</span><span class="fu">comma</span>(top<span class="sc">$</span>students)), <span class="dv">70</span>),</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">wrap</span>(<span class="st">"Students with at least one out-of-school suspension, all student groups, 2023-24. Circle area is proportional to the number of students."</span>, <span class="dv">90</span>),</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="fu">paste0</span>(src_caption, <span class="st">"</span><span class="sc">\n</span><span class="st">Districts where TEA masked the count are not drawn."</span>)) <span class="sc">+</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_map</span>() <span class="sc">+</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">1.05</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="maps_files/figure-html/symbols-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="maps_files/figure-html/symbols-1.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The count map and the risk-ratio map tell different stories. 79% of suspended students (in the districts we can map) attend city or suburban districts around Houston, Dallas–Fort Worth, San Antonio and Austin, mostly because that is where most students are. The choropleth shows that the <em>gap</em> between Black and White students is not only an urban problem: rural and small-town districts with enough students to measure have ratios almost as high as the cities (a median of about 2.4, against about 2.7 in city districts).</p>
+<hr>
+<p><em>Built in R with sf, ggplot2, classInt and patchwork. AI use: see the <a href="./ai-log-assignment9.html">Assignment 9 AI use log</a>.</em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

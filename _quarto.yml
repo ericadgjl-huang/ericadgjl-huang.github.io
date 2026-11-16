@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "*.qmd"
+    - "!dashboard/"   # the Shiny dashboard is deployed to Posit Connect Cloud, not rendered here
 
 website:
   title: "Huang, SHAO-KANG(Eric)"
@@ -31,6 +34,10 @@ website:
             text: "Assignment 8: Dashboard & Project Plan"
           - href: assignment8-dashboard.qmd
             text: "    ↳ Open the Assignment 8 dashboard"
+          - href: assignment9.qmd
+            text: "Assignment 9: Maps & Reactive Dashboard"
+          - href: maps.qmd
+            text: "    ↳ Static maps"
       - text: Classes
         menu:
           - href: class2-data-guide.qmd
@@ -59,6 +66,8 @@ website:
             text: "Assignment 6"
           - href: ai-log-assignment8.qmd
             text: "Assignment 8"
+          - href: ai-log-assignment9.qmd
+            text: "Assignment 9"
           - text: "---"
           - href: ai-log-class2.qmd
             text: "Class 2"
@@ -82,4 +91,4 @@ format:
     css: styles.css
     toc: true
     
-editor: visual
+editor: source

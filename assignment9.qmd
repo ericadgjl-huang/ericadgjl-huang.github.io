@@ -1,0 +1,52 @@
+---
+title: "EPPS 6356 Assignment 9: Maps and a Reactive Dashboard"
+toc: true
+---
+
+## Links to submit
+
+| | |
+|---|---|
+| **Static maps (Part B)** | [Mapping Discipline Gaps in Texas School Districts](maps.qmd) |
+| **Deployed dashboard (Part C)** | [Unequal Discipline dashboard on Posit Connect Cloud](CONNECT_URL) (embedded [below](#the-dashboard)) |
+| **Repository** | [github.com/ericadgjl-huang/ericadgjl-huang.github.io](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io) (dashboard source: [`dashboard/index.qmd`](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/blob/main/dashboard/index.qmd); data scripts: [`scripts/tea/`](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/tree/main/scripts/tea)) |
+| **Updated plan (Part A)** | [`PLAN.md`](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/blob/main/PLAN.md), section "Assignment 9. Spatial plan" |
+
+## Part A. Spatial plan
+
+The new section of `PLAN.md` sets out the map for our team project, *Unequal Discipline*: one row is a Texas school district (1,018 districts), with boundaries from the NCES EDGE 2023–24 file, which is built from Census TIGER/Line. The join key is TEA's 6-digit district number, which the NCES file already stores in `ST_LEAID`, so no crosswalk is needed. The main variable is the **Black/White relative risk ratio** for out-of-school suspension, mapped as a choropleth; the number of students suspended is a count, mapped as proportional symbols. Data are stored in EPSG:4326, the static maps use the Texas Centric Albers Equal Area projection (EPSG:3083), and Leaflet draws in Web Mercator (EPSG:3857). I also changed the deployment plan from Shinylive to Posit Connect Cloud, because Assignment 9 accepts Shinylive only for bslib apps whose packages all run in webR.
+
+**Data.** For this assignment I downloaded and cleaned our team's data: TEA district discipline reports for six school years (2018–19 to 2023–24), 120 files in all. The code is in [`scripts/tea/`](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/tree/main/scripts/tea), and [`data/tea/README.md`](https://github.com/ericadgjl-huang/ericadgjl-huang.github.io/blob/main/data/tea/README.md) explains every column. This replaces the Happy Planet Index data that my Assignment 8 dashboard used as a prototype.
+
+## Part B. Static maps
+
+[The maps page](maps.qmd) shows the code for five steps: the join check (all 1,018 boundaries match; the unmatched TEA records are charter networks, two online schools, a regional magnet district and three districts that merged before 2023–24), a projection comparison, a choropleth of the Black/White risk ratio, a comparison of equal-interval, quantile and Jenks classes, and a proportional-symbol map of suspended students.
+
+**The story.** In 71% of the districts we can measure, Black students were at least twice as likely as White students to receive an out-of-school suspension in 2023–24, and the median ratio has stayed near 2.4 in every year since 2018–19, before and after COVID.
+
+## Part C. Reactive dashboard
+
+I chose **Route 1, a Quarto dashboard with `server: shiny`**, deployed to Posit Connect Cloud from this repository.
+
+| Requirement | How the dashboard meets it |
+|---|---|
+| Leaflet choropleth from an `sf` object | District polygons in EPSG:4326, coloured by the selected measure, with the same classes as the static choropleth |
+| At least two inputs | Four: the measure (Black/White ratio, Hispanic/White ratio, or risk for all students), the action (OSS, ISS, DAEP), the school year, and the district locale (city, suburb, town, rural) |
+| One shared `reactive()` | `dat()` holds the filtered `sf` data and feeds the map, the three value boxes, the top-10 chart and the data table |
+| At least two value boxes | Three: districts with a reliable value, the median of the measure, and the share of the group's students covered by those districts |
+| Companion chart | The 10 districts with the highest value, with enrollment in brackets; a Trends page shows the median ratio for every year |
+| Labels, popups and legend | Hover label with the district and value; a click popup with each group's risk and enrollment; the legend title names the measure and its units |
+| Read and join once | The data are read and joined in the `#| context: setup` chunk |
+| `leafletProxy()` | The base map is drawn once; only the polygons and legend are redrawn when an input changes |
+
+## The dashboard
+
+<iframe src="CONNECT_URL" width="100%" height="900" style="border: 1px solid #ddd; border-radius: 6px;" title="Unequal Discipline dashboard"></iframe>
+
+[Open the dashboard in a new tab →](CONNECT_URL){.btn .btn-primary target="_blank"}
+
+The dashboard may take 20–30 seconds to wake up the first time, because Connect Cloud puts free apps to sleep when nobody is using them.
+
+## AI use
+
+See the [Assignment 9 AI use log](ai-log-assignment9.qmd).
