@@ -17,3 +17,5 @@ data-raw/
 *.dta
 # NOTE: docs/ is deliberately NOT ignored — it is your published website.
 **/*.quarto_ipynb
+# Full-detail district boundaries (30 MB); rebuild with scripts/tea/03_boundaries.R
+data/tea/tx_districts.gpkg
