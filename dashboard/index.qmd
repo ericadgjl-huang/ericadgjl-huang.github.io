@@ -84,21 +84,21 @@ Districts where TEA masked a number, or where a group has fewer than 30 students
 
 # Map
 
-## Row {height="20%"}
+## Row {height="170px"}
 
 ```{r}
 value_box(textOutput("n_title", inline = TRUE), textOutput("n_value"),
-          showcase = bs_icon("geo-alt"), theme = "light")
+          showcase = bs_icon("geo-alt"), showcase_layout = "top right", theme = "light")
 ```
 
 ```{r}
 value_box(textOutput("med_title", inline = TRUE), textOutput("med_value"),
-          showcase = bs_icon("bar-chart"), theme = value_box_theme(bg = accent, fg = "white"))
+          showcase = bs_icon("bar-chart"), showcase_layout = "top right", theme = value_box_theme(bg = accent, fg = "white"))
 ```
 
 ```{r}
 value_box(textOutput("coverage_title", inline = TRUE), textOutput("coverage"),
-          showcase = bs_icon("people"), theme = "light")
+          showcase = bs_icon("people"), showcase_layout = "top right", theme = "light")
 ```
 
 ## Row {height="82%"}
